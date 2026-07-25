@@ -138,10 +138,18 @@
 
 /* ---------- track ---------- */
 .wwd__track {
+  /* One source of truth for the gap: the dip that links two cards has to be
+     exactly as wide as the space between them. It also has to be wide enough
+     that the descending and ascending sides read as one curve rather than two
+     parallel strokes — at 2.5rem they sat almost on top of each other. */
+  --gap: 4.25rem;
+  --bracket-top: 1.1rem;
+  --bracket-h: 3.4rem;
+
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: calc((100% - 2 * 2.5rem) / 3);
-  gap: 2.5rem;
+  grid-auto-columns: calc((100% - 2 * var(--gap)) / 3);
+  gap: var(--gap);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   overscroll-behavior-x: contain;
@@ -153,33 +161,80 @@
   display: none;
 }
 
+/* flex column so every card stretches to the tallest in the row — a carousel
+   of mismatched heights reads as broken while scrolling */
 .hex {
   scroll-snap-align: start;
   position: relative;
+  display: flex;
+  flex-direction: column;
   padding-top: 4.5rem;
 }
 
-/* per-card accent */
+/* Per-card accent. --accent-next is the following card's colour, so the
+   linking curve can change hands halfway along instead of leaving a stub of
+   the wrong colour where the two cards meet. */
 .hex--blue {
   --accent: var(--to-blue-deep);
   --accent-tint: var(--to-blue-20);
+  --accent-next: var(--to-green);
 }
 
 .hex--green {
   --accent: var(--to-green);
   --accent-tint: var(--to-green-20);
+  --accent-next: var(--to-blue-deep);
 }
 
 /* ---------- connector bracket ---------- */
 .hex__bracket {
   position: absolute;
-  left: 6%;
-  right: 6%;
-  top: 1.1rem;
-  height: 3.4rem;
+  left: 0;
+  right: 0;
+  top: var(--bracket-top);
+  height: var(--bracket-h);
   border: 1.5px solid var(--accent);
   border-bottom: 0;
   border-radius: 26px 26px 0 0;
+}
+
+/* Fills the gap to the next card. Its verticals continue the bracket legs
+   down, curve along the bottom, and rise into the next card's bracket, so the
+   run of cards reads as one line. */
+.hex__dip {
+  position: absolute;
+  z-index: 1;
+  left: 100%;
+  width: var(--gap);
+  top: calc(var(--bracket-top) + var(--bracket-h));
+  height: 1.7rem;
+  display: flex;
+}
+
+/* two quarter-arcs meeting at the centre — the descent keeps this card's
+   colour, the ascent takes the next card's, so the rail reads as one line
+   that changes hands rather than as separate strokes */
+.hex__dip::before,
+.hex__dip::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1.5px solid;
+}
+
+.hex__dip::before {
+  border-left: 1.5px solid var(--accent);
+  border-bottom-color: var(--accent);
+  border-bottom-left-radius: 999px;
+}
+
+.hex__dip::after {
+  border-right: 1.5px solid var(--accent-next);
+  border-bottom-color: var(--accent-next);
+  border-bottom-right-radius: 999px;
+}
+
+.hex:last-child .hex__dip {
+  display: none;
 }
 
 .hex__node {
@@ -217,10 +272,14 @@
 
 /* ---------- the card ---------- */
 .hex__card {
+  flex: 1;
   display: grid;
+  /* cards are equalised to the tallest, so centre the content rather than
+     leaving the short ones weighted to the top */
+  align-content: center;
   justify-items: center;
   gap: 0.5rem;
-  padding: 3.6rem 1.9rem 3.1rem;
+  padding: 3.6rem 1.9rem 3.6rem;
   text-align: center;
   background: var(--to-paper);
   clip-path: polygon(15% 0, 85% 0, 100% 9%, 100% 88%, 50% 100%, 0 88%, 0 9%);
@@ -270,7 +329,7 @@
   position: absolute;
   z-index: 5;
   top: 52%;
-  right: -1.25rem;
+  right: calc(var(--gap) / -2);
   translate: 50% -50%;
   display: grid;
   place-items: center;
@@ -343,14 +402,14 @@
   }
 
   .wwd__track {
-    grid-auto-columns: calc((100% - 2.5rem) / 2);
+    grid-auto-columns: calc((100% - var(--gap)) / 2);
   }
 }
 
 @media (max-width: 680px) {
   .wwd__track {
+    --gap: 1.75rem;
     grid-auto-columns: 84%;
-    gap: 1.75rem;
   }
 
   .hex__flow {

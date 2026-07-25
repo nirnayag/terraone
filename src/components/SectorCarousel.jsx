@@ -59,7 +59,7 @@ export default function SectorCarousel() {
               <span className="wwd__rule" aria-hidden="true" />
               What we do
             </p>
-            <h2 className="display display--lg wwd__heading">Innovating for a sustainable future</h2>
+            <h2 className="display display--lg wwd__heading">{overview.heading}</h2>
             <span className="wwd__dotgrid" aria-hidden="true">
               {Array.from({ length: 12 }, (_, i) => (
                 <i key={i} />
@@ -85,8 +85,10 @@ export default function SectorCarousel() {
         <ul className="wwd__track" ref={trackRef}>
           {sectors.map((s, i) => (
             <li className={`hex hex--${i % 2 === 0 ? "blue" : "green"}`} key={s.slug}>
-              {/* the bracket is a bordered box with only its top corners
-                  rounded — the connector line from the design */}
+              {/* One rail running along the top of the row. Each card draws
+                  its own segment, spanning its width plus the gap, so the
+                  segments abut and read as a single unbroken line. Only the
+                  first and last turn down. */}
               <span className="hex__bracket" aria-hidden="true">
                 <i className="hex__node" />
               </span>
