@@ -1,0 +1,627 @@
+/* =========================================================================
+   TerraOne — "What we do" sector section
+   Mobile-first. No frameworks.
+
+   Contents
+     1.  Tokens
+     2.  Reset & base
+     3.  Layout primitives
+     4.  Section header
+     5.  Decorative dot grid
+     6.  Lead + note
+     7.  Timeline rail (SVG)
+     8.  Cards
+     9.  Flow arrows
+    10.  Controls (nav + dots)
+    11.  Entrance animation
+    12.  Responsive — 480 / 768 / 992 / 1280 / 1440
+    13.  Reduced motion
+   ========================================================================= */
+
+/* ---------- 1. Tokens ---------- */
+:root {
+  /* palette */
+  --bg: #f4f7fa;
+  --card: #fdfeff;
+  --ink: #0f2d3d;
+  --text: #5b6e7a;
+
+  --blue: #1b7fc4;
+  --blue-mid: #4ba3dc;
+  --blue-soft: #a8d5f0;
+  --blue-tint: #dcedfa;
+  --blue-faint: #eaf4fc;
+
+  --green: #5fb246;
+  --green-soft: #b9dfa4;
+  --green-tint: #e7f4de;
+
+  /* type */
+  --font: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --fs-eyebrow: 0.75rem;
+  --fs-title: clamp(2rem, 1.35rem + 2.1vw, 2.875rem);
+  --fs-lead: clamp(0.95rem, 0.9rem + 0.2vw, 1rem);
+  --fs-note: 0.9375rem;
+  --fs-card-title: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  --fs-card-body: 0.9375rem;
+
+  /* spacing — 8px scale */
+  --s-1: 0.5rem;
+  --s-2: 1rem;
+  --s-3: 1.5rem;
+  --s-4: 2rem;
+  --s-5: 3rem;
+  --s-6: 4rem;
+  --s-7: 5rem;
+  --s-8: 7rem;
+
+  /* geometry */
+  --container: 1200px;
+  --gutter: 1.25rem;
+  --card-gap: 1.5rem;
+  --radius-badge: 20px;
+
+  /* timeline — consumed by script.js too */
+  --rail-drop: 112px; /* rail sits this far above the card top   */
+  --rail-dip: 150px;  /* how deep the curve dives between cards  */
+  --rail-r: 28px;     /* corner radius of the rail               */
+
+  /* elevation */
+  --shadow-card: 0 24px 48px rgba(15, 45, 61, 0.07);
+  --shadow-card-hover: 0 34px 64px rgba(15, 45, 61, 0.12);
+
+  /* motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 0.45s;
+}
+
+/* ---------- 2. Reset & base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h2,
+h3,
+p,
+figure {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+svg {
+  display: block;
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---------- 3. Layout primitives ---------- */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.sector {
+  padding-block: var(--s-6);
+  overflow: hidden;
+}
+
+/* ---------- 4. Section header ---------- */
+.sector__header {
+  display: grid;
+  gap: var(--s-4);
+  margin-bottom: var(--s-6);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: var(--s-2);
+  font-size: var(--fs-eyebrow);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+.eyebrow__dash {
+  width: 2.75rem;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--green);
+}
+
+.sector__title {
+  max-width: 12ch;
+  font-size: var(--fs-title);
+  font-weight: 700;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+/* ---------- 5. Decorative dot grid ---------- */
+.dotgrid {
+  display: grid;
+  grid-template-columns: repeat(4, 6px);
+  gap: 14px;
+  margin-top: var(--s-3);
+}
+
+.dotgrid i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blue-soft);
+}
+
+/* one green pip breaks the grid, as in the reference */
+.dotgrid i:nth-child(7) {
+  background: var(--green);
+}
+
+/* ---------- 6. Lead + note ---------- */
+.sector__aside {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.lead {
+  position: relative;
+  padding-left: var(--s-4);
+}
+
+/* vertical spine with an open node at its head */
+.lead__spine {
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: calc(var(--s-3) * -1);
+  width: 1px;
+  background: var(--green-soft);
+}
+
+.lead__spine::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -100%);
+  width: 11px;
+  height: 11px;
+  border: 1.5px solid var(--green);
+  border-radius: 50%;
+  background: var(--bg);
+}
+
+.lead__text {
+  font-size: var(--fs-lead);
+  line-height: 1.75;
+  color: #46586a;
+}
+
+.note {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: var(--s-3);
+  padding-left: var(--s-4);
+}
+
+.note__icon {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  border-radius: var(--radius-badge);
+  background: var(--green-tint);
+  color: var(--green);
+}
+
+.note__icon svg {
+  width: 34px;
+  height: 34px;
+}
+
+.note__text {
+  padding-left: var(--s-2);
+  border-left: 2px solid var(--green-soft);
+  font-size: var(--fs-note);
+  line-height: 1.85;
+}
+
+/* ---------- 7. Timeline rail ---------- */
+.timeline {
+  position: relative;
+}
+
+/* the path is written by script.js from measured card geometry, which is the
+   only way to keep the joins exact at any viewport width */
+.timeline__rail {
+  position: absolute;
+  inset: 0 0 auto;
+  width: 100%;
+  height: var(--rail-dip);
+  overflow: visible;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.timeline__rail path {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.timeline__rail circle {
+  fill: var(--bg);
+  stroke-width: 2;
+}
+
+/* the rail is only drawn where three cards sit side by side */
+.track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  gap: var(--card-gap);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  padding-top: var(--rail-drop);
+  padding-bottom: var(--s-2);
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---------- 8. Cards ---------- */
+.card {
+  --accent: var(--blue);
+  --accent-tint: var(--blue-tint);
+
+  position: relative;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+}
+
+.card--green {
+  --accent: var(--green);
+  --accent-tint: var(--green-tint);
+}
+
+/* floating hexagon icon container, straddling the card's top edge */
+.card__badge {
+  position: absolute;
+  top: -46px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 104px;
+  height: 116px;
+  background: var(--accent-tint);
+  color: var(--accent);
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  transition: transform var(--dur) var(--ease);
+}
+
+.card:hover .card__badge {
+  transform: translateX(-50%) scale(1.07);
+}
+
+.card__badge svg {
+  width: 38px;
+  height: 38px;
+}
+
+/* the shield: angled shoulders, vertical flanks, shallow point at the base */
+.card__body {
+  flex: 1;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: var(--s-1);
+  min-height: 300px;
+  padding: 5.25rem 2rem 4.25rem;
+  text-align: center;
+  background: var(--card);
+  clip-path: polygon(10% 0, 90% 0, 100% 10%, 100% 82%, 50% 100%, 0 82%, 0 10%);
+  /* clip-path removes box-shadow, so elevation comes from a drop-shadow
+     filter on the element itself */
+  filter: drop-shadow(var(--shadow-card));
+  transition: filter var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.card:hover .card__body {
+  transform: translateY(-8px);
+  filter: drop-shadow(var(--shadow-card-hover));
+}
+
+.card__num {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+
+.card__name {
+  font-size: var(--fs-card-title);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+
+.card__rule {
+  width: 36px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--accent);
+  margin: 0.5rem 0 0.75rem;
+}
+
+.card__text {
+  max-width: 27ch;
+  font-size: var(--fs-card-body);
+  line-height: 1.9;
+}
+
+/* ---------- 9. Flow arrows ---------- */
+.flow {
+  position: absolute;
+  z-index: 3;
+  top: 52%;
+  right: calc(var(--card-gap) / -2);
+  transform: translate(50%, -50%);
+  display: none;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--accent);
+  transition: background-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.flow:hover {
+  background: var(--accent-tint);
+  transform: translate(50%, -50%) scale(1.1);
+}
+
+.flow svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* ---------- 10. Controls ---------- */
+.controls {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-3);
+  margin-top: var(--s-4);
+}
+
+/* dotted swoosh behind the controls, generated in script.js */
+.controls__deco {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  width: min(760px, 100%);
+  height: 120px;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.controls__deco circle {
+  fill: var(--blue-soft);
+}
+
+.nav {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1.5px solid var(--blue-soft);
+  border-radius: 50%;
+  color: var(--blue);
+  background: var(--bg);
+  transition: border-color var(--dur) var(--ease), background-color var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
+}
+
+.nav:hover:not(:disabled) {
+  border-color: var(--blue);
+  background: var(--blue-faint);
+  transform: translateY(-2px);
+}
+
+.nav:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.nav svg {
+  width: 20px;
+  height: 20px;
+}
+
+.dots {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dots button {
+  display: block;
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--blue-soft);
+  transition: width var(--dur) var(--ease), background-color var(--dur) var(--ease);
+}
+
+.dots button:hover {
+  background: var(--blue-mid);
+}
+
+.dots button[aria-selected="true"] {
+  width: 26px;
+  background: var(--green);
+}
+
+/* ---------- 11. Entrance animation ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- 12. Responsive ---------- */
+
+/* ≥480 — small mobile keeps one card, more breathing room */
+@media (min-width: 480px) {
+  :root {
+    --gutter: 1.5rem;
+  }
+
+  .track {
+    grid-auto-columns: 86%;
+  }
+}
+
+/* ≥768 — tablet: two cards, rail appears, flow arrows on */
+@media (min-width: 768px) {
+  :root {
+    --gutter: 2rem;
+    --card-gap: 2.5rem;
+  }
+
+  .sector {
+    padding-block: var(--s-7);
+  }
+
+  .track {
+    grid-auto-columns: calc((100% - var(--card-gap)) / 2);
+  }
+
+  .flow {
+    display: grid;
+  }
+}
+
+/* ≥992 — laptop/tablet-large: three cards, two-column header */
+@media (min-width: 992px) {
+  :root {
+    --card-gap: 3.5rem;
+  }
+
+  .sector {
+    padding-block: var(--s-8);
+  }
+
+  .sector__header {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: var(--s-5);
+    align-items: start;
+  }
+
+  .track {
+    grid-auto-columns: calc((100% - 2 * var(--card-gap)) / 3);
+  }
+
+  .controls {
+    margin-top: var(--s-5);
+  }
+}
+
+/* ≥1280 — laptop */
+@media (min-width: 1280px) {
+  :root {
+    --card-gap: 4.5rem;
+    --gutter: 2.5rem;
+  }
+
+  .sector__header {
+    gap: var(--s-6);
+    margin-bottom: var(--s-7);
+  }
+}
+
+/* ≥1440 — desktop reference */
+@media (min-width: 1440px) {
+  :root {
+    --card-gap: 4.875rem;
+  }
+}
+
+/* ---------- 13. Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

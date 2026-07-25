@@ -198,45 +198,6 @@
   border-radius: 26px 26px 0 0;
 }
 
-/* Fills the gap to the next card. Its verticals continue the bracket legs
-   down, curve along the bottom, and rise into the next card's bracket, so the
-   run of cards reads as one line. */
-.hex__dip {
-  position: absolute;
-  z-index: 1;
-  left: 100%;
-  width: var(--gap);
-  top: calc(var(--bracket-top) + var(--bracket-h));
-  height: 1.7rem;
-  display: flex;
-}
-
-/* two quarter-arcs meeting at the centre — the descent keeps this card's
-   colour, the ascent takes the next card's, so the rail reads as one line
-   that changes hands rather than as separate strokes */
-.hex__dip::before,
-.hex__dip::after {
-  content: "";
-  flex: 1;
-  border-bottom: 1.5px solid;
-}
-
-.hex__dip::before {
-  border-left: 1.5px solid var(--accent);
-  border-bottom-color: var(--accent);
-  border-bottom-left-radius: 999px;
-}
-
-.hex__dip::after {
-  border-right: 1.5px solid var(--accent-next);
-  border-bottom-color: var(--accent-next);
-  border-bottom-right-radius: 999px;
-}
-
-.hex:last-child .hex__dip {
-  display: none;
-}
-
 .hex__node {
   position: absolute;
   left: 50%;
