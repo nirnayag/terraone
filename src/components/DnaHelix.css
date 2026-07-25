@@ -3,7 +3,7 @@
 .dna {
   --dna-a: var(--to-green);
   --dna-b: var(--to-blue);
-  --dna-rung: var(--to-green-40);
+  --dna-rung: var(--to-blue-40);
 
   display: block;
   width: 100%;

@@ -12,12 +12,12 @@ import "./DnaHelix.css";
    Canvas for the same reason as the globe: this is ~120 nodes plus rungs
    redrawn every frame, and that many animated DOM elements would be wasteful. */
 
-const NODES = 46; // per strand
+const NODES = 64; // per strand
 const TURNS = 2.6;
 const RUNG_EVERY = 3;
 const FOV = 3.4;
 
-export default function DnaHelix({ className, speed = 0.22 }) {
+export default function DnaHelix({ className, speed = 0.22, radius = 0.3, dot = 3.1, turns = TURNS }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -54,14 +54,14 @@ export default function DnaHelix({ className, speed = 0.22 }) {
       ctx.clearRect(0, 0, w, h);
 
       const cx = w / 2;
-      const R = w * 0.3;
+      const R = w * radius;
       const top = h * 0.06;
       const span = h * 0.88;
 
       const strand = (offset) =>
         Array.from({ length: NODES }, (_, i) => {
           const f = i / (NODES - 1);
-          const t = f * TURNS * Math.PI * 2 + phase + offset;
+          const t = f * turns * Math.PI * 2 + phase + offset;
           const z = Math.sin(t);
           const scale = FOV / (FOV + z);
           return {
@@ -78,7 +78,7 @@ export default function DnaHelix({ className, speed = 0.22 }) {
       // rungs first, so the nodes sit on top of them
       for (let i = 0; i < NODES; i += RUNG_EVERY) {
         const depth = (a[i].depth + b[i].depth) / 2;
-        ctx.globalAlpha = 0.16 + depth * 0.42;
+        ctx.globalAlpha = 0.22 + depth * 0.5;
         ctx.strokeStyle = colRung;
         ctx.lineWidth = 1.1 * ((a[i].scale + b[i].scale) / 2);
         ctx.beginPath();
@@ -97,7 +97,7 @@ export default function DnaHelix({ className, speed = 0.22 }) {
         ctx.globalAlpha = 0.25 + p.depth * 0.75;
         ctx.fillStyle = p.colour;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, 3.1 * p.scale, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, dot * p.scale, 0, Math.PI * 2);
         ctx.fill();
       });
 
@@ -140,7 +140,7 @@ export default function DnaHelix({ className, speed = 0.22 }) {
       io.disconnect();
       ro.disconnect();
     };
-  }, [speed]);
+  }, [speed, radius, dot, turns]);
 
   return <canvas className={className} ref={canvasRef} aria-hidden="true" />;
 }

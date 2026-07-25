@@ -206,6 +206,9 @@ export const technologies = {
   items: [
     {
       code: "PHA",
+      properties: ["100% bio-based", "Marine biodegradable", "Home & industrial compostable", "Low toxicity", "Low carbon footprint", "Tunable performance"],
+      applications: ["Packaging", "Disposable tableware", "Agricultural films", "Medical devices"],
+      compost: [{"env": "Industrial", "state": "yes"}, {"env": "Home", "state": "yes"}, {"env": "Marine", "state": "yes"}],
       short:
         "PHA (Polyhydroxyalkanoates) are biodegradable polyesters produced by microorganisms as intracellular carbon and energy storage compounds. It fully breaks down in soil and marine environments, making it a genuine alternative to conventional petroleum-based plastics like PLA.",
       traits: ["Bio-based", "Marine safe", "Home compostable", "Low carbon"],
@@ -219,6 +222,9 @@ export const technologies = {
     },
     {
       code: "PBAT",
+      properties: ["Flexible & tear resistant", "LDPE-like handling", "Industrial compostable", "Blends with PLA & starch", "Fossil-based feedstock", "Film-grade"],
+      applications: ["Compost bags", "Produce bags", "Mulch films", "Flexible packaging"],
+      compost: [{"env": "Industrial", "state": "yes"}, {"env": "Home", "state": "no"}, {"env": "Marine", "state": "no"}],
       short:
         "PBAT is a petroleum-derived biodegradable plastic often blended with PLA or starch materials to improve flexibility. It is compostable but relies on fossil feedstocks rather than microbial fermentation.",
       traits: ["Flexible", "Compostable", "Film-grade", "Blendable"],
@@ -231,6 +237,9 @@ export const technologies = {
     },
     {
       code: "PBS",
+      properties: ["Runs on PP/PE lines", "Good heat resistance", "Tough", "Industrial compostable", "Bio- or fossil-based", "Blendable"],
+      applications: ["Injection-moulded parts", "Agricultural films", "Rigid packaging", "Disposables"],
+      compost: [{"env": "Industrial", "state": "yes"}, {"env": "Home", "state": "no"}, {"env": "Marine", "state": "no"}],
       short:
         "PBS (Polybutylene Succinate) is a biodegradable polyester made from succinic acid and butanediol. PBS offers PHA-like compostability and decent heat resistance. It has good mechanical properties and is used in packaging, agricultural films, and disposable products.",
       traits: ["Compostable", "Heat resistant", "Durable", "Food safe"],
@@ -243,6 +252,9 @@ export const technologies = {
     },
     {
       code: "PLA",
+      properties: ["Fully bio-based", "Rigid & transparent", "Industrial compost only", "Low heat deflection", "Brittle unmodified", "Widely available"],
+      applications: ["Cups & trays", "Rigid packaging", "Disposable utensils", "3D printing filament"],
+      compost: [{"env": "Industrial", "state": "yes"}, {"env": "Home", "state": "no"}, {"env": "Marine", "state": "no"}],
       short:
         "PLA is a biodegradable thermoplastic made from fermented plant starches like corn or sugarcane. It is compostable only under industrial conditions and widely used in food packaging, disposable utensils, and 3D printing.",
       traits: ["Bio-based", "Rigid", "Industrial compost", "Low cost"],
@@ -255,6 +267,9 @@ export const technologies = {
     },
     {
       code: "Cellulose",
+      properties: ["Most abundant natural polymer", "Oxygen & grease barrier", "Soil, compost & marine", "Century-long track record", "Derivative-dependent", "Nanocellulose reinforcement"],
+      applications: ["Food packaging films", "Cellophane", "Coatings", "Composite reinforcement"],
+      compost: [{"env": "Industrial", "state": "yes"}, {"env": "Home", "state": "yes"}, {"env": "Marine", "state": "yes"}],
       short:
         "Cellulose forms the structural backbone of plant cell walls and serves as feedstock for bioplastics and packaging films. It is abundant, renewable, and biodegradable.",
       traits: ["Abundant", "Renewable", "Barrier", "Biodegradable"],
@@ -267,6 +282,9 @@ export const technologies = {
     },
     {
       code: "TPS",
+      properties: ["Lowest-cost bio-based", "Degrades fastest", "No fermentation step", "Moisture sensitive", "Usually blended", "Corn, potato or cassava"],
+      applications: ["Loose-fill packaging", "Disposable cutlery", "Agricultural films", "Blend component"],
+      compost: [{"env": "Industrial", "state": "yes"}, {"env": "Home", "state": "yes"}, {"env": "Marine", "state": "no"}],
       short:
         "TPS is a biodegradable plastic made by processing natural starch with plasticizers under heat and pressure. It's low-cost and fully compostable but sensitive to moisture.",
       traits: ["Low cost", "Fast to degrade", "Bio-based", "Blendable"],
