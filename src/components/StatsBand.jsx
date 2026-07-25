@@ -1,6 +1,7 @@
 import { metrics } from "../data/content";
 import { useReveal } from "../hooks/useReveal";
-import { Globe, Waves, Halftone, cardArt } from "./StatsDecor";
+import { Waves, Halftone, cardArt } from "./StatsDecor";
+import Globe3D from "./Globe3D";
 import "./StatsBand.css";
 
 const iconBase = {
@@ -66,7 +67,7 @@ export default function StatsBand() {
   return (
     <section className="statsband" ref={scope}>
       <div className="statsband__decor" aria-hidden="true">
-        <Globe />
+        <Globe3D className="statsband__globe globe3d" />
         <Waves />
         <Halftone className="statsband__halftone statsband__halftone--top" />
         <Halftone className="statsband__halftone statsband__halftone--bottom" />

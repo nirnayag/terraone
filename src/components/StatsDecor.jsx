@@ -2,59 +2,6 @@
    scales, stays crisp and carries no image weight — and so every colour comes
    from a token rather than being baked into a bitmap. */
 
-export function Globe() {
-  return (
-    <svg className="statsband__globe" viewBox="0 0 320 320" aria-hidden="true" focusable="false">
-      <defs>
-        <pattern id="sb-globe-dots" width="7" height="7" patternUnits="userSpaceOnUse">
-          <circle cx="1.6" cy="1.6" r="1.15" fill="currentColor" />
-        </pattern>
-        <radialGradient id="sb-globe-fade" cx="38%" cy="32%" r="72%">
-          <stop offset="0%" stopColor="#fff" stopOpacity="1" />
-          <stop offset="70%" stopColor="#fff" stopOpacity="0.55" />
-          <stop offset="100%" stopColor="#fff" stopOpacity="0.12" />
-        </radialGradient>
-        <mask id="sb-globe-mask">
-          <circle cx="160" cy="150" r="104" fill="url(#sb-globe-fade)" />
-        </mask>
-      </defs>
-
-      {/* the sphere, built from a dot field */}
-      <g mask="url(#sb-globe-mask)">
-        <circle cx="160" cy="150" r="104" fill="url(#sb-globe-dots)" />
-      </g>
-
-      {/* landmass suggestion — a denser patch of dots */}
-      <g mask="url(#sb-globe-mask)" opacity="0.85">
-        <ellipse cx="132" cy="120" rx="42" ry="30" fill="url(#sb-globe-dots)" />
-        <ellipse cx="188" cy="176" rx="46" ry="34" fill="url(#sb-globe-dots)" />
-      </g>
-
-      {/* orbital rings */}
-      <ellipse
-        className="statsband__orbit statsband__orbit--blue"
-        cx="160"
-        cy="150"
-        rx="150"
-        ry="58"
-        transform="rotate(-24 160 150)"
-      />
-      <ellipse
-        className="statsband__orbit statsband__orbit--green"
-        cx="160"
-        cy="150"
-        rx="142"
-        ry="70"
-        transform="rotate(18 160 150)"
-      />
-
-      <circle className="statsband__orbit-pip statsband__orbit-pip--blue" cx="292" cy="96" r="5" />
-      <circle className="statsband__orbit-pip statsband__orbit-pip--green" cx="36" cy="214" r="5" />
-      <circle className="statsband__orbit-pip statsband__orbit-pip--blue" cx="150" cy="266" r="4" />
-    </svg>
-  );
-}
-
 export function Waves() {
   // stacked parallel curves, fanning out to the right
   const lines = Array.from({ length: 14 }, (_, i) => {

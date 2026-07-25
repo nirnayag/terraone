@@ -1,0 +1,13 @@
+/* Colours are declared here so the canvas can read them at runtime — the
+   globe stays palette-driven rather than having hex values baked into JS. */
+.globe3d {
+  --globe-dot: var(--to-blue-40);
+  --globe-land: var(--to-green);
+  --globe-ring-a: var(--to-blue-40);
+  --globe-ring-b: var(--to-green-40);
+  --globe-pip: var(--to-blue);
+
+  display: block;
+  width: 100%;
+  height: 100%;
+}
