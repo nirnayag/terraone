@@ -26,6 +26,7 @@
   height: clamp(16rem, 30vw, 28rem);
   opacity: 0.55;
   pointer-events: none;
+  transform: rotate(145deg);
 }
 
 .matport__mesh {
@@ -111,6 +112,7 @@
   display: block;
   width: clamp(5rem, 9vw, 8rem);
   height: clamp(9rem, 15vw, 13rem);
+  transform: rotate(30deg);
 }
 
 .phacard__id {

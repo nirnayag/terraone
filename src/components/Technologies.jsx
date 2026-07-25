@@ -49,7 +49,7 @@ export default function Technologies({ standalone = false }) {
       <span className="matport__dna" aria-hidden="true">
         <DnaHelix className="dna" speed={0.2} />
       </span>
-      <MoleculeMesh className="matport__mesh" />
+      {/* <MoleculeMesh className="matport__mesh" /> */}
 
       <div className="shell matport__shell">
         {!standalone && (
@@ -94,7 +94,6 @@ export default function Technologies({ standalone = false }) {
             </ul>
           </div>
 
-          <MoleculeMesh className="phacard__mesh" />
         </article>
 
         {/* ---- the comparison set ---- */}
