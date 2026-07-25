@@ -57,15 +57,17 @@ export default function Technologies({ standalone = false }) {
             <p className="matport__eyebrow">
               Material portfolio <span aria-hidden="true" />
             </p>
-            <h2 className="matport__heading">
-              Biopolymer portfolio
-              <br />
-              of <span>TerraOne</span>
-            </h2>
-            <p className="matport__sub">
-              A guide to where PHA sits among today&rsquo;s biodegradable polymers — and how it
-              compares with the materials it is built to replace.
-            </p>
+            <div className="matport__head-row">
+              <h2 className="matport__heading">
+                Biopolymer portfolio
+                <br />
+                of <span>TerraOne</span>
+              </h2>
+              <p className="matport__sub">
+                A guide to where PHA sits among today&rsquo;s biodegradable polymers — and how it
+                compares with the materials it is built to replace.
+              </p>
+            </div>
           </header>
         )}
 

@@ -20,13 +20,13 @@
 .matport__dna {
   position: absolute;
   z-index: -1;
-  top: -3%;
+  top: 5%;
   right: clamp(2%, 6vw, 9%);
   width: clamp(9rem, 17vw, 16rem);
   height: clamp(16rem, 30vw, 28rem);
-  opacity: 0.55;
+  /* opacity: 0.; */
   pointer-events: none;
-  transform: rotate(145deg);
+  transform: rotate(130deg);
 }
 
 .matport__mesh {
@@ -52,6 +52,12 @@
 .matport__head {
   max-width: 46rem;
   margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.matport__head-row {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(2rem, 4vw, 4rem);
 }
 
 .matport__eyebrow {
