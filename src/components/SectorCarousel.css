@@ -1,15 +1,27 @@
-/* "What we do" — hexagonal sector cards on a tinted ground.
-
-   Every accent is either the blue or the green primary, alternating per card.
-   Card surfaces are --to-paper against a --to-blue-10 section, which gives the
-   separation the reference gets from a drop shadow. Shadows and gradients are
-   avoided deliberately: both render colours that sit between two palette
-   values rather than on one. */
+/* "What we do" — hexagonal sector cards on a soft TerraOne gradient ground. */
 
 .wwd {
+  --wwd-paper: #f7f9fa;
+  --wwd-mist: #dce6e8;
+  --wwd-ink: #0e2a33;
+  --wwd-slate: #4a6470;
+  --wwd-blue: #00a0e1;
+  --wwd-blue-soft: #33b3e7;
+  --wwd-blue-dark: #0072bc;
+  --wwd-green: #6dbe45;
+  --wwd-leaf: #8cc63f;
+  --wwd-pale-leaf: #c6e0a6;
+  --wwd-card: #ffffff;
+
   padding-block: clamp(1.55rem, 3vw, 2.55rem);
-  background: var(--to-blue-10);
-  border-block: 1px solid var(--to-blue-20);
+  background: radial-gradient(
+    circle at top,
+    #ffffff 0%,
+    var(--wwd-paper) 35%,
+    #eef4f6 70%,
+    var(--wwd-mist) 100%
+  );
+  border-block: 1px solid rgba(220, 230, 232, 0.8);
   overflow: hidden;
 }
 
@@ -31,7 +43,7 @@
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--to-link);
+  color: var(--wwd-blue-dark);
   margin-bottom: 0.85rem;
 }
 
@@ -40,13 +52,13 @@
   width: 2.4rem;
   height: 3px;
   border-radius: 999px;
-  background: var(--to-green);
+  background: var(--wwd-green);
 }
 
 .wwd__heading {
   max-width: 22ch;
   font-size: clamp(1.85rem, 3vw, 2.55rem);
-  color: var(--to-ink);
+  color: var(--wwd-ink);
 }
 
 .wwd__dotgrid {
@@ -60,11 +72,11 @@
   width: 0.34rem;
   height: 0.34rem;
   border-radius: 50%;
-  background: var(--to-blue-40);
+  background: var(--wwd-blue);
 }
 
 .wwd__dotgrid i:nth-child(7) {
-  background: var(--to-green);
+  background: var(--wwd-green);
 }
 
 /* the right column: a rule dropping from a node, then a tinted note */
@@ -84,7 +96,7 @@
   top: 0.3rem;
   bottom: -1.2rem;
   width: 1px;
-  background: var(--to-green);
+  background: var(--wwd-green);
 }
 
 .wwd__node::before {
@@ -95,15 +107,15 @@
   translate: -50% -100%;
   width: 0.62rem;
   height: 0.62rem;
-  border: 1.5px solid var(--to-green);
+  border: 1.5px solid var(--wwd-green);
   border-radius: 50%;
-  background: var(--to-blue-10);
+  background: var(--wwd-card);
 }
 
 .wwd__lead p {
   font-size: clamp(0.9rem, 1vw, 0.96rem);
   line-height: 1.42;
-  color: var(--to-ink);
+  color: var(--wwd-ink);
 }
 
 .wwd__note {
@@ -120,8 +132,8 @@
   width: 2.55rem;
   height: 2.55rem;
   border-radius: 12px;
-  background: var(--to-green-20);
-  color: var(--to-ink);
+  background: linear-gradient(135deg, #f0f8ec, #e6f6fc);
+  color: var(--wwd-green);
 }
 
 .wwd__noteicon svg {
@@ -132,9 +144,9 @@
 .wwd__note p {
   font-size: 0.82rem;
   line-height: 1.42;
-  color: var(--to-slate);
+  color: var(--wwd-slate);
   padding-left: 0.9rem;
-  border-left: 2px solid var(--to-green);
+  border-left: 2px solid var(--wwd-green);
 }
 
 /* ---------- track ---------- */
@@ -181,7 +193,7 @@
 }
 
 .wwd__rail circle {
-  fill: var(--to-blue-10);
+  fill: var(--wwd-card);
   stroke-width: 1.5;
 }
 
@@ -214,15 +226,17 @@
    linking curve can change hands halfway along instead of leaving a stub of
    the wrong colour where the two cards meet. */
 .hex--blue {
-  --accent: var(--to-blue-deep);
-  --accent-tint: var(--to-blue-20);
-  --accent-next: var(--to-green);
+  --accent: var(--wwd-blue);
+  --accent-soft: var(--wwd-blue-soft);
+  --accent-shadow: rgba(0, 160, 225, 0.15);
+  --accent-next: var(--wwd-green);
 }
 
 .hex--green {
-  --accent: var(--to-green);
-  --accent-tint: var(--to-green-20);
-  --accent-next: var(--to-blue-deep);
+  --accent: var(--wwd-green);
+  --accent-soft: var(--wwd-leaf);
+  --accent-shadow: rgba(109, 190, 69, 0.15);
+  --accent-next: var(--wwd-blue);
 }
 
 /* ---------- icon badge ---------- */
@@ -236,8 +250,8 @@
   place-items: center;
   width: 4.4rem;
   height: 4.9rem;
-  background: var(--accent-tint);
-  color: var(--to-ink);
+  background: linear-gradient(135deg, #f0f8ec, #e6f6fc);
+  color: var(--accent);
   clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
 }
 
@@ -257,13 +271,24 @@
   gap: 0.5rem;
   padding: 3.6rem 1.9rem 3.6rem;
   text-align: center;
-  background: var(--to-paper);
+  background: var(--wwd-card);
+  border: 1px solid rgba(220, 230, 232, 0.8);
+  box-shadow:
+    0 30px 80px rgba(14, 42, 51, 0.08),
+    0 10px 30px rgba(14, 42, 51, 0.04);
   clip-path: polygon(15% 0, 85% 0, 100% 9%, 100% 88%, 50% 100%, 0 88%, 0 9%);
-  transition: background-color 0.25s ease;
+  transition:
+    background-color 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
 }
 
 .hex:hover .hex__card {
-  background: var(--to-green-10);
+  background: var(--wwd-card);
+  border-color: rgba(220, 230, 232, 0.9);
+  box-shadow:
+    0 30px 80px rgba(14, 42, 51, 0.08),
+    0 20px 60px var(--accent-shadow);
 }
 
 .hex__num {
@@ -280,7 +305,7 @@
   font-size: clamp(1.15rem, 1.7vw, 1.4rem);
   line-height: 1.15;
   letter-spacing: -0.018em;
-  color: var(--to-ink);
+  color: var(--wwd-ink);
 }
 
 .hex__underline {
@@ -294,7 +319,7 @@
 .hex__body {
   font-size: 0.88rem;
   line-height: 1.68;
-  color: var(--to-slate);
+  color: var(--wwd-slate);
   max-width: 26ch;
 }
 
@@ -313,7 +338,7 @@
   height: 2.1rem;
   border: 1.5px solid var(--accent);
   border-radius: 50%;
-  background: var(--to-blue-10);
+  background: var(--wwd-card);
   color: var(--accent);
   font-size: 0.8rem;
 }
@@ -336,16 +361,17 @@
   place-items: center;
   width: 2.1rem;
   height: 2.1rem;
-  border: 1.5px solid var(--to-blue-40);
+  border: 1.5px solid var(--wwd-blue-soft);
   border-radius: 50%;
-  color: var(--to-link);
+  color: var(--wwd-blue-dark);
   font-size: 1rem;
   transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
 .wwd__arrow:hover {
-  border-color: var(--to-link);
-  background: var(--to-blue-20);
+  border-color: var(--wwd-blue);
+  background: var(--wwd-card);
+  box-shadow: 0 20px 60px rgba(0, 160, 225, 0.15);
 }
 
 .wwd__dots {
@@ -359,17 +385,17 @@
   width: 0.55rem;
   height: 0.55rem;
   border-radius: 999px;
-  background: var(--to-blue-40);
+  background: var(--wwd-blue-soft);
   transition: width 0.25s ease, background-color 0.25s ease;
 }
 
 .wwd__dot:hover {
-  background: var(--to-blue-deep);
+  background: var(--wwd-blue);
 }
 
 .wwd__dot.is-on {
   width: 1.6rem;
-  background: var(--to-green);
+  background: var(--wwd-green);
 }
 
 @media (max-width: 1040px) {

@@ -1,73 +1,283 @@
-.statsband__heading {
-  color: var(--to-text-on-dark);
-  text-align: center;
-  max-width: 22ch;
-  margin: 0 auto clamp(2.25rem, 4.5vw, 3.5rem);
+/* Proof-point figures — light ground, centred header, four cards.
+   Every colour is a palette token; the only non-token value is the card
+   surface, which is pure white so the cards lift off the paper ground. */
+
+.statsband {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: clamp(3.25rem, 6vw, 5.5rem);
+  background: var(--to-paper);
 }
 
+/* ---------- decoration ---------- */
+.statsband__decor {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.statsband__globe {
+  position: absolute;
+  left: clamp(-8rem, -6vw, -2rem);
+  top: clamp(-1rem, 1vw, 2rem);
+  width: clamp(17rem, 26vw, 25rem);
+  height: auto;
+  color: var(--to-blue-40);
+}
+
+.statsband__orbit {
+  fill: none;
+  stroke-width: 1.2;
+}
+
+.statsband__orbit--blue { stroke: var(--to-blue-40); }
+.statsband__orbit--green { stroke: var(--to-green-40); }
+.statsband__orbit-pip--blue { fill: var(--to-blue); }
+.statsband__orbit-pip--green { fill: var(--to-green); }
+
+.statsband__waves {
+  position: absolute;
+  right: clamp(-6rem, -4vw, -1rem);
+  top: clamp(0rem, 2vw, 2.5rem);
+  width: clamp(20rem, 34vw, 33rem);
+  height: auto;
+}
+
+.statsband__waves path {
+  fill: none;
+  stroke-width: 0.8;
+}
+
+.statsband__waves .is-blue { stroke: var(--to-blue-40); }
+.statsband__waves .is-green { stroke: var(--to-green-40); }
+
+.statsband__halftone {
+  position: absolute;
+  width: clamp(7rem, 11vw, 10rem);
+  height: auto;
+}
+
+.statsband__halftone--top {
+  right: clamp(1rem, 5vw, 5rem);
+  top: clamp(9rem, 14vw, 13rem);
+  color: var(--to-blue-40);
+}
+
+.statsband__halftone--bottom {
+  right: clamp(-2rem, 1vw, 1rem);
+  bottom: clamp(-1rem, 2vw, 2rem);
+  color: var(--to-green-40);
+}
+
+/* ---------- header ---------- */
+.statsband__shell {
+  position: relative;
+  z-index: 1;
+}
+
+.statsband__head {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  margin-bottom: clamp(2.25rem, 4vw, 3.25rem);
+}
+
+.statsband__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.35rem;
+  border: 1px solid var(--to-blue-20);
+  border-radius: 999px;
+  background: #fff;
+  font-family: var(--face-mono);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--to-link);
+}
+
+.statsband__pill svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  color: var(--to-green);
+}
+
+.statsband__heading {
+  margin-top: 1.35rem;
+  font-family: var(--face-display);
+  font-variation-settings: "wdth" 100, "wght" 700;
+  font-size: clamp(1.85rem, 3.6vw, 3rem);
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  color: var(--to-ink);
+  text-wrap: balance;
+}
+
+.statsband__heading .is-blue { color: var(--to-link); }
+.statsband__heading .is-green { color: var(--to-green); }
+
+.statsband__sub {
+  margin-top: 1.15rem;
+  font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+  line-height: 1.7;
+  color: var(--to-slate);
+  max-width: 46rem;
+}
+
+/* ---------- grid ----------
+   Four cards, all of them visible — no track, so nothing is ever hidden
+   behind a control the reader has to find. */
 .statsband__grid {
+  --sb-gap: clamp(1rem, 1.6vw, 1.4rem);
+
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(1rem, 2vw, 1.5rem);
+  gap: var(--sb-gap);
 }
 
+/* ---------- card ---------- */
 .stat {
+  --accent: var(--to-link);
+  --accent-soft: var(--to-blue-40);
+
+  position: relative;
+  overflow: hidden;
   display: grid;
   align-content: start;
   gap: 0.55rem;
-  padding: clamp(1.35rem, 2.4vw, 1.85rem);
-  border: 1px solid var(--to-ink-rule);
-  border-radius: 6px;
-  background: var(--to-ink-raised);
-  transition-property: opacity, transform, border-color;
+  min-height: 18.5rem;
+  padding: 5.5rem 1.5rem 5.5rem;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 18px 40px rgba(14, 42, 51, 0.06);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease;
 }
 
-.stat:hover {
-  border-color: var(--to-green);
+.stat--green {
+  --accent: var(--to-green);
+  --accent-soft: var(--to-green-40);
 }
+
+.stat:hover { box-shadow: 0 26px 56px rgba(14, 42, 51, 0.11); }
+
+/* solid hexagon badge, centred at the top of the card */
+.stat__icon {
+  position: absolute;
+  top: 1.15rem;
+  left: 50%;
+  translate: -50% 0;
+  display: grid;
+  place-items: center;
+  width: 3.9rem;
+  height: 4.35rem;
+  color: #fff;
+  background: var(--accent);
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  transition: scale 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.stat:hover .stat__icon { scale: 1.06; }
+
+.stat__icon svg {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.stat__dash {
+  width: 1.6rem;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.stat__dash--low { margin-top: 0.35rem; }
 
 .stat__figure {
   display: flex;
   align-items: baseline;
-  gap: 0.4rem;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.5rem;
   font-family: var(--face-display);
   font-variation-settings: "wdth" 100, "wght" 700;
-  font-size: clamp(1.9rem, 3.2vw, 2.7rem);
-  line-height: 1;
-  letter-spacing: -0.022em;
-  color: var(--to-green);
+  font-size: clamp(1.5rem, 2.3vw, 2.05rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--accent);
 }
 
 .stat__unit {
-  font-family: var(--face-mono);
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.13em;
+  font-family: var(--face-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--to-ink-soft);
+  color: var(--to-ink);
 }
 
 .stat__label {
-  font-size: 0.96rem;
-  font-weight: 500;
-  color: var(--to-text-on-dark);
   max-width: 22ch;
+  font-size: 0.94rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--to-ink);
 }
 
 .stat__detail {
-  font-size: 0.84rem;
-  line-height: 1.55;
-  color: var(--to-ink-soft);
+  max-width: 26ch;
+  font-size: 0.86rem;
+  line-height: 1.65;
+  color: var(--to-slate);
 }
 
-@media (max-width: 1000px) {
+/* per-card footer artwork */
+.stat__artwrap {
+  position: absolute;
+  inset: auto 0 0;
+  height: 5.5rem;
+  color: var(--accent-soft);
+  pointer-events: none;
+}
+
+.stat__art {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 0.9;
+  mask-image: linear-gradient(to top, #000 30%, transparent);
+}
+
+.stat__art circle {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 1080px) {
   .statsband__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 760px) {
+  .statsband__globe,
+  .statsband__waves { opacity: 0.55; }
+
+  .statsband__sub br { display: none; }
+}
+
+@media (max-width: 620px) {
   .statsband__grid {
     grid-template-columns: 1fr;
   }
+
+  .statsband__globe { display: none; }
 }
