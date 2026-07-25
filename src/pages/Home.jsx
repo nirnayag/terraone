@@ -22,7 +22,7 @@ export default function Home() {
       <SectorCarousel />
       <StatsBand />
       <WhyChoose />
-      <Technologies variant="portfolio" />
+      <Technologies />
       <Contrast />
       <Process />
       <Research />

@@ -1,0 +1,16 @@
+/* Colours live here so the canvas reads them at runtime rather than having
+   hex baked into JS. */
+.dna {
+  --dna-a: var(--to-green);
+  --dna-b: var(--to-blue);
+  --dna-rung: var(--to-green-40);
+
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* on the dark banner the rungs need to lift off the ink */
+.dna--ink {
+  --dna-rung: #2f5e46;
+}
