@@ -19,7 +19,10 @@
 
 /* ---------- header ---------- */
 .why__head {
-  max-width: 52rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  align-items: start;
   margin-bottom: clamp(2rem, 3.5vw, 3rem);
 }
 
@@ -30,15 +33,15 @@
   line-height: 1.1;
   letter-spacing: -0.03em;
   color: var(--why-ink);
+  white-space: nowrap;
 }
 
 .why__heading span { color: #2f6b2a; }
 
 .why__lede {
-  max-width: 46ch;
-  margin-top: 1.1rem;
+  margin-top: 0.3rem;
   font-size: clamp(0.95rem, 1.1vw, 1.02rem);
-  line-height: 1.85;
+  line-height: 1.65;
   color: #4c5661;
 }
 
@@ -48,9 +51,10 @@
 .why__sprout {
   position: absolute;
   z-index: -1;
-  top: clamp(5rem, 10vw, 12rem);
-  right: clamp(1.5rem, 7vw, 7rem);
+  top: 3rem;
+  right: max(16px, 10%);
   width: clamp(5.5rem, 9vw, 8.5rem);
+  height: auto;
   margin: 0;
   pointer-events: none;
   user-select: none;

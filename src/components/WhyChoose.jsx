@@ -82,6 +82,7 @@ export default function WhyChoose() {
   const [paused, setPaused] = useState(false);
   const n = sectors.length;
   const wrapRef = useRef(null);
+  const sproutRef = useRef(null);
 
   /* advances on its own; stops while the reader is interacting */
   useEffect(() => {
@@ -91,12 +92,38 @@ export default function WhyChoose() {
     return () => clearInterval(t);
   }, [paused, n]);
 
+  /* rotate sprout on scroll */
+  useEffect(() => {
+    const el = sproutRef.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let raf;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const rect = el.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const progress = Math.max(0, Math.min(1, 1 - rect.top / vh));
+        const deg = progress * 45;
+        el.style.transform = `rotate(${deg}deg)`;
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
   return (
     <section className="why" id="why">
       {/* behind the content and out of the layout flow, so the header and the
           panels get the full column width */}
       <figure className="why__sprout">
-        <img src="/media/decor/sprout.png" alt="" aria-hidden="true" width="436" height="940" />
+        <img ref={sproutRef} src="/media/decor/sprout.png" alt="" aria-hidden="true" width="436" height="940" />
       </figure>
 
       <div className="shell">
