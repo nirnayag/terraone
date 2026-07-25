@@ -1,123 +1,362 @@
+/* "Why choose TerraOne?" — paired problem / solution carousels.
+
+   The problem side uses a deep red. That is outside the TerraOne sheet, and
+   is here because the supplied design calls for it: red is the one colour a
+   reader already reads as "this is the thing that's wrong". The solution side
+   uses a darkened green rather than the brand --to-green, because #6DBE45 as
+   text on a light panel measures 2.3:1 and fails. */
+
+.why {
+  --why-bg: #f7f6f4;
+  --why-ink: #16181a;
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: clamp(3rem, 5.5vw, 5rem);
+  background: var(--why-bg);
+}
+
+/* ---------- header ---------- */
 .why__head {
-  display: grid;
-  gap: 1.1rem;
-  max-width: 46rem;
-  margin-bottom: clamp(2rem, 4vw, 3rem);
+  max-width: 52rem;
+  margin-bottom: clamp(2rem, 3.5vw, 3rem);
 }
 
 .why__heading {
-  color: var(--to-text-on-dark);
+  font-family: var(--face-display);
+  font-variation-settings: "wdth" 100, "wght" 800;
+  font-size: clamp(1.9rem, 3.7vw, 3.05rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--why-ink);
 }
 
-.why__blocks {
-  display: grid;
-  gap: clamp(2rem, 4vw, 3.25rem);
+.why__heading span { color: #2f6b2a; }
+
+.why__lede {
+  max-width: 46ch;
+  margin-top: 1.1rem;
+  font-size: clamp(0.95rem, 1.1vw, 1.02rem);
+  line-height: 1.85;
+  color: #4c5661;
 }
 
-/* ---------- block heading ---------- */
-.why__blockhead {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  font-family: var(--face-mono);
-  font-size: 0.76rem;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  margin-bottom: 1.1rem;
-  padding-bottom: 0.85rem;
-  border-bottom: 1px solid var(--to-ink-rule);
+/* ---------- seedling ----------
+   z-index -1 keeps it behind the content but still above the section's own
+   background, and absolute positioning means it reserves no column width. */
+.why__sprout {
+  position: absolute;
+  z-index: -1;
+  top: clamp(5rem, 10vw, 12rem);
+  right: clamp(1.5rem, 7vw, 7rem);
+  width: clamp(5.5rem, 9vw, 8.5rem);
+  margin: 0;
+  pointer-events: none;
+  user-select: none;
 }
 
-.why__mark {
-  display: grid;
-  place-items: center;
-  width: 1.25rem;
-  height: 1.25rem;
-  border-radius: 50%;
-  border: 1px solid currentColor;
-}
-
-.why__mark svg {
-  width: 0.7rem;
-  height: 0.7rem;
-}
-
-.why__block--problem .why__blockhead {
-  color: var(--to-ink-soft);
-}
-
-.why__block--solution .why__blockhead {
-  color: var(--to-green);
-}
-
-/* ---------- cards ---------- */
-.why__grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(0.75rem, 1.5vw, 1rem);
-}
-
-.why__card {
-  display: grid;
-  align-content: start;
-  gap: 0.4rem;
-  padding: 1.05rem 1.15rem 1.2rem;
-  border: 1px solid var(--to-ink-rule);
-  border-radius: 6px;
-  background: var(--to-ink-raised);
-  position: relative;
-  transition: border-color 0.25s ease;
-}
-
-.why__card::before {
+.why__sprout::before {
   content: "";
   position: absolute;
-  inset: 0 auto 0 0;
-  width: 2px;
-  border-radius: 6px 0 0 6px;
+  inset: 6% -22% 10%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 42%, #ecedea 0%, rgba(236, 237, 234, 0) 68%);
 }
 
-.why__block--problem .why__card::before {
-  background: var(--to-slate);
+.why__sprout img {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
-.why__block--solution .why__card::before {
-  background: var(--to-green);
+/* ---------- panels ---------- */
+.why__panels {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.6rem);
 }
 
-.why__card:hover {
-  border-color: var(--to-blue);
+.wpanel {
+  isolation: isolate;
+  --pc: #9d2f2f;
+  --pc-soft: #f6e6e5;
+  --pc-tint: #fbf4f3;
+  --pc-line: #eddcda;
+
+  position: relative;
+  padding: clamp(1.35rem, 2.2vw, 1.9rem) clamp(1rem, 1.8vw, 1.6rem) clamp(1.1rem, 1.8vw, 1.5rem);
+  border: 1px solid var(--pc-line);
+  border-radius: 18px;
+  background: var(--pc-tint);
 }
 
-.why__num {
+.wpanel--solution {
+  --pc: #3f7a2e;
+  --pc-soft: #e7f1e0;
+  --pc-tint: #f4f8f1;
+  --pc-line: #dde9d5;
+}
+
+.wpanel__head {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: clamp(1.1rem, 2vw, 1.6rem);
+}
+
+.wpanel__badge {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.85rem;
+  height: 2.85rem;
+  border-radius: 50%;
+  background: var(--pc);
+  color: #fff;
+}
+
+.wpanel__badge svg { width: 1.4rem; height: 1.4rem; }
+
+.wpanel__title {
+  font-size: clamp(0.86rem, 1.05vw, 0.98rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--why-ink);
+  white-space: nowrap;
+}
+
+.wpanel__line {
+  flex: 1;
+  height: 1px;
+  background: var(--pc);
+  opacity: 0.5;
+}
+
+/* ---------- stage ---------- */
+.wpanel__stage {
+  position: relative;
+  display: grid;
+  align-items: center;
+}
+
+.wpanel__cards {
+  display: grid;
+  grid-template-columns: 1fr 1.55fr 1fr;
+  align-items: stretch;
+  gap: 0;
+}
+
+.wpanel__nav {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  translate: 0 -50%;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--pc);
+  box-shadow: 0 6px 18px rgba(22, 24, 26, 0.12);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.wpanel__nav:hover {
+  transform: translateY(-50%) scale(1.08);
+  background: var(--pc-soft);
+}
+
+.wpanel__nav svg { width: 1.05rem; height: 1.05rem; }
+.wpanel__nav--prev { left: clamp(-1.6rem, -1.4vw, -1rem); }
+.wpanel__nav--next { right: clamp(-1.6rem, -1.4vw, -1rem); }
+
+/* ---------- cards ---------- */
+.wcard {
+  position: relative;
+  z-index: 0;
+  display: grid;
+  align-content: start;
+  gap: 0.35rem;
+  padding: 1.35rem 1.05rem 1.5rem;
+  border-radius: 14px;
+  background: #fff;
+  animation: wcard-in 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* The centre card is the one being read: it is wider, sits above the two
+   beside it, and overlaps them so the extra width is real rather than the
+   neighbours simply being pushed aside. */
+.wcard.is-center {
+  z-index: 2;
+  margin-inline: -1.35rem;
+  padding: 1.75rem 1.6rem 1.9rem;
+  box-shadow: 0 18px 42px rgba(22, 24, 26, 0.13);
+}
+
+.wcard.is-left,
+.wcard.is-right {
+  z-index: -1;
+  opacity: 0.72;
+  box-shadow: 0 6px 16px rgba(22, 24, 26, 0.05);
+}
+
+/* Same content on every card. The neighbours are simply narrower and sit
+   under the active one, so their copy is clamped rather than hidden — that
+   keeps all three the same height. */
+.wcard.is-left .wcard__text,
+.wcard.is-right .wcard__text {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.wcard.is-left .wcard__name,
+.wcard.is-right .wcard__name {
+  font-size: 0.9rem;
+}
+
+.wcard.is-left { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.wcard.is-right { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+
+.wcard.is-center .wcard.is-center 
+.wcard__num {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--pc-line);
+  border-radius: 7px;
+  background: var(--pc-soft);
   font-family: var(--face-mono);
-  font-size: 0.66rem;
+  font-size: 0.72rem;
   font-weight: 500;
-  letter-spacing: 0.14em;
-  color: var(--to-ink-soft);
+  color: var(--pc);
 }
 
-.why__block--solution .why__num {
-  color: var(--to-green);
-}
-
-.why__name {
+.wcard__name {
   font-family: var(--face-display);
-  font-variation-settings: "wdth" 104, "wght" 620;
-  font-size: 1rem;
+  font-variation-settings: "wdth" 102, "wght" 700;
+  font-size: 0.98rem;
   line-height: 1.2;
-  color: var(--to-text-on-dark);
+  letter-spacing: -0.015em;
+  color: var(--why-ink);
 }
 
-.why__text {
-  font-size: 0.85rem;
-  line-height: 1.58;
-  color: var(--to-mist);
+.wcard.is-center .wcard__name { font-size: 1.28rem; }
+
+.wcard__rule {
+  width: 1.9rem;
+  height: 2.5px;
+  border-radius: 999px;
+  background: var(--pc);
+  margin: 0.4rem 0 0.55rem;
 }
 
-@media (max-width: 720px) {
-  .why__grid {
-    grid-template-columns: 1fr;
-  }
+.wcard__text {
+  font-size: 0.8rem;
+  line-height: 1.62;
+  color: #55606b;
+}
+
+.wcard.is-center .wcard__text { font-size: 0.9rem; }
+
+@keyframes wcard-in {
+  from { opacity: 0; transform: translateY(8px); }
+}
+
+/* ---------- dots ---------- */
+.why__dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: clamp(1.1rem, 1.8vw, 1.5rem);
+}
+
+.why__dot {
+  display: block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: #d5d3cf;
+  transition: width 0.22s ease, background-color 0.22s ease;
+}
+
+.why__dot:hover { background: #b6b3ae; }
+
+.why__dot.is-on {
+  width: 1.5rem;
+  background: #3f7a2e;
+}
+
+/* ---------- footer ---------- */
+.why__foot {
+  display: grid;
+  justify-items: center;
+  gap: 1.1rem;
+  margin-top: clamp(1.75rem, 3vw, 2.5rem);
+  text-align: center;
+}
+
+.why__prompt {
+  font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+  color: #4c5661;
+}
+
+.why__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.8rem 1.6rem;
+  border: 1px solid #7fb968;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.98rem;
+  font-weight: 500;
+  color: var(--why-ink);
+  text-decoration: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.why__cta:hover {
+  border-color: #3f7a2e;
+  background: #f4f8f1;
+  transform: translateY(-2px);
+}
+
+.why__cta-leaf {
+  display: grid;
+  place-items: center;
+  color: #3f8f2c;
+}
+
+.why__cta-leaf svg { width: 1.15rem; height: 1.15rem; }
+
+.why__cta-arrow {
+  color: #3f7a2e;
+  transition: transform 0.2s ease;
+}
+
+.why__cta:hover .why__cta-arrow { transform: translateX(4px); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1080px) {
+  .why__panels { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 780px) {
+  .why__head { grid-template-columns: 1fr; }
+  .why__sprout { justify-self: center; margin-top: 0; }
+
+  .wpanel__cards { grid-template-columns: 1fr; }
+  .wcard.is-left,
+  .wcard.is-right { display: none; }
+
+  .wpanel__nav--prev { left: -0.6rem; }
+  .wpanel__nav--next { right: -0.6rem; }
 }
