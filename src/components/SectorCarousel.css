@@ -137,6 +137,53 @@
 }
 
 /* ---------- track ---------- */
+/* The viewport scrolls. The inner box holds the rail and the cards in one
+   coordinate space, so the rail scrolls with the row instead of being pinned
+   to the container. */
+.wwd__viewport {
+  /* the column maths needs this element's own width, not the viewport's —
+     .shell is max-width capped so 100vw would overshoot on wide screens */
+  container-type: inline-size;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  padding-bottom: 0.5rem;
+}
+
+.wwd__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.wwd__inner {
+  position: relative;
+  min-width: 100%;
+  width: max-content;
+}
+
+/* The connector is its own layer, drawn from measured card geometry in
+   useRailPath.js — never assembled from card borders. It sits above the cards
+   so nothing can clip or overpaint it. */
+.wwd__rail {
+  position: absolute;
+  inset: 0 0 auto;
+  width: 100%;
+  z-index: 4;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.wwd__rail path {
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.wwd__rail circle {
+  fill: var(--to-blue-10);
+  stroke-width: 1.5;
+}
+
 .wwd__track {
   /* One source of truth for the gap: the dip that links two cards has to be
      exactly as wide as the space between them. It also has to be wide enough
@@ -148,17 +195,8 @@
 
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: calc((100% - 2 * var(--gap)) / 3);
+  grid-auto-columns: calc((100cqw - 2 * var(--gap)) / 3);
   gap: var(--gap);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  overscroll-behavior-x: contain;
-  padding-bottom: 0.5rem;
-  scrollbar-width: none;
-}
-
-.wwd__track::-webkit-scrollbar {
-  display: none;
 }
 
 /* flex column so every card stretches to the tallest in the row — a carousel
@@ -184,30 +222,6 @@
   --accent: var(--to-green);
   --accent-tint: var(--to-green-20);
   --accent-next: var(--to-blue-deep);
-}
-
-/* ---------- connector bracket ---------- */
-.hex__bracket {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: var(--bracket-top);
-  height: var(--bracket-h);
-  border: 1.5px solid var(--accent);
-  border-bottom: 0;
-  border-radius: 26px 26px 0 0;
-}
-
-.hex__node {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  translate: -50% -50%;
-  width: 0.85rem;
-  height: 0.85rem;
-  border: 1.5px solid var(--accent);
-  border-radius: 50%;
-  background: var(--to-blue-10);
 }
 
 /* ---------- icon badge ---------- */
@@ -363,14 +377,14 @@
   }
 
   .wwd__track {
-    grid-auto-columns: calc((100% - var(--gap)) / 2);
+    grid-auto-columns: calc((100cqw - var(--gap)) / 2);
   }
 }
 
 @media (max-width: 680px) {
   .wwd__track {
     --gap: 1.75rem;
-    grid-auto-columns: 84%;
+    grid-auto-columns: 84cqw;
   }
 
   .hex__flow {

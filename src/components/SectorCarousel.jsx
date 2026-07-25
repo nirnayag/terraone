@@ -2,21 +2,22 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { overview, sectors } from "../data/content";
 import { SectorIcon } from "./SectorIcons";
 import { useReveal } from "../hooks/useReveal";
+import { useRailPath } from "../hooks/useRailPath";
 import "./SectorCarousel.css";
 
-/* Scroll-snap rather than a JS slider: the track is a real horizontally
-   scrollable list, so trackpad, touch and keyboard all work natively and the
-   dots only drive scrollTo. */
 export default function SectorCarousel() {
   const scope = useReveal();
-  const trackRef = useRef(null);
+  const viewportRef = useRef(null);
   const [page, setPage] = useState(0);
   const [pageCount, setPageCount] = useState(1);
 
-  const measure = useCallback(() => {
-    const el = trackRef.current;
+  /* The rail lives outside the cards and is measured from them. */
+  const { innerRef, setCardRef, rail } = useRailPath(sectors.length);
+
+  const measurePages = useCallback(() => {
+    const el = viewportRef.current;
     if (!el) return;
-    const card = el.firstChild?.clientWidth || 1;
+    const card = el.querySelector(".hex")?.clientWidth || 1;
     const perView = Math.max(1, Math.round(el.clientWidth / card));
     const pages = Math.max(1, Math.ceil(sectors.length / perView));
     setPageCount(pages);
@@ -25,29 +26,29 @@ export default function SectorCarousel() {
   }, []);
 
   useEffect(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    measure();
-    el.addEventListener("scroll", measure, { passive: true });
-    const ro = new ResizeObserver(measure);
+    const el = viewportRef.current;
+    if (!el) return undefined;
+    measurePages();
+    el.addEventListener("scroll", measurePages, { passive: true });
+    const ro = new ResizeObserver(measurePages);
     ro.observe(el);
     return () => {
-      el.removeEventListener("scroll", measure);
+      el.removeEventListener("scroll", measurePages);
       ro.disconnect();
     };
-  }, [measure]);
+  }, [measurePages]);
 
   const goTo = (i) => {
-    const el = trackRef.current;
+    const el = viewportRef.current;
     if (!el) return;
     const max = el.scrollWidth - el.clientWidth;
     el.scrollTo({ left: (max / Math.max(1, pageCount - 1)) * i, behavior: "smooth" });
   };
 
   const nudge = (dir) => {
-    const el = trackRef.current;
+    const el = viewportRef.current;
     if (!el) return;
-    el.scrollBy({ left: dir * (el.firstChild?.clientWidth ?? 320), behavior: "smooth" });
+    el.scrollBy({ left: dir * (el.querySelector(".hex")?.clientWidth ?? 320), behavior: "smooth" });
   };
 
   return (
@@ -82,34 +83,70 @@ export default function SectorCarousel() {
           </div>
         </div>
 
-        <ul className="wwd__track" ref={trackRef}>
-          {sectors.map((s, i) => (
-            <li className={`hex hex--${i % 2 === 0 ? "blue" : "green"}`} key={s.slug}>
-              {/* One rail running along the top of the row. Each card draws
-                  its own segment, spanning its width plus the gap, so the
-                  segments abut and read as a single unbroken line. Only the
-                  first and last turn down. */}
-              <span className="hex__bracket" aria-hidden="true">
-                <i className="hex__node" />
-              </span>
+        {/* viewport scrolls; inner holds the rail and the cards in one
+            coordinate space, so the rail travels with the row */}
+        <div className="wwd__viewport" ref={viewportRef}>
+          <div className="wwd__inner" ref={innerRef}>
+            <svg
+              className="wwd__rail"
+              style={{ height: rail.height }}
+              aria-hidden="true"
+              focusable="false"
+            >
+              <defs>
+                {rail.gaps.map((g) => (
+                  <linearGradient
+                    key={g.id}
+                    id={g.id}
+                    gradientUnits="userSpaceOnUse"
+                    x1={g.x1}
+                    y1="0"
+                    x2={g.x2}
+                    y2="0"
+                  >
+                    <stop offset="0" stopColor={g.from} />
+                    <stop offset="1" stopColor={g.to} />
+                  </linearGradient>
+                ))}
+              </defs>
 
-              <span className="hex__badge" aria-hidden="true">
-                <SectorIcon slug={s.slug} />
-              </span>
+              {rail.paths.map((p, i) => (
+                <path key={`t${i}`} d={p.d} stroke={p.stroke} />
+              ))}
+              {rail.gaps.map((g) => (
+                <path key={g.id} d={g.d} stroke={`url(#${g.id})`} />
+              ))}
+              {rail.nodes.map((n, i) => (
+                <circle key={i} cx={n.cx} cy={n.cy} r={rail.nodeR} stroke={n.stroke} />
+              ))}
+            </svg>
 
-              <div className="hex__card">
-                <p className="hex__num">{String(i + 1).padStart(2, "0")}</p>
-                <h3 className="hex__title">{s.name}</h3>
-                <span className="hex__underline" aria-hidden="true" />
-                <p className="hex__body">{s.lede}</p>
-              </div>
+            <ul className="wwd__track">
+              {sectors.map((s, i) => (
+                <li
+                  className={`hex hex--${i % 2 === 0 ? "blue" : "green"}`}
+                  key={s.slug}
+                  ref={setCardRef(i)}
+                >
+                  <span className="hex__badge" aria-hidden="true">
+                    <SectorIcon slug={s.slug} />
+                  </span>
 
-              <span className="hex__flow" aria-hidden="true">
-                →
-              </span>
-            </li>
-          ))}
-        </ul>
+                  <div className="hex__card">
+                    <p className="hex__num">{String(i + 1).padStart(2, "0")}</p>
+                    <h3 className="hex__title">{s.name}</h3>
+                    <span className="hex__underline" aria-hidden="true" />
+                    <p className="hex__body">{s.lede}</p>
+                  </div>
+
+                  <span className="hex__flow" aria-hidden="true">
+                    →
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
 
         <div className="wwd__controls">
           <button className="wwd__arrow" onClick={() => nudge(-1)} aria-label="Previous sectors">
