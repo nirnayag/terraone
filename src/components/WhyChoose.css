@@ -1,0 +1,123 @@
+.why__head {
+  display: grid;
+  gap: 1.1rem;
+  max-width: 46rem;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.why__heading {
+  color: var(--to-text-on-dark);
+}
+
+.why__blocks {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.25rem);
+}
+
+/* ---------- block heading ---------- */
+.why__blockhead {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--face-mono);
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 1.1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--to-ink-rule);
+}
+
+.why__mark {
+  display: grid;
+  place-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+}
+
+.why__mark svg {
+  width: 0.7rem;
+  height: 0.7rem;
+}
+
+.why__block--problem .why__blockhead {
+  color: var(--to-ink-soft);
+}
+
+.why__block--solution .why__blockhead {
+  color: var(--to-green);
+}
+
+/* ---------- cards ---------- */
+.why__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.75rem, 1.5vw, 1rem);
+}
+
+.why__card {
+  display: grid;
+  align-content: start;
+  gap: 0.4rem;
+  padding: 1.05rem 1.15rem 1.2rem;
+  border: 1px solid var(--to-ink-rule);
+  border-radius: 6px;
+  background: var(--to-ink-raised);
+  position: relative;
+  transition: border-color 0.25s ease;
+}
+
+.why__card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 2px;
+  border-radius: 6px 0 0 6px;
+}
+
+.why__block--problem .why__card::before {
+  background: var(--to-slate);
+}
+
+.why__block--solution .why__card::before {
+  background: var(--to-green);
+}
+
+.why__card:hover {
+  border-color: var(--to-blue);
+}
+
+.why__num {
+  font-family: var(--face-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--to-ink-soft);
+}
+
+.why__block--solution .why__num {
+  color: var(--to-green);
+}
+
+.why__name {
+  font-family: var(--face-display);
+  font-variation-settings: "wdth" 104, "wght" 620;
+  font-size: 1rem;
+  line-height: 1.2;
+  color: var(--to-text-on-dark);
+}
+
+.why__text {
+  font-size: 0.85rem;
+  line-height: 1.58;
+  color: var(--to-mist);
+}
+
+@media (max-width: 720px) {
+  .why__grid {
+    grid-template-columns: 1fr;
+  }
+}

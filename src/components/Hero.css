@@ -1,0 +1,20 @@
+/* ---------- the film ---------- */
+.film {
+  background: var(--to-hero);
+  line-height: 0;
+}
+
+.film__video {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* on tall, narrow screens a 16:9 strip is too short to read, so it is allowed
+   to crop rather than shrink */
+@media (max-width: 700px) {
+  .film__video {
+    aspect-ratio: 4 / 3;
+  }
+}

@@ -1,0 +1,48 @@
+.pagehead {
+  padding-block: clamp(3rem, 6vw, 5rem) clamp(2rem, 4vw, 3rem);
+  border-bottom: 1px solid var(--to-mist);
+}
+
+.pagehead--paper {
+  background: var(--to-paper);
+}
+
+.pagehead--tint {
+  background: var(--to-blue-10);
+  border-bottom-color: var(--to-blue-20);
+}
+
+.pagehead--ink {
+  background: var(--to-dark);
+  border-bottom-color: var(--to-ink-rule);
+}
+
+.pagehead__inner {
+  display: grid;
+  gap: 1.1rem;
+  max-width: 60rem;
+}
+
+.pagehead__title {
+  max-width: 20ch;
+}
+
+.pagehead--ink .pagehead__title {
+  color: var(--to-text-on-dark);
+}
+
+.pagehead--ink .eyebrow {
+  color: var(--to-green);
+}
+
+.pagehead--ink .eyebrow::before {
+  box-shadow: inset 0 0 0 1px var(--to-ink), 0.28rem 0 0 -0.13rem var(--to-blue);
+}
+
+.pagehead--ink .pagehead__lede {
+  color: var(--to-ink-soft);
+}
+
+.pagehead__lede {
+  max-width: 58ch;
+}

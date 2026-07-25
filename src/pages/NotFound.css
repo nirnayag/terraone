@@ -1,0 +1,31 @@
+.notfound__links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: 1px;
+  background: var(--to-mist);
+  border: 1px solid var(--to-mist);
+  border-radius: 4px;
+  overflow: hidden;
+  max-width: 52rem;
+}
+
+.notfound__links a {
+  display: block;
+  padding: 1rem 1.15rem;
+  background: var(--to-paper);
+  font-family: var(--face-display);
+  font-variation-settings: "wdth" 104, "wght" 600;
+  font-size: 1.02rem;
+  color: var(--to-ink);
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.notfound__links a:hover {
+  background: var(--to-blue-10);
+  color: var(--to-link);
+}
+
+.notfound__home {
+  margin-top: 1.75rem;
+}

@@ -1,0 +1,117 @@
+.legal__layout {
+  display: grid;
+  grid-template-columns: 17rem minmax(0, 1fr);
+  gap: clamp(1.75rem, 4vw, 3.5rem);
+  align-items: start;
+}
+
+/* ---------- contents ---------- */
+.legal__toc {
+  position: sticky;
+  top: 6.5rem;
+  max-height: calc(100vh - 9rem);
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.legal__toc-key {
+  font-family: var(--face-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--to-slate);
+  margin-bottom: 0.85rem;
+}
+
+.legal__toc ol {
+  display: grid;
+  gap: 0.15rem;
+  border-left: 1px solid var(--to-mist);
+}
+
+.legal__toc a {
+  display: block;
+  padding: 0.35rem 0 0.35rem 0.85rem;
+  margin-left: -1px;
+  border-left: 2px solid transparent;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--to-slate);
+  text-decoration: none;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.legal__toc a:hover {
+  color: var(--to-link);
+  border-left-color: var(--to-green);
+}
+
+/* ---------- document ---------- */
+.legal__doc {
+  max-width: 44rem;
+}
+
+.legal__article {
+  scroll-margin-top: 6.5rem;
+  padding-bottom: 1.75rem;
+  margin-bottom: 1.75rem;
+  border-bottom: 1px solid var(--to-mist);
+}
+
+.legal__article:last-child {
+  border-bottom: 0;
+}
+
+.legal__heading {
+  font-family: var(--face-display);
+  font-variation-settings: "wdth" 102, "wght" 640;
+  font-size: clamp(1.05rem, 1.8vw, 1.28rem);
+  line-height: 1.24;
+  letter-spacing: -0.014em;
+  color: var(--to-ink);
+  margin-bottom: 0.9rem;
+}
+
+.legal__sub {
+  font-family: var(--face-body);
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--to-ink);
+  margin-top: 1.35rem;
+  margin-bottom: 0.4rem;
+}
+
+.legal__p {
+  font-size: 0.93rem;
+  line-height: 1.72;
+  color: var(--to-slate);
+}
+
+.legal__p + .legal__p {
+  margin-top: 0.85rem;
+}
+
+.legal__num {
+  font-family: var(--face-mono);
+  font-size: 0.78em;
+  letter-spacing: 0.04em;
+  color: var(--to-link);
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 900px) {
+  .legal__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .legal__toc {
+    position: static;
+    max-height: none;
+  }
+
+  .legal__toc ol {
+    max-height: 14rem;
+    overflow-y: auto;
+  }
+}

@@ -1,0 +1,257 @@
+/* Solid paper bar, as on the reference. The film sits below it rather than
+   behind it, so nothing here needs to survive a dark backdrop. */
+.masthead {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--to-paper);
+  border-bottom: 1px solid var(--to-mist);
+  transition: box-shadow 0.3s ease;
+}
+
+.masthead.is-lifted {
+  box-shadow: 0 1px 0 var(--to-mist);
+}
+
+.masthead__bar {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  height: 5rem;
+}
+
+.masthead__logo {
+  flex: none;
+  display: block;
+  line-height: 0;
+}
+
+.masthead__logo img {
+  width: auto;
+  height: 1.85rem;
+}
+
+.masthead__nav ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.7rem, 1.55vw, 1.5rem);
+}
+
+/* Deep Water is the palette's link colour — 5.1:1 on paper. */
+.masthead__nav a {
+  font-size: 0.94rem;
+  font-weight: 450;
+  color: var(--to-link);
+  text-decoration: none;
+  padding-block: 0.45rem;
+  position: relative;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.masthead__nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--to-green);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.24s ease;
+}
+
+.masthead__nav a:hover,
+.masthead__nav a.active {
+  color: var(--to-ink);
+}
+
+.masthead__nav a:hover::after,
+.masthead__nav a.active::after {
+  transform: scaleX(1);
+}
+
+.masthead__sheet a.active {
+  color: var(--to-link);
+}
+
+.masthead__end {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* the nine-dot control from the reference header */
+.masthead__toggle {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.masthead__toggle:hover {
+  background: var(--to-mist);
+}
+
+.masthead__dots {
+  display: grid;
+  grid-template-columns: repeat(3, 3px);
+  gap: 3px;
+}
+
+.masthead__dots i {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--to-ink);
+  transition: background-color 0.2s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.masthead.is-open .masthead__dots i {
+  background: var(--to-blue-deep);
+  transform: scale(0.72);
+}
+
+/* ---------- the sheet ---------- */
+.masthead__sheet {
+  position: absolute;
+  inset: 100% 0 auto;
+  background: var(--to-paper);
+  border-bottom: 1px solid var(--to-mist);
+  box-shadow: 0 1px 0 var(--to-mist);
+  animation: sheet-drop 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.masthead__sheet[hidden] {
+  display: none;
+}
+
+.masthead__sheet-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  padding-block: 2rem 2.5rem;
+}
+
+.masthead__sheet ul {
+  display: grid;
+  align-content: start;
+}
+
+.masthead__sheet li {
+  border-bottom: 1px solid var(--to-mist);
+  animation: sheet-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: calc(var(--i) * 40ms + 50ms);
+}
+
+.masthead__sheet li a {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding-block: 0.85rem;
+  font-family: var(--face-display);
+  font-variation-settings: "wdth" 106, "wght" 600;
+  font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+  line-height: 1.15;
+  color: var(--to-text-on-dark);
+  text-decoration: none;
+  transition: color 0.2s ease, padding-left 0.25s ease;
+}
+
+.masthead__sheet li a:hover {
+  color: var(--to-blue-deep);
+  padding-left: 0.4rem;
+}
+
+.masthead__idx {
+  font-family: var(--face-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--to-green);
+}
+
+.masthead__aside {
+  display: grid;
+  align-content: start;
+  gap: 0.75rem;
+  padding: 1.4rem 1.5rem 1.6rem;
+  background: var(--to-green-10);
+  border: 1px solid var(--to-leaf-pale);
+  border-radius: 4px;
+}
+
+.masthead__key {
+  font-family: var(--face-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--to-blue-deep);
+}
+
+.masthead__aside address {
+  font-style: normal;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--to-slate);
+}
+
+.masthead__aside address a {
+  color: var(--to-link);
+  text-decoration: none;
+}
+
+.masthead__aside address a:hover {
+  text-decoration: underline;
+}
+
+.masthead__aside .btn {
+  justify-self: start;
+  margin-top: 0.35rem;
+}
+
+@keyframes sheet-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@media (max-width: 940px) {
+  .masthead__nav {
+    display: none;
+  }
+
+  .masthead__bar {
+    grid-template-columns: auto 1fr;
+    height: 4.5rem;
+  }
+
+  .masthead__end {
+    justify-self: end;
+  }
+
+  .masthead__sheet {
+    position: fixed;
+    inset: 4.5rem 0 auto;
+    max-height: calc(100dvh - 4.5rem);
+    overflow-y: auto;
+  }
+
+  .masthead__sheet-inner {
+    grid-template-columns: 1fr;
+  }
+}

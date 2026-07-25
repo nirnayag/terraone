@@ -1,0 +1,77 @@
+.async {
+  padding-block: 1rem;
+}
+
+.async__skeleton {
+  display: grid;
+  gap: 0.75rem;
+}
+
+/* step-end rather than a smooth ease: interpolating between two palette
+   values renders every intermediate frame in a colour that is not in the
+   palette, and an infinite animation would sit on those colours most of the
+   time. Stepping flips between the two published tints and never lands
+   anywhere else. */
+.async__skeleton li {
+  height: 3.25rem;
+  border-radius: 4px;
+  background: var(--to-blue-10);
+  border: 1px solid var(--to-blue-20);
+  animation: async-pulse 1.6s step-end infinite;
+  animation-delay: calc(var(--i) * 110ms);
+}
+
+@keyframes async-pulse {
+  0% {
+    background: var(--to-blue-10);
+    border-color: var(--to-blue-20);
+  }
+  50% {
+    background: var(--to-green-10);
+    border-color: var(--to-green-20);
+  }
+  100% {
+    background: var(--to-blue-10);
+    border-color: var(--to-blue-20);
+  }
+}
+
+.async--error,
+.async--empty {
+  display: grid;
+  justify-items: start;
+  gap: 0.6rem;
+  max-width: 46rem;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border: 1px solid var(--to-blue-20);
+  border-radius: 4px;
+  background: var(--to-blue-10);
+}
+
+.async__title {
+  font-family: var(--face-display);
+  font-variation-settings: "wdth" 104, "wght" 640;
+  font-size: 1.15rem;
+  color: var(--to-ink);
+}
+
+.async__body {
+  font-size: 0.94rem;
+  line-height: 1.6;
+  color: var(--to-slate);
+}
+
+.async--error .btn {
+  margin-top: 0.6rem;
+}
+
+.band--ink .async__skeleton li {
+  background: var(--to-ink-raised);
+  border-color: var(--to-ink-rule);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .async__skeleton li {
+    animation: none;
+  }
+}

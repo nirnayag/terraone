@@ -1,0 +1,152 @@
+.appintro {
+  max-width: 54rem;
+  font-size: clamp(1.02rem, 1.3vw, 1.15rem);
+  line-height: 1.68;
+  color: var(--to-slate);
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+/* ---------- index ---------- */
+.appindex {
+  padding: 1.35rem 1.5rem 1.6rem;
+  border: 1px solid var(--to-blue-20);
+  border-radius: 4px;
+  background: var(--to-blue-10);
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.appindex__key {
+  font-family: var(--face-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--to-link);
+  margin-bottom: 0.9rem;
+}
+
+.appindex ul {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.5rem 1rem;
+}
+
+.appindex a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 0.92rem;
+  color: var(--to-ink);
+  text-decoration: none;
+  padding-block: 0.25rem;
+}
+
+.appindex a:hover {
+  color: var(--to-link);
+}
+
+.appindex__num {
+  font-family: var(--face-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  color: var(--to-green);
+}
+
+/* ---------- sectors ---------- */
+.appsectors {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.appsector {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: center;
+  scroll-margin-top: 6.5rem;
+}
+
+/* alternate the image side so a long page doesn't read as a single column */
+.appsector:nth-child(even) .appsector__media {
+  order: 2;
+}
+
+.appsector__media img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 4px;
+  background: var(--to-blue-10);
+}
+
+.appsector__copy {
+  display: grid;
+  align-content: start;
+  gap: 0.7rem;
+}
+
+.appsector__num {
+  font-family: var(--face-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--to-link);
+}
+
+.appsector__body {
+  font-size: 0.97rem;
+  line-height: 1.7;
+  color: var(--to-slate);
+  max-width: 58ch;
+}
+
+/* ---------- close ---------- */
+.appcta {
+  display: grid;
+  justify-items: start;
+  gap: 1.1rem;
+  margin-top: clamp(3rem, 6vw, 5rem);
+  padding: clamp(1.75rem, 3.5vw, 2.5rem);
+  border: 1px solid var(--to-leaf-pale);
+  border-radius: 4px;
+  background: var(--to-green-10);
+}
+
+.appcta__body {
+  font-family: var(--face-display);
+  font-variation-settings: "wdth" 104, "wght" 600;
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--to-ink);
+  max-width: 34ch;
+}
+
+.appcta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+@media (max-width: 1000px) {
+  .appindex ul {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  .appsector {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .appsector:nth-child(even) .appsector__media {
+    order: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .appindex ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

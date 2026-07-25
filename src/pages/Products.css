@@ -1,0 +1,204 @@
+.products__layout {
+  display: grid;
+  grid-template-columns: 15rem minmax(0, 1fr);
+  gap: clamp(1.75rem, 4vw, 3.5rem);
+  align-items: start;
+}
+
+/* ---------- filters ---------- */
+.filters {
+  position: sticky;
+  top: 6.5rem;
+}
+
+.filters__key {
+  font-family: var(--face-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--to-slate);
+  margin-bottom: 0.9rem;
+}
+
+.filters__list {
+  display: grid;
+  gap: 1px;
+  background: var(--to-mist);
+  border: 1px solid var(--to-mist);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.filters__btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  background: var(--to-paper);
+  font-size: 0.9rem;
+  text-align: left;
+  color: var(--to-ink);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.filters__btn:hover {
+  background: var(--to-blue-10);
+  color: var(--to-link);
+}
+
+.filters__btn.is-on {
+  background: var(--to-blue-deep);
+  color: var(--to-text-on-dark);
+}
+
+.filters__count {
+  font-family: var(--face-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: var(--to-slate);
+}
+
+.filters__btn.is-on .filters__count {
+  color: var(--to-text-on-dark);
+}
+
+/* ---------- grid ---------- */
+.products__count {
+  margin-bottom: 1.25rem;
+}
+
+.products__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.card {
+  border: 1px solid var(--to-mist);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--to-paper);
+  transition: border-color 0.2s ease;
+}
+
+.card:hover {
+  border-color: var(--to-blue-40);
+}
+
+.card__link {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card__frame {
+  display: block;
+  background: var(--to-green-10);
+}
+
+.card__img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.card__img--none {
+  aspect-ratio: 1 / 1;
+  background: var(--to-blue-10);
+}
+
+.card__body {
+  display: grid;
+  align-content: start;
+  gap: 0.5rem;
+  padding: 1.15rem 1.2rem 1.35rem;
+}
+
+.card__cats {
+  font-family: var(--face-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--to-link);
+}
+
+.card__name {
+  font-family: var(--face-display);
+  font-variation-settings: "wdth" 104, "wght" 620;
+  font-size: 1.05rem;
+  line-height: 1.22;
+  letter-spacing: -0.012em;
+  color: var(--to-ink);
+}
+
+.card__excerpt {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--to-slate);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card__go {
+  margin-top: 0.35rem;
+  font-family: var(--face-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--to-link);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.card__link:hover .card__go,
+.card__link:focus-visible .card__go {
+  opacity: 1;
+}
+
+@media (max-width: 1080px) {
+  .products__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 860px) {
+  .products__layout {
+    grid-template-columns: 1fr;
+  }
+
+  /* a grid item defaults to min-width:auto, so without this the scrolling
+     filter strip widens its track instead of scrolling inside it */
+  .filters {
+    position: static;
+    min-width: 0;
+  }
+
+  .filters__list {
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+
+  .filters__btn {
+    white-space: nowrap;
+  }
+
+  .card__go {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 560px) {
+  .products__grid {
+    grid-template-columns: 1fr;
+  }
+}

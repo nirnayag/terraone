@@ -1,0 +1,108 @@
+.collaborate__head {
+  gap: 1.1rem;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.collaborate__routes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) minmax(0, 0.85fr);
+  gap: clamp(1rem, 2vw, 1.5rem);
+  align-items: start;
+}
+
+.route {
+  padding: clamp(1.5rem, 2.6vw, 2.1rem);
+  border: 1px solid var(--to-ink-rule);
+  border-radius: 4px;
+  background: var(--to-ink-raised);
+  display: grid;
+  align-content: start;
+  gap: 0.85rem;
+  font-style: normal;
+  transition-property: opacity, transform, border-color;
+}
+
+.route:hover {
+  border-color: var(--to-green);
+}
+
+.route__tag {
+  font-family: var(--face-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--to-green);
+}
+
+.route__title {
+  color: var(--to-text-on-dark);
+}
+
+.route__body {
+  font-size: 0.92rem;
+  line-height: 1.62;
+  color: var(--to-mist);
+}
+
+.route__action {
+  justify-self: start;
+  margin-top: 0.5rem;
+}
+
+/* the contact card is reference material, not a pitch — set it as data */
+.route--card {
+  background: none;
+}
+
+.route__contact {
+  display: grid;
+  gap: 1px;
+  background: var(--to-ink-rule);
+  border: 1px solid var(--to-ink-rule);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.route__contact li {
+  background: var(--to-ink-raised);
+  display: grid;
+  gap: 0.3rem;
+  padding: 0.85rem 0.9rem;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--to-text-on-dark);
+}
+
+.route__contact a {
+  color: var(--to-green);
+  text-decoration: none;
+}
+
+.route__contact a:hover {
+  text-decoration: underline;
+}
+
+.route__key {
+  font-family: var(--face-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--to-ink-soft);
+}
+
+@media (max-width: 1000px) {
+  .collaborate__routes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .route--card {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .collaborate__routes {
+    grid-template-columns: 1fr;
+  }
+}

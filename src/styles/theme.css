@@ -1,0 +1,71 @@
+/* terraone.theme.css — v1.1
+   Palette aligned to TerraOne colour specification.
+   Section colours are applied per-component; these tokens provide the
+   global palette, tints, and semantic aliases. */
+
+:root {
+  /* ---- primaries ---- */
+  --to-blue: #00A0E1;
+  --to-blue-deep: #0072BC;
+  --to-green: #6DBE45;
+
+  /* ---- blue tints (backgrounds only) ---- */
+  --to-blue-80: #33B3E7;
+  --to-blue-60: #66C6ED;
+  --to-blue-40: #99D9F3;
+  --to-blue-20: #CCECF9;
+  --to-blue-10: #E6F6FC;
+
+  /* ---- green tints (backgrounds only) ---- */
+  --to-green-80: #8ACB6A;
+  --to-green-60: #A7D88F;
+  --to-green-40: #C5E5B5;
+  --to-green-20: #E2F2DA;
+  --to-green-10: #F0F8EC;
+
+  /* ---- section background colours ---- */
+  --to-hero: #00A0E1;
+  --to-hero-btn: #0072BC;
+  --to-stat-bg: #C6E0A6;
+  --to-client-bg: #DCE6E8;
+  --to-dark: #0E2A33;
+
+  /* ---- text ---- */
+  --to-ink: #0E2A33;
+  --to-slate: #4A6470;
+  --to-paper: #F7F9FA;
+  --to-text-on-dark: #F7F9FA;
+
+  /* ---- accents ---- */
+  --to-cta: #8CC63F;
+  --to-link: #0072BC;
+  --to-leaf: var(--to-green);
+  --to-leaf-pale: var(--to-green-40);
+  --to-mist: var(--to-blue-20);
+
+  /* semantic */
+  --to-text: var(--to-ink);
+  --to-text-soft: var(--to-slate);
+  --to-action: var(--to-hero-btn);
+  --to-success: var(--to-green);
+  --to-focus: var(--to-blue-deep);
+  --to-rule: var(--to-mist);
+
+  /* Dark-ground aliases. The contrast table certifies both primaries against
+     the ink only — green on Deep Water is 2.2:1 — so raised panels stay ink
+     and Deep Water carries the rules and borders that separate them. */
+  --to-ink-text: var(--to-text-on-dark);
+  --to-ink-soft: #DCE6E8;
+  --to-ink-rule: #0072BC;
+  --to-ink-raised: var(--to-dark);
+
+  /* type */
+  --face-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --face-body: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
+  --face-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* measure + rhythm */
+  --gutter: clamp(1.25rem, 5vw, 4.5rem);
+  --page: 1320px;
+  --band: clamp(4.5rem, 9vw, 8.5rem);
+}
