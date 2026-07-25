@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { technologies } from "../data/content";
 import { useReveal } from "../hooks/useReveal";
 import DnaHelix from "./DnaHelix";
-import { MoleculeMesh, PolymerGlyph, TraitIcon } from "./PortfolioArt";
+import { TraitIcon } from "./PortfolioArt";
 import "./Technologies.css";
 
 const AUTOPLAY_MS = 6000;
