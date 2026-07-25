@@ -39,7 +39,6 @@ export default function Technologies({ standalone = false }) {
       <span className="matport__dna" aria-hidden="true">
         <DnaHelix className="dna" speed={0.16} radius={0.3} dot={5} turns={3} />
       </span>
-      <MoleculeMesh className="matport__mesh" />
 
       <div className="matport__shell">
         {!standalone && (
@@ -83,9 +82,6 @@ export default function Technologies({ standalone = false }) {
                   </span>
                   <span className="pcard__code">{t.code}</span>
                   <span className="pcard__full">{t.full}</span>
-                  <span className="pcard__glyph" aria-hidden="true">
-                    <PolymerGlyph code={t.code} />
-                  </span>
                   <span className="pcard__trait">
                     <TraitIcon name={t.traits[0]} />
                     {t.traits[0]}
@@ -116,11 +112,6 @@ export default function Technologies({ standalone = false }) {
         {/* ---- detail for the selected polymer ---- */}
         <article className="pdetail" key={active.code}>
           <div className="pdetail__id">
-            {/* a lettered disc rather than an illustration — it names the
-                material directly and needs no artwork per polymer */}
-            <span className="pdetail__disc" aria-hidden="true">
-              {active.code}
-            </span>
             <p className="pdetail__head">
               <span className="pdetail__num">{String(index + 1).padStart(2, "0")}</span>
               <span className="pdetail__code">{active.code}</span>
