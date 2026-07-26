@@ -458,11 +458,7 @@ export default function Compounding() {
             <HeroFlow />
 
             <div className="cmp-hero__result">
-              <p className="cmp-hero__result-title">
-                Engineered
-                <br />
-                compounded solution
-              </p>
+              <p className="cmp-hero__result-title">Engineered compounded solution</p>
               <ul className="cmp-hero__checks">
                 <li>
                   <Check /> Balanced properties

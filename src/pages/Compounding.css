@@ -261,6 +261,7 @@
 .cmp-card__art {
   display: block;
   margin-top: 0.3rem;
+  padding-block: 0.5rem;
   border-radius: 14px;
   background:
     radial-gradient(120% 90% at 50% 32%, var(--tint-soft) 0%, rgba(255, 255, 255, 0) 72%),
@@ -344,8 +345,11 @@
   height: 4.5rem;
 }
 
+/* align-content:start matters — without it the tallest step's neighbours
+   stretch their rows and the nodes stop meeting the rail. */
 .cmp-step {
   display: grid;
+  align-content: start;
   justify-items: center;
   gap: 0.45rem;
   padding-inline: 0.4rem;
@@ -587,6 +591,11 @@
     max-width: 56ch;
   }
 
+  /* the diagram has the full width now, so the result column can breathe */
+  .cmp-hero__viz {
+    grid-template-columns: minmax(0, 1fr) clamp(9rem, 18vw, 12rem);
+  }
+
   .cmp-mats__grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -604,7 +613,8 @@
   }
 }
 
-@media (max-width: 900px) {
+/* six across stops being readable before the rest of the page does */
+@media (max-width: 1024px) {
   .cmp-rail {
     grid-template-columns: repeat(3, 1fr);
     row-gap: 1.8rem;
@@ -614,7 +624,9 @@
   .cmp-rail__line {
     display: none;
   }
+}
 
+@media (max-width: 900px) {
   .cmp-figures {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -637,10 +649,6 @@
   .cmp-hero__result {
     justify-items: center;
     text-align: center;
-  }
-
-  .cmp-hero__result-title br {
-    display: none;
   }
 
   .cmp-hero__checks {
@@ -681,9 +689,5 @@
   .cmp-hero__result {
     justify-items: start;
     text-align: left;
-  }
-
-  .cmp-card__note {
-    min-height: 0;
   }
 }
