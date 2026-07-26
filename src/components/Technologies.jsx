@@ -17,13 +17,24 @@ const STRIP = [
   { icon: "cube", label: ["Versatile", "applications"] },
 ];
 
-export default function Technologies({ standalone = false }) {
+export default function Technologies({ standalone = false, selectedIndex, onSelect }) {
   const scope = useReveal();
   const items = technologies.items;
   const n = items.length;
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(selectedIndex ?? 0);
   const [paused, setPaused] = useState(false);
   const active = items[index];
+
+  useEffect(() => {
+    if (selectedIndex !== undefined && selectedIndex !== null) {
+      setIndex(selectedIndex);
+    }
+  }, [selectedIndex]);
+
+  const handleSelectIndex = (idx) => {
+    setIndex(idx);
+    if (onSelect) onSelect(idx);
+  };
 
   useEffect(() => {
     if (paused) return undefined;
@@ -73,7 +84,7 @@ export default function Technologies({ standalone = false }) {
               <li key={t.code}>
                 <button
                   className={`pcard${i === index ? " is-on" : ""}`}
-                  onClick={() => setIndex(i)}
+                  onClick={() => handleSelectIndex(i)}
                   aria-pressed={i === index}
                 >
                   <span className="pcard__top">
@@ -101,7 +112,7 @@ export default function Technologies({ standalone = false }) {
             <li key={t.code}>
               <button
                 className={`polyrow__dot${d === index ? " is-on" : ""}`}
-                onClick={() => setIndex(d)}
+                onClick={() => handleSelectIndex(d)}
                 aria-label={`Show ${t.code}`}
                 aria-current={d === index || undefined}
               />

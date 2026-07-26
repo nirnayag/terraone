@@ -1,0 +1,378 @@
+/* ==========================================================================
+   TechHero — Direct layout. Icon circles match reference image exactly.
+   ========================================================================== */
+
+.techhero-wrapper {
+  padding-top: var(--space-xl, 36px);
+  padding-bottom: var(--space-xl, 54px);
+  background: transparent;
+}
+
+.techhero-direct-container {
+  position: relative;
+  width: 100%;
+}
+
+/* Two-column grid */
+.techhero-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  align-items: center;
+  gap: 40px;
+}
+
+/* ── Left Column ── */
+.techhero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.techhero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.techhero-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(34, 197, 94, 0.12);
+  border: 1.5px solid #22C55E;
+}
+
+.techhero-badge__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22C55E;
+}
+
+.techhero-eyebrow__text {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #0066FF;
+}
+
+.techhero-title {
+  font-family: var(--font-display, var(--font-sans, system-ui, sans-serif));
+  font-size: clamp(2.6rem, 4.6vw, 4rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: #0B192C;
+  margin: 0 0 24px 0;
+}
+
+.techhero-title__one {
+  position: relative;
+  display: inline-block;
+  color: #0066FF;
+}
+
+.techhero-title__one::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #0066FF, #10B981);
+  border-radius: 3px;
+}
+
+.techhero-title__goal {
+  background: linear-gradient(135deg, #10B981, #16A34A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.techhero-lede {
+  font-size: 1.08rem;
+  line-height: 1.68;
+  color: #475569;
+  max-width: 500px;
+  margin: 0;
+}
+
+/* ── Right Column ── */
+.techhero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.techhero-orb-container {
+  position: relative;
+  width: 540px;
+  height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dot Matrix Top-Right */
+.techhero-dot-matrix {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 150px;
+  height: 150px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.9;
+}
+
+/*
+  ──────────────────────────────────────────────────
+  SINGLE ANIMATED GROUP
+  The amoebaMorph animation lives here ONCE.
+  Both the track ring and the blob frame are children
+  that inherit this shape — zero independent animations,
+  zero drift. They fluctuate as one.
+  ──────────────────────────────────────────────────
+*/
+.techhero-amoeba-group {
+  position: relative;
+  z-index: 3;
+  /* reference size — track overflows, blob insets */
+  width: 400px;
+  height: 420px;
+  border-radius: 62% 38% 46% 54% / 60% 44% 56% 40%;
+  /* THE only animation */
+  animation: amoebaMorph 12s ease-in-out infinite;
+  will-change: border-radius;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Track ring wrapper overflows the group by 22px on each side */
+.techhero-track-wrapper {
+  position: absolute;
+  inset: -22px;          /* expands outward from group edge */
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+  /* NO animation — parent drives it */
+}
+
+/* Track ring children fill the wrapper */
+.techhero-track-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Left half — solid green */
+.techhero-track-ring--green {
+  border: 2.2px solid #22C55E;
+  clip-path: inset(0 47% 0 0);
+}
+
+/* Right half — dashed blue */
+.techhero-track-ring--blue {
+  border: 2.2px dashed #0284C7;
+  clip-path: inset(0 0 0 47%);
+}
+
+/* Accent dots */
+.techhero-track-dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.techhero-track-dot--green {
+  top: 48%;
+  left: -5px;
+  background: #22C55E;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+}
+
+.techhero-track-dot--blue {
+  bottom: 6%;
+  left: 48%;
+  background: #0284C7;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2);
+}
+
+/* ── Amoeba Blob ── fills the group, inherits its shape, NO own animation */
+.techhero-blob-frame {
+  position: absolute;
+  inset: 0;              /* fills .techhero-amoeba-group exactly */
+  border-radius: inherit;
+  padding: 16px;
+  background: #ffffff;
+  box-shadow:
+    0 0 0 3px rgba(34, 197, 94, 0.15),
+    0 32px 70px -16px rgba(15, 23, 42, 0.13),
+    0 8px 24px rgba(0, 0, 0, 0.04);
+  z-index: 2;
+  /* NO animation here — parent drives the morph */
+}
+
+.techhero-blob-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  overflow: hidden;
+  /* Soft mint-tinted inside like the reference */
+  background: linear-gradient(145deg, #e8f5f0 0%, #d0f0e8 30%, #b8e8f5 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.techhero-molecule-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.12);
+  mix-blend-mode: multiply;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.techhero-blob-frame:hover .techhero-molecule-img {
+  transform: scale(1.18);
+}
+
+/* Amoeba morph keyframes — organic, multi-step */
+@keyframes amoebaMorph {
+  0%   { border-radius: 62% 38% 46% 54% / 60% 44% 56% 40%; }
+  14%  { border-radius: 44% 56% 68% 32% / 48% 64% 36% 52%; }
+  28%  { border-radius: 56% 44% 38% 62% / 36% 58% 42% 64%; }
+  42%  { border-radius: 38% 62% 58% 42% / 56% 36% 64% 44%; }
+  57%  { border-radius: 65% 35% 42% 58% / 44% 52% 48% 56%; }
+  71%  { border-radius: 48% 52% 62% 38% / 62% 44% 56% 38%; }
+  85%  { border-radius: 42% 58% 36% 64% / 38% 62% 48% 52%; }
+  100% { border-radius: 62% 38% 46% 54% / 60% 44% 56% 40%; }
+}
+
+/* ── Icon Node Circles ── */
+.techhero-nodes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/*
+  Reference image: clean large white circles (~72-78px),
+  light grey ring border, subtle layered drop-shadow,
+  icon centered inside at ~32px.
+*/
+.techhero-node-btn {
+  position: absolute;
+  pointer-events: auto;
+  /* size matching reference */
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #ffffff;
+  /* thin light ring like reference */
+  border: 1.5px solid #E2E8F0;
+  /* layered shadow: outer glow + drop */
+  box-shadow:
+    0 0 0 5px rgba(255, 255, 255, 0.85),
+    0 8px 24px rgba(15, 23, 42, 0.1),
+    0 2px 6px rgba(15, 23, 42, 0.06);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  outline: none;
+  /* Only transition shadow/border, NOT transform (pointer sets it live) */
+  transition: box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.techhero-node-btn__inner {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.techhero-node-btn:hover {
+  border-color: #bbf7d0;
+  box-shadow:
+    0 0 0 6px rgba(255, 255, 255, 0.9),
+    0 12px 30px rgba(16, 185, 129, 0.22),
+    0 3px 8px rgba(16, 185, 129, 0.12);
+}
+
+.techhero-node-btn.is-active {
+  border-color: #93C5FD;
+  box-shadow:
+    0 0 0 6px rgba(255, 255, 255, 0.9),
+    0 0 0 10px rgba(59, 130, 246, 0.12),
+    0 12px 30px rgba(0, 102, 255, 0.18);
+}
+
+.techhero-node-btn.is-dragging {
+  cursor: grabbing !important;
+  z-index: 20;
+  border-color: #6EE7B7;
+  box-shadow:
+    0 0 0 6px rgba(255, 255, 255, 0.9),
+    0 20px 45px rgba(16, 185, 129, 0.28),
+    0 4px 10px rgba(16, 185, 129, 0.14);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1100px) {
+  .techhero-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .techhero-content {
+    align-items: center;
+    text-align: center;
+  }
+  .techhero-lede {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .techhero-orb-container {
+    width: 360px;
+    height: 380px;
+  }
+  .techhero-blob-frame {
+    width: 270px;
+    height: 285px;
+    padding: 10px;
+  }
+  .techhero-node-btn {
+    width: 54px;
+    height: 54px;
+    box-shadow:
+      0 0 0 4px rgba(255,255,255,0.9),
+      0 6px 18px rgba(15,23,42,0.09);
+  }
+  .techhero-node-btn__inner {
+    width: 26px;
+    height: 26px;
+  }
+  .techhero-title {
+    font-size: 2.2rem;
+  }
+}
