@@ -1,5 +1,12 @@
-/* Solid paper bar, as on the reference. The film sits below it rather than
-   behind it, so nothing here needs to survive a dark backdrop. */
+/* Navigation bar and mobile app drawer.
+
+   Colour follows the TerraOne theme sheet exactly:
+     bar        Paper  #F7F9FA   on a Mist #DCE6E8 hairline
+     links      Deep Water #0072BC — 5.1:1 on paper, the sheet's link colour
+     hover/on   Deep Ink #0E2A33 with a Green #6DBE45 underline
+     CTA        Bright blue #00A0E1 fill with white on it, never blue as text
+*/
+
 .masthead {
   position: sticky;
   top: 0;
@@ -10,12 +17,12 @@
 }
 
 .masthead.is-lifted {
-  box-shadow: 0 1px 0 var(--to-mist);
+  box-shadow: 0 6px 24px rgba(14, 42, 51, 0.06);
 }
 
 .masthead__bar {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: clamp(1rem, 3vw, 2.5rem);
   height: 5rem;
@@ -35,18 +42,17 @@
 .masthead__nav ul {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   gap: clamp(0.7rem, 1.55vw, 1.5rem);
 }
 
-/* Deep Water is the palette's link colour — 5.1:1 on paper. */
 .masthead__nav a {
+  position: relative;
+  padding-block: 0.45rem;
   font-size: 0.94rem;
   font-weight: 450;
   color: var(--to-link);
   text-decoration: none;
-  padding-block: 0.45rem;
-  position: relative;
   white-space: nowrap;
   transition: color 0.2s ease;
 }
@@ -74,184 +80,206 @@
   transform: scaleX(1);
 }
 
-.masthead__sheet a.active {
-  color: var(--to-link);
-}
-
-.masthead__end {
-  flex: none;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-/* the nine-dot control from the reference header */
-.masthead__toggle {
-  display: grid;
+/* ---------- burger ---------- */
+.masthead__burger {
+  display: none;
   place-items: center;
   width: 2.75rem;
   height: 2.75rem;
-  border-radius: 8px;
-  transition: background-color 0.2s ease;
-}
-
-.masthead__toggle:hover {
-  background: var(--to-mist);
-}
-
-.masthead__dots {
-  display: grid;
-  grid-template-columns: repeat(3, 3px);
-  gap: 3px;
-}
-
-.masthead__dots i {
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: var(--to-ink);
-  transition: background-color 0.2s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.masthead.is-open .masthead__dots i {
-  background: var(--to-blue-deep);
-  transform: scale(0.72);
-}
-
-/* ---------- the sheet ---------- */
-.masthead__sheet {
-  position: absolute;
-  inset: 100% 0 auto;
+  border: 1px solid var(--to-mist);
+  border-radius: 12px;
   background: var(--to-paper);
-  border-bottom: 1px solid var(--to-mist);
-  box-shadow: 0 1px 0 var(--to-mist);
-  animation: sheet-drop 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
-.masthead__sheet[hidden] {
-  display: none;
+.masthead__burger:hover {
+  border-color: var(--to-link);
+  background: var(--to-blue-10);
 }
 
-.masthead__sheet-inner {
+.masthead__burger-bars {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-  gap: clamp(1.5rem, 4vw, 3.5rem);
-  padding-block: 2rem 2.5rem;
+  gap: 4px;
+  width: 1.15rem;
 }
 
-.masthead__sheet ul {
+.masthead__burger-bars i {
+  display: block;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--to-ink);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
+}
+
+.masthead.is-open .masthead__burger-bars i:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.masthead.is-open .masthead__burger-bars i:nth-child(2) { opacity: 0; }
+.masthead.is-open .masthead__burger-bars i:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* ---------- drawer ---------- */
+.drawer__scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  background: rgba(14, 42, 51, 0.45);
+  backdrop-filter: blur(2px);
+  animation: scrim-in 0.25s ease;
+}
+
+.drawer__scrim[hidden] { display: none; }
+
+.drawer {
+  position: fixed;
+  z-index: 120;
+  inset: 0 0 0 auto;
+  width: min(22rem, 88vw);
   display: grid;
-  align-content: start;
+  grid-template-rows: auto 1fr auto;
+  background: var(--to-paper);
+  border-left: 1px solid var(--to-mist);
+  box-shadow: -24px 0 60px rgba(14, 42, 51, 0.18);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  animation: drawer-in 0.34s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.masthead__sheet li {
-  border-bottom: 1px solid var(--to-mist);
-  animation: sheet-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) backwards;
-  animation-delay: calc(var(--i) * 40ms + 50ms);
-}
+.drawer[hidden] { display: none; }
 
-.masthead__sheet li a {
+@keyframes drawer-in { from { transform: translateX(100%); } }
+@keyframes scrim-in { from { opacity: 0; } }
+
+.drawer__top {
   display: flex;
-  align-items: baseline;
+  align-items: center;
+  justify-content: space-between;
   gap: 1rem;
-  padding-block: 0.85rem;
-  font-family: var(--face-display);
-  font-variation-settings: "wdth" 106, "wght" 600;
-  font-size: clamp(1.25rem, 2.4vw, 1.7rem);
-  line-height: 1.15;
-  color: var(--to-text-on-dark);
-  text-decoration: none;
-  transition: color 0.2s ease, padding-left 0.25s ease;
+  padding: 1.15rem 1.35rem;
+  border-bottom: 1px solid var(--to-mist);
 }
 
-.masthead__sheet li a:hover {
-  color: var(--to-blue-deep);
-  padding-left: 0.4rem;
+.drawer__logo {
+  width: auto;
+  height: 1.6rem;
 }
 
-.masthead__idx {
-  font-family: var(--face-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  color: var(--to-green);
-}
-
-.masthead__aside {
+.drawer__close {
   display: grid;
-  align-content: start;
-  gap: 0.75rem;
-  padding: 1.4rem 1.5rem 1.6rem;
-  background: var(--to-green-10);
-  border: 1px solid var(--to-leaf-pale);
-  border-radius: 4px;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 1px solid var(--to-mist);
+  border-radius: 50%;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--to-ink);
+  transition: border-color 0.2s ease, color 0.2s ease;
 }
 
-.masthead__key {
+.drawer__close:hover {
+  border-color: var(--to-link);
+  color: var(--to-link);
+}
+
+.drawer__key {
+  margin: 1.35rem 1.35rem 0.6rem;
   font-family: var(--face-mono);
   font-size: 0.66rem;
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--to-blue-deep);
-}
-
-.masthead__aside address {
-  font-style: normal;
-  font-size: 0.9rem;
-  line-height: 1.6;
   color: var(--to-slate);
 }
 
-.masthead__aside address a {
+.drawer__nav ul { display: grid; }
+
+.drawer__nav li {
+  border-bottom: 1px solid var(--to-mist);
+  animation: drawer-item 0.4s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: calc(var(--i) * 35ms + 80ms);
+}
+
+.drawer__nav a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  padding: 0.95rem 1.35rem;
+  font-family: var(--face-display);
+  font-variation-settings: "wdth" 104, "wght" 620;
+  font-size: 1.15rem;
+  color: var(--to-ink);
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.drawer__nav a:hover,
+.drawer__nav a.active {
+  background: var(--to-blue-10);
+  color: var(--to-link);
+}
+
+.drawer__idx {
+  font-family: var(--face-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--to-green);
+}
+
+.drawer__nav--minor a {
+  font-family: var(--face-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--to-link);
+}
+
+@keyframes drawer-item { from { opacity: 0; transform: translateX(14px); } }
+
+.drawer__foot {
+  padding: 0 1.35rem 1.5rem;
+  border-top: 1px solid var(--to-mist);
+}
+
+.drawer__foot address {
+  display: grid;
+  gap: 0.3rem;
+  font-style: normal;
+  font-size: 0.9rem;
+}
+
+.drawer__foot address a {
   color: var(--to-link);
   text-decoration: none;
 }
 
-.masthead__aside address a:hover {
-  text-decoration: underline;
+.drawer__foot address a:hover { text-decoration: underline; }
+
+/* The sheet nominates bright blue as the button fill, but white on #00A0E1
+   is only 2.95:1. Deep Water carries the same intent at 4.81:1, and it is what
+   .btn--fill already uses elsewhere, so the drawer matches the site. */
+.drawer__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  margin-top: 1.1rem;
+  border-radius: 999px;
+  background: var(--to-action);
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
 }
 
-.masthead__aside .btn {
-  justify-self: start;
-  margin-top: 0.35rem;
-}
+.drawer__cta:hover { background: var(--to-ink); }
 
-@keyframes sheet-drop {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes sheet-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-}
-
+/* ---------- responsive ---------- */
 @media (max-width: 940px) {
-  .masthead__nav {
-    display: none;
-  }
+  .masthead__nav { display: none; }
+  .masthead__burger { display: grid; }
+  .masthead__bar { grid-template-columns: auto 1fr; height: 4.5rem; }
+  .masthead__burger { justify-self: end; }
+}
 
-  .masthead__bar {
-    grid-template-columns: auto 1fr;
-    height: 4.5rem;
-  }
-
-  .masthead__end {
-    justify-self: end;
-  }
-
-  .masthead__sheet {
-    position: fixed;
-    inset: 4.5rem 0 auto;
-    max-height: calc(100dvh - 4.5rem);
-    overflow-y: auto;
-  }
-
-  .masthead__sheet-inner {
-    grid-template-columns: 1fr;
-  }
+@media (min-width: 941px) {
+  .drawer,
+  .drawer__scrim { display: none !important; }
 }
