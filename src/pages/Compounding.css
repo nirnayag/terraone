@@ -1,0 +1,689 @@
+/* Compounding page.
+   Six inputs, one output — the page repeats that shape at three scales:
+   the hero diagram, the six material cards, and the process rail. */
+
+.cmp {
+  background: var(--to-paper);
+}
+
+/* Gradient library for every inline SVG on the page. Zero-sized rather than
+   display:none, so the fragment references still resolve. */
+.cmp-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* ---------- shared ---------- */
+.cmp-rule {
+  display: block;
+  width: 3.4rem;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--to-green);
+}
+
+.cmp-rule--light {
+  background: var(--to-leaf);
+}
+
+.cmp-heading {
+  font-family: var(--face-display);
+  font-variation-settings: "wdth" 104, "wght" 680;
+  font-size: clamp(1.5rem, 2.9vw, 2.15rem);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--to-ink);
+}
+
+.cmp-heading--sm {
+  font-size: clamp(1.3rem, 2.3vw, 1.8rem);
+}
+
+/* ---------- hero ---------- */
+.cmp-hero {
+  padding-block: clamp(2rem, 4vw, 3.5rem) clamp(2rem, 4vw, 3rem);
+}
+
+.cmp-hero__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+  align-items: center;
+  gap: clamp(1.5rem, 3.5vw, 3rem);
+}
+
+/* the design puts this eyebrow in green rather than the usual deep blue */
+.cmp-hero__eyebrow {
+  color: #3f7c25;
+  margin-bottom: 1.2rem;
+}
+
+.cmp-hero__heading {
+  font-family: var(--face-display);
+  font-variation-settings: "wdth" 104, "wght" 700;
+  font-size: clamp(2rem, 4.1vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--to-ink);
+}
+
+.cmp-hero__copy .cmp-rule {
+  margin-block: 1.4rem;
+}
+
+.cmp-hero__lede {
+  max-width: 44ch;
+  font-size: clamp(0.92rem, 1.05vw, 1rem);
+  line-height: 1.75;
+  color: var(--to-slate);
+}
+
+.cmp-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1.6rem;
+}
+
+.cmp-hero__actions .btn--line,
+.cmp-cta__actions .btn--line {
+  background: #fff;
+}
+
+/* ---------- hero diagram ---------- */
+.cmp-hero__viz {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(7.5rem, 10vw, 9.75rem);
+  align-items: center;
+  gap: clamp(0.5rem, 1.5vw, 1.25rem);
+}
+
+.cmp-flow {
+  width: 100%;
+  height: auto;
+}
+
+.cmp-flow__rings circle {
+  fill: none;
+  stroke: rgba(0, 160, 225, 0.09);
+  stroke-width: 1;
+}
+
+.cmp-flow__chip {
+  fill: #fff;
+  stroke: rgba(14, 42, 51, 0.07);
+  filter: drop-shadow(0 6px 14px rgba(14, 42, 51, 0.07));
+}
+
+.cmp-flow__label {
+  font-family: var(--face-body);
+  font-size: 15px;
+  font-weight: 600;
+  fill: var(--to-ink);
+}
+
+/* the bubble trail that reads as flow rather than a static ribbon */
+.cmp-flow__trail {
+  animation: cmp-drift 3.4s linear infinite;
+}
+
+@keyframes cmp-drift {
+  to {
+    stroke-dashoffset: -38;
+  }
+}
+
+.cmp-hero__result {
+  display: grid;
+  gap: 0.9rem;
+  justify-items: start;
+}
+
+.cmp-hero__result-title {
+  font-family: var(--face-display);
+  font-variation-settings: "wdth" 104, "wght" 660;
+  font-size: clamp(0.95rem, 1.25vw, 1.1rem);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--to-ink);
+}
+
+.cmp-hero__checks {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.cmp-hero__checks li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  line-height: 1.3;
+  color: var(--to-slate);
+}
+
+.cmp-hero__checks svg {
+  flex: none;
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+/* ---------- the six materials ---------- */
+.cmp-mats {
+  position: relative;
+  padding-block: clamp(2rem, 4vw, 3.25rem);
+  background: linear-gradient(180deg, #fff 0%, var(--to-paper) 100%);
+}
+
+.cmp-mats::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 14%;
+  width: 15rem;
+  height: 10rem;
+  background-image: radial-gradient(circle, var(--to-blue-20) 0 2px, transparent 2.5px);
+  background-size: 0.9rem 0.9rem;
+  mask-image: linear-gradient(90deg, #000, transparent);
+  -webkit-mask-image: linear-gradient(90deg, #000, transparent);
+  pointer-events: none;
+}
+
+.cmp-mats__head {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.9rem;
+  text-align: center;
+  margin-bottom: clamp(1.8rem, 3.2vw, 2.75rem);
+}
+
+.cmp-mats__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  column-gap: clamp(0.7rem, 1.2vw, 1.05rem);
+  row-gap: 2.6rem;
+}
+
+.cmp-card {
+  position: relative;
+  border: 1px solid var(--to-mist);
+  border-radius: 18px;
+  background: #fff;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.cmp-card__link {
+  display: grid;
+  align-content: start;
+  gap: 0.3rem;
+  padding: 1.1rem 1rem 1.3rem;
+  color: inherit;
+  text-decoration: none;
+  border-radius: inherit;
+}
+
+.cmp-card:hover,
+.cmp-card:focus-within {
+  transform: translateY(-6px);
+  border-color: var(--tint);
+  box-shadow: 0 20px 40px rgba(14, 42, 51, 0.1);
+}
+
+.cmp-card__num {
+  font-family: var(--face-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--tint-text);
+}
+
+.cmp-card__code {
+  font-family: var(--face-display);
+  font-variation-settings: "wdth" 104, "wght" 680;
+  font-size: 1.15rem;
+  letter-spacing: -0.015em;
+  color: var(--to-ink);
+}
+
+.cmp-card__note {
+  min-height: 3.2rem;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--to-slate);
+}
+
+.cmp-card__art {
+  display: block;
+  margin-top: 0.3rem;
+  border-radius: 14px;
+  background:
+    radial-gradient(120% 90% at 50% 32%, var(--tint-soft) 0%, rgba(255, 255, 255, 0) 72%),
+    #fff;
+}
+
+.cmp-card__art svg {
+  width: 100%;
+  height: auto;
+}
+
+/* Sits on the card's bottom edge. The mid tints are too light to carry a
+   white glyph, so the control takes the darker text tint. */
+.cmp-card__go {
+  position: absolute;
+  left: 50%;
+  bottom: -1.1rem;
+  translate: -50% 0;
+  display: grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 3px solid var(--to-paper);
+  border-radius: 50%;
+  background: var(--tint-text);
+  color: #fff;
+  transition:
+    background-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.cmp-card__go svg {
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+.cmp-card__link:hover .cmp-card__go {
+  background: var(--to-ink);
+  transform: translate(-50%, -3px);
+}
+
+/* ---------- process ---------- */
+.cmp-proc {
+  padding-block: clamp(1.25rem, 2.5vw, 2rem) clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.cmp-proc__panel {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(9rem, 17vw, 15rem);
+  column-gap: clamp(1rem, 2.5vw, 2.5rem);
+  align-items: center;
+  padding: clamp(1.5rem, 3vw, 2.6rem);
+  border-radius: 28px;
+  background: linear-gradient(115deg, #edf7f1 0%, #f3f9fb 52%, #e9f4f9 100%);
+}
+
+.cmp-proc__head {
+  grid-column: 1 / -1;
+  display: grid;
+  justify-items: start;
+  gap: 0.8rem;
+  margin-bottom: clamp(1.4rem, 2.5vw, 2.2rem);
+}
+
+.cmp-rail {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+}
+
+/* Six equal columns put the node centres at 1/12, 3/12 … of the rail, which
+   is exactly where the path's anchors sit in its 1200-wide box — so the curve
+   keeps meeting the nodes as the box is stretched. */
+.cmp-rail__line {
+  position: absolute;
+  left: 0;
+  top: 1.5rem;
+  width: 100%;
+  height: 4.5rem;
+}
+
+.cmp-step {
+  display: grid;
+  justify-items: center;
+  gap: 0.45rem;
+  padding-inline: 0.4rem;
+  text-align: center;
+}
+
+.cmp-step__num {
+  height: 1.5rem;
+  font-family: var(--face-mono);
+  font-size: 0.78rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.08em;
+  color: var(--to-slate);
+}
+
+.cmp-step__node {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  border: 1px solid var(--to-mist);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--to-ink);
+  box-shadow: 0 8px 18px rgba(14, 42, 51, 0.06);
+}
+
+.cmp-step__node svg {
+  width: 1.9rem;
+  height: 1.9rem;
+}
+
+.cmp-step__title {
+  margin-top: 0.35rem;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--to-ink);
+}
+
+.cmp-step__body {
+  max-width: 16rem;
+  font-size: 0.73rem;
+  line-height: 1.55;
+  color: var(--to-slate);
+}
+
+.cmp-proc__dish {
+  grid-column: 2;
+}
+
+.cmp-proc__dish svg {
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- one blend + figures ---------- */
+.cmp-stats {
+  padding-block: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.cmp-stats__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(0.9rem, 1.6vw, 1.4rem);
+}
+
+.cmp-stats__panel {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  align-content: center;
+  min-height: clamp(13rem, 20vw, 16.5rem);
+  padding: clamp(1.6rem, 3vw, 2.6rem);
+  border-radius: 22px;
+  background: var(--to-dark);
+}
+
+/* the render is a bright daylight image; it has to be pulled down to sit
+   under white type */
+.cmp-stats__panel img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+  filter: brightness(0.5) saturate(1.15);
+}
+
+.cmp-stats__panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    rgba(14, 42, 51, 0.96) 20%,
+    rgba(14, 42, 51, 0.66) 62%,
+    rgba(14, 42, 51, 0.3) 100%
+  );
+}
+
+.cmp-stats__copy {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: start;
+  gap: 1rem;
+  max-width: 27rem;
+}
+
+.cmp-stats__heading {
+  font-family: var(--face-display);
+  font-variation-settings: "wdth" 104, "wght" 680;
+  font-size: clamp(1.4rem, 2.4vw, 1.95rem);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--to-text-on-dark);
+}
+
+.cmp-stats__body {
+  max-width: 34ch;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--to-ink-soft);
+}
+
+.cmp-figures {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1px solid var(--to-mist);
+  border-radius: 22px;
+  background: #fff;
+}
+
+.cmp-figure {
+  display: grid;
+  justify-items: center;
+  gap: 0.45rem;
+  padding: clamp(1.4rem, 2.6vw, 2.2rem) 0.6rem;
+  border-left: 1px solid var(--to-mist);
+  text-align: center;
+}
+
+.cmp-figure:first-child {
+  border-left: 0;
+}
+
+.cmp-figure__icon {
+  display: grid;
+  place-items: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  margin-bottom: 0.4rem;
+  border-radius: 50%;
+  background: var(--to-green-10);
+  color: #3f7c25;
+}
+
+.cmp-figure:nth-child(even) .cmp-figure__icon {
+  background: var(--to-blue-10);
+  color: var(--to-blue-deep);
+}
+
+.cmp-figure__icon svg {
+  width: 1.7rem;
+  height: 1.7rem;
+}
+
+.cmp-figure__value {
+  font-family: var(--face-display);
+  font-variation-settings: "wdth" 104, "wght" 700;
+  font-size: clamp(1.6rem, 2.8vw, 2.3rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--to-ink);
+}
+
+.cmp-figure__label {
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--to-slate);
+}
+
+/* ---------- closing ---------- */
+.cmp-cta {
+  padding-block: clamp(1.25rem, 2.5vw, 2rem) clamp(2.5rem, 5vw, 4rem);
+}
+
+.cmp-cta__panel {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding: clamp(1.4rem, 2.6vw, 2.1rem) clamp(7rem, 15vw, 12rem) clamp(1.4rem, 2.6vw, 2.1rem)
+    clamp(1.4rem, 3vw, 2.6rem);
+  border-radius: 24px;
+  background: linear-gradient(100deg, #eaf5ee 0%, #f3f9fb 48%, #e9f4f9 100%);
+}
+
+.cmp-cta__text {
+  font-family: var(--face-display);
+  font-variation-settings: "wdth" 104, "wght" 660;
+  font-size: clamp(1.05rem, 1.9vw, 1.4rem);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--to-ink);
+}
+
+.cmp-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.cmp-cta__leaf {
+  position: absolute;
+  right: -0.5rem;
+  bottom: -1rem;
+  width: clamp(7rem, 13vw, 11rem);
+  pointer-events: none;
+}
+
+.cmp-cta__leaf svg {
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 1200px) {
+  .cmp-hero__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .cmp-hero__lede {
+    max-width: 56ch;
+  }
+
+  .cmp-mats__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .cmp-proc__panel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cmp-proc__dish {
+    display: none;
+  }
+
+  .cmp-stats__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .cmp-rail {
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 1.8rem;
+  }
+
+  /* the curve only describes a single row */
+  .cmp-rail__line {
+    display: none;
+  }
+
+  .cmp-figures {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cmp-figure:nth-child(odd) {
+    border-left: 0;
+  }
+
+  .cmp-figure:nth-child(n + 3) {
+    border-top: 1px solid var(--to-mist);
+  }
+}
+
+@media (max-width: 760px) {
+  .cmp-hero__viz {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .cmp-hero__result {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .cmp-hero__result-title br {
+    display: none;
+  }
+
+  .cmp-hero__checks {
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cmp-mats__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cmp-rail {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cmp-cta__panel {
+    grid-template-columns: 1fr;
+    padding-right: clamp(1.4rem, 3vw, 2.6rem);
+    padding-bottom: clamp(5rem, 18vw, 7rem);
+  }
+
+  .cmp-cta__leaf {
+    width: 8rem;
+    opacity: 0.85;
+  }
+}
+
+@media (max-width: 520px) {
+  .cmp-hero__checks {
+    grid-auto-flow: row;
+    justify-content: start;
+    justify-items: start;
+  }
+
+  .cmp-hero__result {
+    justify-items: start;
+    text-align: left;
+  }
+
+  .cmp-card__note {
+    min-height: 0;
+  }
+}
