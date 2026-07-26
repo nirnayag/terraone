@@ -57,7 +57,7 @@ export default function Insights() {
 
                   return (
                     <li
-                      className={`blogcard${i === 1 ? " is-featured" : ""}`}
+                      className="blogcard"
                       key={post.id}
                       style={{ transitionDelay: `${i * 80}ms` }}
                     >
@@ -65,14 +65,6 @@ export default function Insights() {
                         <figure className="blogcard__media">
                           <img src={image} alt="" loading="lazy" />
 
-                          {i === 1 && (
-                            <>
-                              <span className="blogcard__featured">Featured</span>
-                              <span className="blogcard__spark" aria-hidden="true">
-                                *
-                              </span>
-                            </>
-                          )}
                         </figure>
 
                         <div className="blogcard__body">

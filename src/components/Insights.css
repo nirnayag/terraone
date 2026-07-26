@@ -24,14 +24,20 @@
   content: "";
   position: absolute;
   z-index: -2;
-  right: -7rem;
-  top: -9rem;
-  width: clamp(25rem, 48vw, 45rem);
+  right: -12rem;
+  top: -14rem;
+  width: clamp(30rem, 56vw, 54rem);
   aspect-ratio: 1;
   border-radius: 50%;
-  background:
-    radial-gradient(circle at 60% 45%, rgba(14, 42, 51, 0.08), transparent 16%),
-    linear-gradient(135deg, rgba(198, 224, 166, 0.82), rgba(109, 190, 69, 0.18));
+  /* fades out instead of ending on a hard rim, which was reading as a stray
+     container edge behind the cards */
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(198, 224, 166, 0.55) 0%,
+    rgba(198, 224, 166, 0.28) 45%,
+    rgba(198, 224, 166, 0) 72%
+  );
+  animation: blog-drift 18s ease-in-out infinite;
 }
 
 .insights::after {
@@ -265,13 +271,6 @@
     border-color 0.25s ease;
 }
 
-.blogcard.is-featured {
-  border: 2px solid var(--blog-green);
-  box-shadow:
-    0 28px 70px rgba(47, 107, 42, 0.22),
-    0 0 0 0.5rem rgba(109, 190, 69, 0.12);
-}
-
 .blogcard:hover {
   transform: translateY(-4px);
 }
@@ -322,20 +321,6 @@
 }
 
 .blogcard__icon,
-.blogcard__spark {
-  position: absolute;
-  z-index: 2;
-  display: grid;
-  place-items: center;
-  width: 3.6rem;
-  height: 3.6rem;
-  border: 1px solid rgba(247, 249, 250, 0.8);
-  border-radius: 50%;
-  background: linear-gradient(135deg, #2f6b2a, var(--blog-green));
-  color: #fff;
-  box-shadow: 0 12px 30px rgba(14, 42, 51, 0.2);
-}
-
 .blogcard__icon {
   top: 1rem;
   left: 1.1rem;
@@ -344,44 +329,6 @@
 .blogcard__icon svg {
   width: 1.75rem;
   height: 1.75rem;
-}
-
-.blogcard__spark {
-  top: 1.1rem;
-  right: 1.1rem;
-  font-size: 1.35rem;
-}
-
-.blogcard__featured {
-  position: absolute;
-  z-index: 2;
-  top: 1.1rem;
-  left: 1.25rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.42rem;
-  padding: 0.42rem 0.8rem;
-  border-radius: 999px;
-  background: #c6e98b;
-  font-family: var(--face-mono);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #2f6b2a;
-}
-
-.blogcard__featured::before {
-  content: "";
-  width: 1rem;
-  height: 1rem;
-  border-radius: 50%;
-  background: #2f6b2a;
-  box-shadow: inset 0 0 0 0.3rem #c6e98b;
-}
-
-.blogcard.is-featured .blogcard__icon {
-  display: none;
 }
 
 .blogcard__body {
@@ -568,3 +515,39 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+/* ---------- ambient motion ----------
+   The decorative pieces already in the section are what move — no extra
+   markup, and the global reduced-motion rule switches all of it off. */
+@keyframes blog-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-1.4rem, 1.1rem, 0) scale(1.04); }
+}
+
+@keyframes blog-float {
+  0%, 100% { transform: translateY(0) rotate(-28deg); }
+  50% { transform: translateY(-1.1rem) rotate(-18deg); }
+}
+
+@keyframes blog-float-alt {
+  0%, 100% { transform: translateY(0) rotate(-28deg); }
+  50% { transform: translateY(0.9rem) rotate(-38deg); }
+}
+
+@keyframes blog-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+
+@keyframes blog-shimmer {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.85; }
+}
+
+.insights__leaf--one { animation: blog-float 7s ease-in-out infinite; }
+.insights__leaf--two { animation: blog-float-alt 9s ease-in-out infinite 0.8s; }
+.insights__orb { animation: blog-breathe 11s ease-in-out infinite; }
+.insights__dots--top { animation: blog-shimmer 6s ease-in-out infinite; }
+.insights__dots--right { animation: blog-shimmer 8s ease-in-out infinite 1.2s; }
+.insights::after { animation: blog-drift 22s ease-in-out infinite reverse; }
