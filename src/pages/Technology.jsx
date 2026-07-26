@@ -1,19 +1,33 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { technologies, process } from "../data/content";
+import { process } from "../data/content";
 import { useReveal } from "../hooks/useReveal";
-import PageHead from "../components/PageHead";
+import TechHero from "../components/TechHero";
 import Technologies from "../components/Technologies";
 import "./Technology.css";
 
 export default function Technology() {
   const scope = useReveal();
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const handleSelectNode = (idx) => {
+    setActiveIndex(idx);
+    // Smooth scroll down to the portfolio detail section if clicked
+    const element = document.getElementById("technology");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   return (
     <>
-      <PageHead eyebrow={technologies.eyebrow} title={technologies.heading} lede={technologies.body} />
+      {/* Premium Hero Banner matching phototune.ai_1785081274.png */}
+      <TechHero activeIndex={activeIndex} onSelectNode={handleSelectNode} />
 
-      <Technologies standalone />
+      {/* Biopolymer Portfolio Section */}
+      <Technologies standalone selectedIndex={activeIndex} onSelect={setActiveIndex} />
 
+      {/* Process Section */}
       <section className="band band--tight techprocess" ref={scope}>
         <div className="shell">
           <div className="head reveal">
