@@ -331,135 +331,171 @@
   display: none;
 }
 
+/* ======================================================
+   BLOGCARD — premium vertical card
+   ====================================================== */
 .blogcard {
   scroll-snap-align: center;
-  min-height: clamp(19rem, 26vw, 22.5rem);
-  border-radius: 22px;
-  background: #fff;
+  border-radius: 24px;
+  background: #fafcfa;
   box-shadow:
-    0 2px 8px rgba(14, 42, 51, 0.05),
-    0 12px 40px rgba(14, 42, 51, 0.1),
-    0 32px 80px rgba(14, 42, 51, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 1);
+    0 2px 6px rgba(14, 42, 51, 0.04),
+    0 10px 32px rgba(14, 42, 51, 0.09),
+    0 28px 72px rgba(14, 42, 51, 0.11);
   transition:
-    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.3s ease;
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.32s ease;
   -webkit-tap-highlight-color: transparent;
   outline: none;
+  overflow: hidden;
 }
 
 .blogcard:hover {
-  transform: translateY(-7px);
+  transform: translateY(-8px) scale(1.012);
   box-shadow:
-    0 4px 16px rgba(14, 42, 51, 0.07),
-    0 20px 56px rgba(14, 42, 51, 0.14),
-    0 48px 100px rgba(14, 42, 51, 0.16),
-    inset 0 1px 0 rgba(255, 255, 255, 1);
+    0 4px 14px rgba(14, 42, 51, 0.06),
+    0 18px 48px rgba(14, 42, 51, 0.13),
+    0 44px 96px rgba(14, 42, 51, 0.15);
 }
 
-/* mobile: no snap-highlight, no focus ring visible on card itself */
-.blogcard:focus-within {
-  outline: none;
-}
+.blogcard:focus-within { outline: none; }
 
+/* ---- link wrapper ---- */
 .blogcard__link {
-  display: grid;
-  grid-template-rows: auto 1fr;
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  overflow: hidden;
-  border-radius: inherit;
   text-decoration: none;
   color: inherit;
 }
 
+/* ---- image area ---- */
 .blogcard__media {
   position: relative;
-  margin: 0;
-  min-height: 9.5rem;
+  flex: none;
+  height: clamp(11rem, 18vw, 14rem);
   overflow: hidden;
-  background: linear-gradient(135deg, rgba(109, 190, 69, 0.18), rgba(0, 160, 225, 0.12));
-  border-radius: 22px 22px 0 0;
-}
-
-/* smooth gradient fade at image bottom into the white card body */
-.blogcard__media::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 2.5rem;
-  background: linear-gradient(to top, #fff 0%, transparent 100%);
-  pointer-events: none;
+  background: linear-gradient(135deg,
+    rgba(109, 190, 69, 0.22),
+    rgba(0, 160, 225, 0.14));
 }
 
 .blogcard__media img,
 .blogcard__fallback {
   width: 100%;
   height: 100%;
-  min-height: inherit;
   object-fit: cover;
+  display: block;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.blogcard:hover .blogcard__media img,
+.blogcard:hover .blogcard__fallback {
+  transform: scale(1.06);
 }
 
 .blogcard__fallback {
-  display: block;
   background:
-    radial-gradient(circle at 50% 40%, rgba(109, 190, 69, 0.34), transparent 25%),
-    radial-gradient(circle, rgba(47, 107, 42, 0.35) 0 2px, transparent 2.5px);
+    radial-gradient(circle at 50% 40%, rgba(109, 190, 69, 0.38), transparent 28%),
+    radial-gradient(circle, rgba(47, 107, 42, 0.32) 0 2px, transparent 2.5px);
   background-size: auto, 1.2rem 1.2rem;
 }
 
-.blogcard__icon,
-.blogcard__icon {
-  top: 1rem;
-  left: 1.1rem;
+/* green-to-transparent scrim at image bottom */
+.blogcard__media::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 55%;
+  background: linear-gradient(
+    to top,
+    rgba(10, 38, 18, 0.58) 0%,
+    rgba(10, 38, 18, 0.18) 45%,
+    transparent 100%
+  );
+  pointer-events: none;
 }
 
-.blogcard__icon svg {
-  width: 1.75rem;
-  height: 1.75rem;
-}
-
-.blogcard__body {
-  display: grid;
-  align-content: start;
-  gap: 0.75rem;
-  padding: clamp(1.05rem, 1.55vw, 1.35rem);
-}
-
+/* category tag floated on image */
 .blogcard__tag {
+  position: absolute;
+  z-index: 2;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.28rem 0.78rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.32);
   font-family: var(--face-mono);
-  font-size: 0.76rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #2f6b2a;
+  color: #fff;
+}
+
+/* ---- card body ---- */
+.blogcard__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0;
+  padding: 1.35rem 1.4rem 1.4rem;
 }
 
 .blogcard__title {
-  min-height: 4.15rem;
+  flex: 1;
   font-family: var(--face-display);
-  font-variation-settings: "wdth" 104, "wght" 650;
-  font-size: clamp(1.14rem, 1.4vw, 1.34rem);
-  line-height: 1.2;
-  letter-spacing: 0;
-  color: #1b2227;
+  font-variation-settings: "wdth" 104, "wght" 660;
+  font-size: clamp(1.08rem, 1.3vw, 1.28rem);
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+  color: #0e2117;
   text-wrap: balance;
+  margin-bottom: 1rem;
 }
 
+/* ---- footer row ---- */
 .blogcard__foot {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  color: #4f5d64;
+  gap: 0.75rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(47, 107, 42, 0.12);
+  font-size: 0.82rem;
+  color: #5a6e62;
 }
 
-.blogcard__foot span {
-  color: #2f6b2a;
+.blogcard__foot time {
+  letter-spacing: 0.01em;
+}
+
+.blogcard__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.36rem 0.85rem;
+  border-radius: 999px;
+  background: #0e2a1a;
+  color: #fff;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   white-space: nowrap;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.blogcard:hover .blogcard__cta {
+  background: #1e4a30;
+  transform: translateX(2px);
+}
+
+.blogcard__cta-arrow {
+  font-size: 0.9rem;
+  line-height: 1;
 }
 
 .insights__arrow {
@@ -605,13 +641,16 @@
   }
 
   .blogcard {
-    min-height: auto;
     scroll-snap-align: start;
   }
 
+  .blogcard__media {
+    height: clamp(10.5rem, 46vw, 13rem);
+  }
+
   .blogcard__title {
-    min-height: auto;
-    font-size: 1.15rem;
+    font-size: 1.12rem;
+    margin-bottom: 0.85rem;
   }
 
   .insights__leaf--one {

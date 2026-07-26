@@ -71,17 +71,19 @@ export default function Insights() {
                       <Link className="blogcard__link" to={`/blogs/${post.slug}`}>
                         <figure className="blogcard__media">
                           <img src={image} alt="" loading="lazy" />
-
+                          <span className="blogcard__tag">
+                            {post.categories[0]?.name ?? "TerraPHA"}
+                          </span>
                         </figure>
 
                         <div className="blogcard__body">
-                          <p className="blogcard__tag">
-                            {post.categories[0]?.name ?? "TerraPHA"}
-                          </p>
                           <h3 className="blogcard__title">{post.title}</h3>
                           <div className="blogcard__foot">
                             <time dateTime={post.date}>{formatDate(post.date)}</time>
-                            <span aria-hidden="true">Read more &rarr;</span>
+                            <span className="blogcard__cta" aria-hidden="true">
+                              Read more
+                              <span className="blogcard__cta-arrow" aria-hidden="true">&rarr;</span>
+                            </span>
                           </div>
                         </div>
                       </Link>
