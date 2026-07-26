@@ -58,6 +58,7 @@
 .wwd__heading {
   max-width: 22ch;
   color: var(--wwd-ink);
+  text-wrap: balance;
 }
 
 .wwd__dotgrid {
@@ -410,11 +411,13 @@
 
 @media (max-width: 680px) {
   .wwd {
-    padding-block: 1.05rem;
+    padding-block: 1.5rem;
   }
 
   .wwd__heading {
-    font-size: clamp(1.75rem, 8vw, 2.15rem);
+    max-width: 100%;
+    font-size: clamp(1.8rem, 7vw, 2.3rem);
+    line-height: 1.15;
   }
 
   .wwd__dotgrid {
@@ -422,8 +425,8 @@
   }
 
   .wwd__track {
-    --gap: 1.75rem;
-    grid-auto-columns: 84cqw;
+    --gap: 1rem;
+    grid-auto-columns: 100cqw;
   }
 
   .hex__flow {
@@ -432,10 +435,10 @@
 
   .wwd__note {
     grid-template-columns: auto minmax(0, 1fr);
-    padding-left: 1.35rem;
+    padding-left: 0.75rem;
   }
 
   .wwd__lead {
-    padding-left: 1.35rem;
+    padding-left: 1.25rem;
   }
 }

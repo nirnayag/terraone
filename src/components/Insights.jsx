@@ -50,7 +50,7 @@ export default function Insights() {
             <span className="insights__rule" aria-hidden="true" />
           </div>
 
-          <Link className="insights__more" to="/blogs">
+          <Link className="insights__more insights__more--top" to="/blogs">
             More Blogs <span aria-hidden="true">&rarr;</span>
           </Link>
         </div>
@@ -93,7 +93,11 @@ export default function Insights() {
           </Async>
         </div>
 
-    
+        <div className="insights__foot">
+          <Link className="insights__more insights__more--bottom" to="/blogs">
+            View All Blogs <span aria-hidden="true">&rarr;</span>
+          </Link>
+        </div>
       </div>
     </section>
   );

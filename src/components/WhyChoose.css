@@ -28,7 +28,7 @@
 
 .why__heading {
   color: var(--why-ink);
-  white-space: nowrap;
+  text-wrap: balance;
 }
 
 .why__heading span { color: #2f6b2a; }
@@ -345,17 +345,63 @@
 
 /* ---------- responsive ---------- */
 @media (max-width: 1080px) {
-  .why__panels { grid-template-columns: 1fr; }
+  .why__panels { grid-template-columns: 1fr; gap: 1.8rem; }
 }
 
 @media (max-width: 780px) {
-  .why__head { grid-template-columns: 1fr; }
-  .why__sprout { justify-self: center; margin-top: 0; }
+  .why__head {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .why__heading {
+    font-size: clamp(2rem, 7vw, 2.75rem);
+  }
+
+  .why__sprout {
+    display: none;
+  }
+
+  .wpanel {
+    padding: 1.25rem 1rem 1.1rem;
+  }
+
+  .wpanel__head {
+    gap: 0.65rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .wpanel__badge {
+    width: 2.35rem;
+    height: 2.35rem;
+  }
+
+  .wpanel__badge svg {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  .wpanel__title {
+    font-size: 0.85rem;
+  }
 
   .wpanel__cards { grid-template-columns: 1fr; }
+
   .wcard.is-left,
   .wcard.is-right { display: none; }
 
-  .wpanel__nav--prev { left: -0.6rem; }
-  .wpanel__nav--next { right: -0.6rem; }
+  .wcard.is-center {
+    margin-inline: 0;
+    padding: 1.25rem 1.1rem 1.4rem;
+    border-radius: 12px;
+  }
+
+  .wcard.is-center .wcard__name {
+    font-size: 1.12rem;
+  }
+
+  .wpanel__nav {
+    display: none;
+  }
 }
