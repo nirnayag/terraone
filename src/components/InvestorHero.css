@@ -1,0 +1,352 @@
+/* ==========================================================================
+   InvestorHero Component — Exact Match to Target Mockup
+   ========================================================================== */
+
+.invhero-wrapper {
+  padding-top: 72px;
+  padding-bottom: 80px;
+  background: var(--to-paper);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Single Organic Right Side SVG cutout — 70% width filled with 3D Biotech Image */
+.invhero-right-blob {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 70%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.invhero-right-blob--image {
+  filter: drop-shadow(-12px 18px 36px rgba(14, 42, 51, 0.12));
+}
+
+.invhero-wave-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center right;
+  clip-path: url(#heroSingleWaveClip);
+  display: block;
+}
+
+.invhero-right-blob svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.invhero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  align-items: center;
+  gap: 48px;
+  position: relative;
+  z-index: 3;
+}
+
+/* ── Hero Content ── */
+.invhero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 680px;
+  position: relative;
+  z-index: 3;
+}
+
+.invhero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.invhero-eyebrow__arrow {
+  color: #2D6A37;
+  font-size: 0.9rem;
+}
+
+.invhero-eyebrow__text {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #2D6A37;
+}
+
+.invhero-title {
+  font-family: serif, "Times New Roman", Georgia;
+  font-size: clamp(3rem, 5.2vw, 4.4rem);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: #111827;
+  margin: 0 0 24px 0;
+}
+
+.invhero-title__first {
+  font-style: italic;
+  color: #2D6A37;
+  font-weight: 400;
+}
+
+.invhero-lede {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 1.05rem;
+  line-height: 1.68;
+  color: #64748B;
+  max-width: 480px;
+  margin: 0 0 36px 0;
+}
+
+/* Buttons */
+.invhero-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.invhero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: 50px;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.invhero-btn--green {
+  background: #3B7A46;
+  color: #FFFFFF;
+  border: 1px solid #3B7A46;
+  box-shadow: 0 4px 14px rgba(59, 122, 70, 0.25);
+}
+
+.invhero-btn--green:hover {
+  background: #2E6B39;
+  border-color: #2E6B39;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 122, 70, 0.35);
+  color: #FFFFFF;
+}
+
+.invhero-btn--outline {
+  background: #FFFFFF;
+  color: #2D6A37;
+  border: 1.5px solid #C2E0C6;
+}
+
+.invhero-btn--outline:hover {
+  border-color: #3B7A46;
+  background: #F0F9F1;
+  transform: translateY(-2px);
+}
+
+.invhero-btn__arrow {
+  font-size: 1rem;
+}
+
+/* ── Right Stage Visual ── */
+.invhero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.invhero-stage {
+  position: relative;
+  width: 520px;
+  height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Track SVG */
+.invhero-track-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Biomorphic Frame & Flask Image */
+.invhero-frame-container {
+  position: relative;
+  z-index: 2;
+  width: 380px;
+  height: 380px;
+}
+
+.invhero-biomorphic-frame {
+  width: 100%;
+  height: 100%;
+  border-radius: 62% 38% 46% 54% / 60% 44% 56% 40%;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 8px rgba(255, 255, 255, 0.9),
+    0 24px 60px rgba(15, 23, 42, 0.12);
+  background: #FFFFFF;
+  animation: blobMorph 14s ease-in-out infinite;
+  will-change: border-radius;
+}
+
+@keyframes blobMorph {
+  0%   { border-radius: 62% 38% 46% 54% / 60% 44% 56% 40%; }
+  25%  { border-radius: 44% 56% 68% 32% / 48% 64% 36% 52%; }
+  50%  { border-radius: 56% 44% 38% 62% / 36% 58% 42% 64%; }
+  75%  { border-radius: 42% 58% 36% 64% / 38% 62% 48% 52%; }
+  100% { border-radius: 62% 38% 46% 54% / 60% 44% 56% 40%; }
+}
+
+.invhero-flask-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Oval Badge on Frame */
+.invhero-badge-pill {
+  position: absolute;
+  left: 20px;
+  top: 55%;
+  transform: translateY(-50%);
+  z-index: 4;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid #E2E8F0;
+  border-radius: 30px;
+  padding: 14px 20px;
+  max-width: 170px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.invhero-badge-pill__text {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #334155;
+}
+
+.invhero-badge-pill__bar {
+  width: 32px;
+  height: 3px;
+  background: #3B7A46;
+  border-radius: 2px;
+}
+
+/* 5 Floating Icon Nodes on Track Orbit */
+.invhero-node {
+  position: absolute;
+  z-index: 5;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.85),
+    0 8px 20px rgba(15, 23, 42, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.invhero-node:hover {
+  transform: scale(1.1);
+  box-shadow:
+    0 0 0 6px rgba(255, 255, 255, 0.95),
+    0 12px 28px rgba(59, 122, 70, 0.2);
+}
+
+.invhero-node__inner {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Node Positions on Orbit */
+.node-top {
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.node-top-left {
+  top: 75px;
+  left: 30px;
+}
+
+.node-top-right {
+  top: 75px;
+  right: 30px;
+}
+
+.node-bottom-left {
+  bottom: 60px;
+  left: 40px;
+}
+
+.node-bottom-right {
+  bottom: 60px;
+  right: 40px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .invhero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .invhero-content {
+    align-items: center;
+    text-align: center;
+  }
+  .invhero-lede {
+    max-width: 100%;
+  }
+  .invhero-actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .invhero-stage {
+    width: 340px;
+    height: 340px;
+  }
+  .invhero-frame-container {
+    width: 260px;
+    height: 260px;
+  }
+  .invhero-node {
+    width: 46px;
+    height: 46px;
+  }
+  .invhero-node__inner {
+    width: 20px;
+    height: 20px;
+  }
+}
