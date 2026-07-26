@@ -79,7 +79,7 @@ export default function Insights() {
             <p className="insights__eyebrow">
               Insights <span aria-hidden="true" />
             </p>
-            <h2 className="insights__heading">
+            <h2 className="display display--lg insights__heading">
               Latest Blogs <span aria-hidden="true" />
             </h2>
             <p className="insights__sub">
@@ -176,14 +176,7 @@ export default function Insights() {
           </button>
         </div>
 
-        <a className="insights__inspire" href="#top" aria-label="Back to top">
-          <span>
-            Stay
-            <br />
-            Inspired
-          </span>
-          <i aria-hidden="true">v</i>
-        </a>
+    
       </div>
     </section>
   );

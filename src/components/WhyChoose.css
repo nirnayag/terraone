@@ -27,11 +27,6 @@
 }
 
 .why__heading {
-  font-family: var(--face-display);
-  font-variation-settings: "wdth" 100, "wght" 800;
-  font-size: clamp(1.9rem, 3.7vw, 3.05rem);
-  line-height: 1.1;
-  letter-spacing: -0.03em;
   color: var(--why-ink);
   white-space: nowrap;
 }

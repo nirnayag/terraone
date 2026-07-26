@@ -80,7 +80,7 @@ export default function StatsBand() {
             About TerraOne
           </p>
 
-          <h2 className="statsband__heading">
+          <h2 className="display display--lg statsband__heading">
             <span className="is-blue">Built</span> for global industries.
             <br />
             Trusted through <span className="is-green">innovation.</span>

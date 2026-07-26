@@ -128,7 +128,7 @@ export default function WhyChoose() {
 
       <div className="shell">
         <header className="why__head">
-          <h2 className="why__heading">
+          <h2 className="display display--lg why__heading">
             Why choose <span>TerraOne?</span>
           </h2>
           <p className="why__lede">{overview.note}</p>

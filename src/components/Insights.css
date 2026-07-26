@@ -174,20 +174,14 @@
   display: inline-flex;
   align-items: center;
   gap: 1rem;
-  font-family: var(--face-display);
-  font-variation-settings: "wdth" 105, "wght" 760;
-  font-size: clamp(2.75rem, 5.55vw, 4.75rem);
-  line-height: 0.96;
-  letter-spacing: 0;
   color: #183c22;
-  text-shadow: 0 18px 36px rgba(14, 42, 51, 0.08);
 }
 
 .insights__heading span {
   display: inline-block;
-  width: 3.2rem;
-  height: 1.85rem;
-  margin-top: 0.4rem;
+  width: 2.1rem;
+  height: 1.2rem;
+  margin-top: 0.3rem;
   border-radius: 100% 0 100% 0;
   background: linear-gradient(135deg, #e2f2da, #2f6b2a);
   transform: rotate(-28deg);
@@ -235,21 +229,23 @@
 }
 
 .insights__stage {
+  --blog-gap: clamp(1rem, 1.6vw, 1.35rem);
   position: relative;
 }
 
 .insights__rail {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: clamp(17.5rem, 27vw, 24rem);
-  gap: clamp(1rem, 1.6vw, 1.35rem);
+  grid-auto-columns: calc((100% - 2 * var(--blog-gap)) / 3);
+  gap: var(--blog-gap);
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
-  padding: 0.5rem clamp(0.5rem, 4vw, 2rem) 1.2rem;
-  margin-inline: calc(clamp(0.5rem, 4vw, 2rem) * -1);
+  padding: 0.5rem 0 1.2rem;
 }
+
+.insights__rail::-webkit-scrollbar { display: none; }
 
 .insights__rail::-webkit-scrollbar {
   display: none;
@@ -257,7 +253,7 @@
 
 .blogcard {
   scroll-snap-align: center;
-  min-height: clamp(22.5rem, 33vw, 27rem);
+  min-height: clamp(19rem, 26vw, 22.5rem);
   border-radius: 22px;
   background: rgba(247, 249, 250, 0.92);
   box-shadow:
@@ -293,7 +289,7 @@
 .blogcard__media {
   position: relative;
   margin: 0;
-  min-height: 12.7rem;
+  min-height: 9.5rem;
   overflow: hidden;
   background: linear-gradient(135deg, rgba(109, 190, 69, 0.18), rgba(0, 160, 225, 0.12));
 }
@@ -433,7 +429,7 @@
 .insights__arrow {
   position: absolute;
   z-index: 4;
-  top: 45%;
+  top: 42%;
   translate: 0 -50%;
   display: grid;
   place-items: center;
@@ -447,13 +443,11 @@
 }
 
 .insights__arrow--prev {
-  left: -1.8rem;
-  background: #2f6b2a;
-  color: #fff;
+  left: -2.4rem;
 }
 
 .insights__arrow--next {
-  right: -1.8rem;
+  right: -2.4rem;
 }
 
 .insights__pager {
@@ -481,12 +475,12 @@
 .insights__inspire {
   position: absolute;
   right: clamp(1rem, 3vw, 2.5rem);
-  bottom: 0.1rem;
+  bottom: -3.4rem;
   z-index: 3;
   display: grid;
   place-items: center;
-  width: 6.2rem;
-  height: 6.2rem;
+  width: 5.4rem;
+  height: 5.4rem;
   border: 0.58rem solid rgba(247, 249, 250, 0.68);
   border-radius: 50%;
   background: #17451f;

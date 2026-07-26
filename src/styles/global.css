@@ -110,10 +110,10 @@ p {
 /* ---------- type ---------- */
 .display {
   font-family: var(--face-display);
-  font-variation-settings: "wdth" 112, "wght" 700;
+  font-variation-settings: "wdth" 104, "wght" 700;
   font-weight: 700;
-  line-height: 0.98;
-  letter-spacing: -0.022em;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
   text-wrap: balance;
 }
 
@@ -121,8 +121,9 @@ p {
   font-size: clamp(2.7rem, 8.2vw, 6.4rem);
 }
 
+/* the agreed section-heading size — every band on the homepage uses this */
 .display--lg {
-  font-size: clamp(2rem, 4.6vw, 3.5rem);
+  font-size: clamp(1.85rem, 3.5vw, 2.9rem);
 }
 
 .display--md {

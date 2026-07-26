@@ -57,7 +57,6 @@
 
 .wwd__heading {
   max-width: 22ch;
-  font-size: clamp(1.85rem, 3vw, 2.55rem);
   color: var(--wwd-ink);
 }
 

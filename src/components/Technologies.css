@@ -77,11 +77,6 @@
 .matport__eyebrow span { width: 24px; height: 2px; border-radius: 100px; background: var(--to-green); }
 
 .matport__heading {
-  font-family: var(--face-jakarta);
-  font-weight: 800;
-  font-size: 38px;
-  line-height: 44px;
-  letter-spacing: -1.6px;
   color: var(--to-ink);
 }
 

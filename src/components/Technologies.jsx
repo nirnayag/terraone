@@ -46,7 +46,7 @@ export default function Technologies({ standalone = false }) {
             <p className="matport__eyebrow">
               Material portfolio <span aria-hidden="true" />
             </p>
-            <h2 className="matport__heading">
+            <h2 className="display display--lg matport__heading">
               Biopolymer portfolio
               <br />
               of <span>TerraOne</span>

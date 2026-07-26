@@ -108,13 +108,7 @@
 
 .statsband__heading {
   margin-top: 1.35rem;
-  font-family: var(--face-display);
-  font-variation-settings: "wdth" 100, "wght" 700;
-  font-size: clamp(1.85rem, 3.6vw, 3rem);
-  line-height: 1.18;
-  letter-spacing: -0.025em;
   color: var(--to-ink);
-  text-wrap: balance;
 }
 
 .statsband__heading .is-blue { color: var(--to-link); }
