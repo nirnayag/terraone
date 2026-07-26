@@ -297,57 +297,61 @@ export default function Investors() {
 
             {/* Phase 01 */}
             <div className="inv-traj__card" style={{ "--i": 0 }}>
-              <div className="inv-traj__badge inv-traj__badge--leaf">01</div>
+              <span className="inv-traj__arrow">➔</span>
+              <div className="inv-traj__inner">
+                <h3 className="inv-traj__card-title">Pilot Validation</h3>
+                <p className="inv-traj__card-desc">
+                  Secured configuration protections and verified baseline strain clarity indexes.
+                </p>
+              </div>
               <div className="inv-traj__img-wrap">
                 <img src="/media/decor/inv_phase1.png" alt="Pilot Validation" className="inv-traj__img" />
               </div>
-              <span className="inv-traj__arrow">➔</span>
-              <h3 className="inv-traj__card-title">Pilot Validation</h3>
-              <p className="inv-traj__card-desc">
-                Secured configuration protections and verified baseline strain clarity indexes.
-              </p>
             </div>
 
             {/* Phase 02 */}
             <div className="inv-traj__card" style={{ "--i": 1 }}>
-              <div className="inv-traj__badge inv-traj__badge--leaf">02</div>
+              <span className="inv-traj__arrow">➔</span>
+              <div className="inv-traj__inner">
+                <h3 className="inv-traj__card-title">Feedstock Optimization</h3>
+                <p className="inv-traj__card-desc">
+                  Optimized input architectures using circular side-streams for clean cost parities.
+                </p>
+              </div>
               <div className="inv-traj__img-wrap">
                 <img src="/media/decor/inv_phase2.png" alt="Feedstock Optimization" className="inv-traj__img" />
               </div>
-              <span className="inv-traj__arrow">➔</span>
-              <h3 className="inv-traj__card-title">Feedstock Optimization</h3>
-              <p className="inv-traj__card-desc">
-                Optimized input architectures using circular side-streams for clean cost parities.
-              </p>
             </div>
 
             {/* Phase 03 */}
             <div className="inv-traj__card" style={{ "--i": 2 }}>
-              <div className="inv-traj__badge inv-traj__badge--blue">03</div>
+              <span className="inv-traj__arrow">➔</span>
+              <div className="inv-traj__inner">
+                <h3 className="inv-traj__card-title">Enterprise Licensing</h3>
+                <p className="inv-traj__card-desc">
+                  Deploying modular configuration rights across international converter markets.
+                </p>
+              </div>
               <div className="inv-traj__img-wrap">
                 <img src="/media/decor/inv_phase3.png" alt="Enterprise Licensing" className="inv-traj__img" />
               </div>
-              <span className="inv-traj__arrow">➔</span>
-              <h3 className="inv-traj__card-title">Enterprise Licensing</h3>
-              <p className="inv-traj__card-desc">
-                Deploying modular configuration rights across international converter markets.
-              </p>
             </div>
 
             {/* Phase 04 */}
             <div className="inv-traj__card" style={{ "--i": 3 }}>
-              <div className="inv-traj__badge inv-traj__badge--blue">04</div>
+              <div className="inv-traj__inner">
+                <h3 className="inv-traj__card-title">Sustained Scale</h3>
+                <p className="inv-traj__card-desc">
+                  Activating regional compounding hubs to satisfy global packaging pipelines.
+                </p>
+              </div>
               <div className="inv-traj__img-wrap">
                 <img
-                  src="/media/decor/biopolymer_molecule_3d_nature.png"
+                  src="/media/decor/investor_hero_flask.png"
                   alt="Sustained Scale"
                   className="inv-traj__img"
                 />
               </div>
-              <h3 className="inv-traj__card-title">Sustained Scale</h3>
-              <p className="inv-traj__card-desc">
-                Activating regional compounding hubs to satisfy global packaging pipelines.
-              </p>
             </div>
 
           </div>
