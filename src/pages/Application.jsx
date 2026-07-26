@@ -1,70 +1,185 @@
 import { Link } from "react-router-dom";
-import { applicationPage } from "../data/content";
+import { applicationPage, sectors } from "../data/content";
+import { SectorIcon } from "../components/SectorIcons";
 import { useReveal } from "../hooks/useReveal";
-import PageHead from "../components/PageHead";
 import "./Application.css";
+
+/* The four sectors shipping today lead the page; the rest sit under
+   "future potential". Order follows the design. */
+const LEAD = ["packaging", "aquaculture", "animal-husbandry", "agriculture"];
+const AHEAD = ["food-and-beverages", "cosmetics", "wastewater", "biomedical", "pharmaceutical", "textile"];
+
+/* Where a sector already has a product category, the arrow goes to the
+   catalogue filtered to it; everything else routes to an enquiry. */
+const CATALOGUE = {
+  packaging: "packaging",
+  aquaculture: "aquaculture-fisheries",
+  "animal-husbandry": "animal-husbandry",
+  agriculture: "agriculture-horticulture",
+};
+
+const bySlug = (slug) =>
+  sectors.find((s) => s.slug === slug) ??
+  applicationPage.sectors.find((s) => s.slug === slug);
+
+const linkFor = (slug) =>
+  CATALOGUE[slug] ? `/products?category=${CATALOGUE[slug]}` : "/contact";
+
+/* Titles set their initial in green, as in the design. */
+function SplitTitle({ text }) {
+  return (
+    <>
+      <span className="approw__initial">{text.charAt(0)}</span>
+      {text.slice(1)}
+    </>
+  );
+}
+
+function Arrow() {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 10h11M10.5 5 15.5 10l-5 5" />
+    </svg>
+  );
+}
 
 export default function Application() {
   const scope = useReveal();
+  const lead = LEAD.map(bySlug).filter(Boolean);
+  const ahead = AHEAD.map(bySlug).filter(Boolean);
 
   return (
-    <>
-      <PageHead
-        eyebrow="Application"
-        title={applicationPage.title}
-        lede={applicationPage.lede}
-      />
-
-      <section className="band band--tight" ref={scope}>
-        <div className="shell">
-          <p className="appintro reveal">{applicationPage.intro}</p>
-
-          {/* An index first: ten sectors is too many to scroll blind. */}
-          <nav className="appindex reveal" aria-label="Sectors">
-            <p className="appindex__key">Jump to</p>
-            <ul>
-              {applicationPage.sectors.map((s, i) => (
-                <li key={s.slug}>
-                  <a href={`#${s.slug}`}>
-                    <span className="appindex__num">{String(i + 1).padStart(2, "0")}</span>
-                    {s.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <div className="appsectors">
-            {applicationPage.sectors.map((s, i) => (
-              <article className="appsector reveal" id={s.slug} key={s.slug}>
-                <div className="appsector__media">
-                  <img src={s.image} alt="" loading="lazy" />
-                </div>
-                <div className="appsector__copy">
-                  <p className="appsector__num">{String(i + 1).padStart(2, "0")}</p>
-                  <h2 className="display display--md appsector__title">{s.name}</h2>
-                  <p className="appsector__body">{s.body}</p>
-                </div>
-              </article>
-            ))}
+    <div className="apppage" ref={scope}>
+      {/* ---------- hero ---------- */}
+      <section className="apphero">
+        <div className="shell apphero__inner">
+          <div className="apphero__copy reveal">
+            <p className="apphero__eyebrow">
+              <span aria-hidden="true" />
+              Application
+            </p>
+            <h1 className="apphero__heading">
+              Where our materials
+              <br />
+              <span>make an impact</span>
+            </h1>
+            <p className="apphero__lede">{applicationPage.intro}</p>
           </div>
 
-          <div className="appcta reveal">
-            <p className="appcta__body">
-              Every sector above needs a different grade. Tell us the application and we will point
-              you at the right one.
-            </p>
-            <div className="appcta__actions">
-              <Link className="btn btn--fill" to="/contact">
-                Start an enquiry
-              </Link>
-              <Link className="btn btn--line" to="/products">
-                See the catalogue
-              </Link>
-            </div>
+          <div className="collage reveal" aria-hidden="true">
+            <figure className="collage__tile collage__tile--a">
+              <img src={bySlug("agriculture").image} alt="" loading="lazy" />
+            </figure>
+            <figure className="collage__tile collage__tile--b">
+              <img src={bySlug("animal-husbandry").image} alt="" loading="lazy" />
+            </figure>
+            <figure className="collage__tile collage__tile--c">
+              <img src={bySlug("aquaculture").image} alt="" loading="lazy" />
+            </figure>
+            <span className="collage__leaf" />
+            <span className="collage__dots" />
           </div>
         </div>
       </section>
-    </>
+
+      {/* ---------- the four in production ---------- */}
+      <section className="approws">
+        <div className="shell">
+          <ul>
+            {lead.map((s, i) => (
+              <li className="approw reveal" key={s.slug} style={{ transitionDelay: `${i * 70}ms` }}>
+                <span className="approw__icon" aria-hidden="true">
+                  <SectorIcon slug={s.slug} />
+                </span>
+
+                <div className="approw__copy">
+                  <h2 className="approw__title">
+                    <SplitTitle text={s.name} />
+                  </h2>
+                  <p className="approw__text">{s.lede}</p>
+                </div>
+
+                <figure className="approw__media">
+                  <img src={s.image} alt="" loading="lazy" />
+                  <Link
+                    className="approw__go"
+                    to={linkFor(s.slug)}
+                    aria-label={`Explore ${s.name}`}
+                  >
+                    <Arrow />
+                  </Link>
+                </figure>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* ---------- future potential ---------- */}
+      <section className="appahead">
+        <div className="shell">
+          <header className="appahead__head reveal">
+            <span className="appahead__mark" aria-hidden="true">
+              <SectorIcon slug="agriculture" />
+            </span>
+            <p className="appahead__eyebrow">Future potential</p>
+            <h2 className="appahead__heading">
+              Exploring what&rsquo;s <span>ahead</span>
+            </h2>
+          </header>
+
+          <ul className="appahead__grid">
+            {ahead.map((s, i) => (
+              <li className="aheadcard reveal" key={s.slug} style={{ transitionDelay: `${i * 60}ms` }}>
+                <span className="aheadcard__icon" aria-hidden="true">
+                  <SectorIcon slug={s.slug} />
+                </span>
+                <h3 className="aheadcard__title">{s.name}</h3>
+                <figure className="aheadcard__media">
+                  <img src={s.image} alt="" loading="lazy" />
+                  <Link
+                    className="aheadcard__go"
+                    to={linkFor(s.slug)}
+                    aria-label={`Enquire about ${s.name}`}
+                  >
+                    <Arrow />
+                  </Link>
+                </figure>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* ---------- closing ---------- */}
+      <section className="appcta">
+        <div className="shell">
+          <div className="appcta__panel reveal">
+            <span className="appcta__leaf" aria-hidden="true">
+              <SectorIcon slug="agriculture" />
+            </span>
+
+            <div className="appcta__copy">
+              <p className="appcta__text">
+                Every sector above needs a different grade. Tell us the application and we will
+                point you at the right one.
+              </p>
+              <div className="appcta__actions">
+                <Link className="appcta__btn appcta__btn--fill" to="/contact">
+                  Start a project <span aria-hidden="true">→</span>
+                </Link>
+                <Link className="appcta__btn appcta__btn--line" to="/technology">
+                  See the grades
+                </Link>
+              </div>
+            </div>
+
+            <figure className="appcta__media" aria-hidden="true">
+              <img src={bySlug("agriculture").image} alt="" loading="lazy" />
+            </figure>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
