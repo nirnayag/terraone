@@ -20,6 +20,68 @@
     linear-gradient(135deg, #ffffff 0%, var(--blog-paper) 46%, #eef4f6 100%);
 }
 
+/* ---- floating ambient particles ---- */
+.insights__particle {
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.insights__particle--a {
+  width: 0.55rem;
+  height: 0.55rem;
+  top: 22%;
+  left: 18%;
+  background: rgba(109, 190, 69, 0.55);
+  animation: particle-float-a 8s ease-in-out infinite;
+}
+
+.insights__particle--b {
+  width: 0.4rem;
+  height: 0.4rem;
+  top: 55%;
+  left: 38%;
+  background: rgba(0, 160, 225, 0.42);
+  animation: particle-float-b 11s ease-in-out infinite 1.5s;
+}
+
+.insights__particle--c {
+  width: 0.7rem;
+  height: 0.7rem;
+  top: 14%;
+  right: 28%;
+  background: rgba(140, 198, 63, 0.48);
+  animation: particle-float-a 13s ease-in-out infinite 3s;
+}
+
+.insights__particle--d {
+  width: 0.35rem;
+  height: 0.35rem;
+  top: 72%;
+  right: 18%;
+  background: rgba(0, 160, 225, 0.35);
+  animation: particle-float-b 9s ease-in-out infinite 0.7s;
+}
+
+.insights__particle--e {
+  width: 0.6rem;
+  height: 0.6rem;
+  top: 38%;
+  left: 62%;
+  background: rgba(109, 190, 69, 0.38);
+  animation: particle-float-a 15s ease-in-out infinite 2.2s;
+}
+
+.insights__particle--f {
+  width: 0.28rem;
+  height: 0.28rem;
+  top: 80%;
+  left: 52%;
+  background: rgba(0, 114, 188, 0.45);
+  animation: particle-float-b 7s ease-in-out infinite 4s;
+}
+
 .insights::before {
   content: "";
   position: absolute;
@@ -261,18 +323,31 @@
   scroll-snap-align: center;
   min-height: clamp(19rem, 26vw, 22.5rem);
   border-radius: 22px;
-  background: rgba(247, 249, 250, 0.92);
+  background: #fff;
   box-shadow:
-    0 28px 70px rgba(14, 42, 51, 0.13),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    0 2px 8px rgba(14, 42, 51, 0.05),
+    0 12px 40px rgba(14, 42, 51, 0.1),
+    0 32px 80px rgba(14, 42, 51, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
   transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    border-color 0.25s ease;
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
 }
 
 .blogcard:hover {
-  transform: translateY(-4px);
+  transform: translateY(-7px);
+  box-shadow:
+    0 4px 16px rgba(14, 42, 51, 0.07),
+    0 20px 56px rgba(14, 42, 51, 0.14),
+    0 48px 100px rgba(14, 42, 51, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+/* mobile: no snap-highlight, no focus ring visible on card itself */
+.blogcard:focus-within {
+  outline: none;
 }
 
 .blogcard__link {
@@ -291,17 +366,19 @@
   min-height: 9.5rem;
   overflow: hidden;
   background: linear-gradient(135deg, rgba(109, 190, 69, 0.18), rgba(0, 160, 225, 0.12));
+  border-radius: 22px 22px 0 0;
 }
 
+/* smooth gradient fade at image bottom into the white card body */
 .blogcard__media::after {
   content: "";
   position: absolute;
-  left: -5%;
-  right: -5%;
-  bottom: -1px;
-  height: 3.6rem;
-  background: rgba(247, 249, 250, 0.96);
-  clip-path: ellipse(60% 46% at 50% 100%);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2.5rem;
+  background: linear-gradient(to top, #fff 0%, transparent 100%);
+  pointer-events: none;
 }
 
 .blogcard__media img,
@@ -518,8 +595,8 @@
 
 
 /* ---------- ambient motion ----------
-   The decorative pieces already in the section are what move — no extra
-   markup, and the global reduced-motion rule switches all of it off. */
+   All moving elements use CSS animations so the global reduced-motion rule
+   switches them off without any JS involved. */
 @keyframes blog-drift {
   0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
   50% { transform: translate3d(-1.4rem, 1.1rem, 0) scale(1.04); }
@@ -531,8 +608,8 @@
 }
 
 @keyframes blog-float-alt {
-  0%, 100% { transform: translateY(0) rotate(-28deg); }
-  50% { transform: translateY(0.9rem) rotate(-38deg); }
+  0%, 100% { transform: translateY(0) rotate(-55deg); }
+  50% { transform: translateY(0.9rem) rotate(-45deg); }
 }
 
 @keyframes blog-breathe {
@@ -545,9 +622,25 @@
   50% { opacity: 0.85; }
 }
 
+/* floating particle keyframes */
+@keyframes particle-float-a {
+  0%   { transform: translate(0, 0) scale(1); opacity: 0.55; }
+  30%  { transform: translate(0.9rem, -1.4rem) scale(1.15); opacity: 0.8; }
+  65%  { transform: translate(-0.6rem, -0.8rem) scale(0.9); opacity: 0.5; }
+  100% { transform: translate(0, 0) scale(1); opacity: 0.55; }
+}
+
+@keyframes particle-float-b {
+  0%   { transform: translate(0, 0) scale(1); opacity: 0.4; }
+  40%  { transform: translate(-1.1rem, 1.2rem) scale(1.2); opacity: 0.72; }
+  70%  { transform: translate(0.5rem, 0.7rem) scale(0.85); opacity: 0.38; }
+  100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+}
+
 .insights__leaf--one { animation: blog-float 7s ease-in-out infinite; }
 .insights__leaf--two { animation: blog-float-alt 9s ease-in-out infinite 0.8s; }
 .insights__orb { animation: blog-breathe 11s ease-in-out infinite; }
 .insights__dots--top { animation: blog-shimmer 6s ease-in-out infinite; }
 .insights__dots--right { animation: blog-shimmer 8s ease-in-out infinite 1.2s; }
 .insights::after { animation: blog-drift 22s ease-in-out infinite reverse; }
+.insights::before { animation: blog-drift 18s ease-in-out infinite; }

@@ -55,7 +55,7 @@ export default function Blogs() {
         </form>
       </PageHead>
 
-      <section className="band band--tight">
+      <section className="band band--tight blogs__section">
         <div className="shell">
           <Async
             state={state}

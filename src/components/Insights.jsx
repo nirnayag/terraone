@@ -27,6 +27,13 @@ export default function Insights() {
       <span className="insights__leaf insights__leaf--one" aria-hidden="true" />
       <span className="insights__leaf insights__leaf--two" aria-hidden="true" />
       <span className="insights__ground" aria-hidden="true" />
+      {/* ambient floating particles */}
+      <span className="insights__particle insights__particle--a" aria-hidden="true" />
+      <span className="insights__particle insights__particle--b" aria-hidden="true" />
+      <span className="insights__particle insights__particle--c" aria-hidden="true" />
+      <span className="insights__particle insights__particle--d" aria-hidden="true" />
+      <span className="insights__particle insights__particle--e" aria-hidden="true" />
+      <span className="insights__particle insights__particle--f" aria-hidden="true" />
 
       <div className="shell insights__shell">
         <div className="insights__head reveal">
