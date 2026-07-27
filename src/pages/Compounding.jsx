@@ -553,45 +553,27 @@ export default function Compounding() {
         </div>
       </section>
 
-      {/* ---------- one blend + figures ---------- */}
+      {/* ---------- stats figures ---------- */}
       <section className="cmp-stats">
         <div className="shell">
-          <div className="cmp-stats__grid reveal">
-            <div className="cmp-stats__panel">
-              <img src="/media/decor/biopolymer_molecule_3d_nature.png" alt="" loading="lazy" />
-              <div className="cmp-stats__copy">
-                <h2 className="cmp-stats__heading">
-                  One blend.
-                  <br />
-                  Endless possibilities.
-                </h2>
-                <span className="cmp-rule cmp-rule--light" aria-hidden="true" />
-                <p className="cmp-stats__body">
-                  From rigid to flexible, fast degrading to long lasting — our compounded solutions
-                  are tailored for your application and planet.
-                </p>
-              </div>
-            </div>
-
-            <ul className="cmp-figures">
-              {FIGURES.map((f) => {
-                const Icon = FIGURE_ICONS[f.icon];
-                return (
-                  <li className="cmp-figure" key={f.figure}>
-                    <span className="cmp-figure__icon" aria-hidden="true">
-                      <Icon />
-                    </span>
-                    <p className="cmp-figure__value">{f.figure}</p>
-                    <p className="cmp-figure__label">
-                      {f.label[0]}
-                      <br />
-                      {f.label[1]}
-                    </p>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+          <ul className="cmp-figures reveal">
+            {FIGURES.map((f) => {
+              const Icon = FIGURE_ICONS[f.icon];
+              return (
+                <li className="cmp-figure" key={f.figure}>
+                  <span className="cmp-figure__icon" aria-hidden="true">
+                    <Icon />
+                  </span>
+                  <p className="cmp-figure__value">{f.figure}</p>
+                  <p className="cmp-figure__label">
+                    {f.label[0]}
+                    <br />
+                    {f.label[1]}
+                  </p>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </section>
 
