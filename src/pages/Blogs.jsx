@@ -159,16 +159,20 @@ export default function Blogs() {
                       <Link className="blog-card__link" to={`/blogs/${post.slug}`}>
                         {/* Image — edge to edge */}
                         <div className="blog-card__img-wrap">
-                          {post.image ? (
-                            <img
-                              className="blog-card__img"
-                              src={post.image.thumb}
-                              alt=""
-                              loading="lazy"
-                            />
-                          ) : (
-                            <span className="blog-card__img blog-card__img--none" aria-hidden="true" />
-                          )}
+                          {(() => {
+                            const cardImg =
+                              typeof post.image === "object"
+                                ? post.image?.thumb || post.image?.src
+                                : post.image || "/media/sectors/packaging.jpg";
+                            return (
+                              <img
+                                className="blog-card__img"
+                                src={cardImg}
+                                alt={post.title || ""}
+                                loading="lazy"
+                              />
+                            );
+                          })()}
                         </div>
 
                         {/* Body */}
