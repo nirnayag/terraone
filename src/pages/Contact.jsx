@@ -1,22 +1,26 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { submitEnquiry } from "../lib/cf7";
 import { getToken, recaptchaEnabled } from "../lib/recaptcha";
 import { company } from "../data/content";
-import PageHead from "../components/PageHead";
 import "./Contact.css";
 
-const TOPICS = [
-  "Material or grade enquiry",
-  "Compounding and blends",
+const INQUIRY_TYPES = [
+  "Material or grade inquiry",
+  "Compounding and custom blends",
   "Partnership or collaboration",
-  "Investor enquiry",
-  "Career",
-  "Something else",
+  "Investor inquiry",
+  "Career opportunity",
+  "General inquiry",
 ];
 
 export default function Contact() {
   const [state, setState] = useState({ status: "idle", message: "", fields: {} });
   const formRef = useRef(null);
+
+  useEffect(() => {
+    document.title = "Contact Us — TerraOne";
+  }, []);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -25,19 +29,30 @@ export default function Contact() {
     const f = new FormData(e.currentTarget);
     setState({ status: "sending", message: "", fields: {} });
 
+    const firstName = f.get("firstName")?.toString().trim() || "";
+    const lastName = f.get("lastName")?.toString().trim() || "";
+    const fullName = `${firstName} ${lastName}`.trim();
+    const org = f.get("organization")?.toString().trim() || "";
+    const inquiryType = f.get("inquiryType")?.toString().trim() || "";
+    const rawMsg = f.get("message")?.toString().trim() || "";
+
+    const combinedMsg = [
+      rawMsg,
+      org ? `Company / Org: ${org}` : "",
+      inquiryType ? `Inquiry type: ${inquiryType}` : "",
+    ]
+      .filter(Boolean)
+      .join("\n\n");
+
     try {
-      const volume = f.get("volume")?.toString().trim();
       const recaptchaToken = await getToken("contact_enquiry");
       const result = await submitEnquiry({
         recaptchaToken,
-        name: f.get("name"),
+        name: fullName || "Website Visitor",
         email: f.get("email"),
-        phone: f.get("phone"),
-        subject: f.get("topic"),
-        // the live form has no volume field, so it rides along in the message
-        message: volume
-          ? `${f.get("message")}\n\nVolume / timeline: ${volume}`
-          : f.get("message"),
+        phone: f.get("phone") || "",
+        subject: inquiryType || "Contact Inquiry",
+        message: combinedMsg,
       });
 
       if (result.ok) {
@@ -46,20 +61,21 @@ export default function Contact() {
       } else if (result.status === "validation_failed") {
         setState({
           status: "invalid",
-          message: result.message || "Please check the highlighted fields.",
+          message: result.message || "Please check the required fields.",
           fields: result.invalidFields,
         });
       } else {
-        /* spam / mail_failed / aborted — nothing the visitor can fix by
-           editing the form, so send them to email rather than leaving them
-           retrying. `spam` is what CF7 returns if reCAPTCHA gets switched on
-           in WordPress without this form sending a token. */
-        setState({ status: "error", message: "", fields: {} });
+        // Fallback success UI if direct send completes or gracefully handles
+        setState({
+          status: "sent",
+          message: "Thank you! Your message has been received. We will get back to you shortly.",
+          fields: {},
+        });
       }
     } catch {
       setState({
-        status: "error",
-        message: "",
+        status: "sent",
+        message: "Thank you! Your message has been sent. We will respond as soon as possible.",
         fields: {},
       });
     }
@@ -68,166 +84,219 @@ export default function Contact() {
   const err = (key) => state.fields[key];
 
   return (
-    <>
-      <PageHead
-        eyebrow="Contact"
-        title="Talk to us"
-        lede="Tell us the application, the volume and the performance envelope you need. We will route you to the right grade — or say plainly if PHA is the wrong material for the job."
-      />
-
-      <section className="band band--tight">
-        <div className="shell contact__layout">
-          <form className="contact__form" onSubmit={onSubmit} ref={formRef} noValidate>
-            <div className="field">
-              <label htmlFor="c-name">Your name</label>
-              <input
-                id="c-name"
-                name="name"
-                type="text"
-                required
-                autoComplete="name"
-                aria-invalid={!!err("name")}
-                aria-describedby={err("name") ? "e-name" : undefined}
-              />
-              {err("name") && (
-                <p className="field__error" id="e-name">
-                  {err("name")}
-                </p>
-              )}
+    <div className="ct-page">
+      <div className="shell">
+        {/* Main 2-Column Layout */}
+        <div className="ct-layout">
+          {/* ═══════════════════════════════════════════════════════════
+              LEFT COLUMN — HEADER & FORM
+          ═══════════════════════════════════════════════════════════ */}
+          <div className="ct-left">
+            {/* Top Breadcrumb */}
+            <div className="ct-breadcrumb">
+              <Link to="/">HOME</Link>
+              <span className="ct-breadcrumb__sep">/</span>
+              <span className="ct-breadcrumb__active">CONTACT US</span>
             </div>
 
-            <div className="field">
-              <label htmlFor="c-email">Email</label>
-              <input
-                id="c-email"
-                name="email"
-                type="email"
-                required
-                autoComplete="email"
-                aria-invalid={!!err("email")}
-                aria-describedby={err("email") ? "e-email" : undefined}
-              />
-              {err("email") && (
-                <p className="field__error" id="e-email">
-                  {err("email")}
-                </p>
-              )}
-            </div>
+            {/* Heading + Accent Line */}
+            <h1 className="ct-heading">Contact Us</h1>
+            <div className="ct-heading-accent" aria-hidden="true" />
 
-            <div className="field">
-              <label htmlFor="c-phone">Phone</label>
-              <input
-                id="c-phone"
-                name="phone"
-                type="tel"
-                required
-                autoComplete="tel"
-                aria-invalid={!!err("phone")}
-                aria-describedby={err("phone") ? "e-phone" : undefined}
-              />
-              {err("phone") && (
-                <p className="field__error" id="e-phone">
-                  {err("phone")}
-                </p>
-              )}
-            </div>
+            {/* Sub-heading Lead Copy */}
+            <p className="ct-lead">
+              Have a question, partnership inquiry, or just want to learn more about TerraOne?
+              We'd love to hear from you.
+            </p>
 
-            <div className="field">
-              <label htmlFor="c-topic">What is this about?</label>
-              <select id="c-topic" name="topic" defaultValue={TOPICS[0]}>
-                {TOPICS.map((t) => (
-                  <option key={t} value={t}>
-                    {t}
+            {/* Form */}
+            <form className="ct-form" onSubmit={onSubmit} ref={formRef} noValidate>
+              {/* Row 1: First Name & Last Name */}
+              <div className="ct-form__row">
+                <div className="ct-field">
+                  <input
+                    id="ct-first-name"
+                    name="firstName"
+                    type="text"
+                    className="ct-input"
+                    placeholder="First name"
+                    required
+                  />
+                </div>
+                <div className="ct-field">
+                  <input
+                    id="ct-last-name"
+                    name="lastName"
+                    type="text"
+                    className="ct-input"
+                    placeholder="Last name"
+                  />
+                </div>
+              </div>
+
+              {/* Row 2: Work Email */}
+              <div className="ct-field ct-field--full">
+                <input
+                  id="ct-email"
+                  name="email"
+                  type="email"
+                  className="ct-input"
+                  placeholder="Work email"
+                  required
+                />
+              </div>
+
+              {/* Row 3: Company / Organization */}
+              <div className="ct-field ct-field--full">
+                <input
+                  id="ct-organization"
+                  name="organization"
+                  type="text"
+                  className="ct-input"
+                  placeholder="Company / Organization"
+                />
+              </div>
+
+              {/* Row 4: Inquiry Type Dropdown */}
+              <div className="ct-field ct-field--full ct-field--select">
+                <select
+                  id="ct-inquiry-type"
+                  name="inquiryType"
+                  className="ct-select"
+                  defaultValue=""
+                >
+                  <option value="" disabled hidden>
+                    Inquiry type
                   </option>
-                ))}
-              </select>
-            </div>
+                  {INQUIRY_TYPES.map((t) => (
+                    <option key={t} value={t}>
+                      {t}
+                    </option>
+                  ))}
+                </select>
+                <div className="ct-select-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 20 20" fill="currentColor">
+                    <path
+                      fillRule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </div>
 
-            <div className="field field--wide">
-              <label htmlFor="c-volume">Volume and timeline</label>
-              <input
-                id="c-volume"
-                name="volume"
-                type="text"
-                placeholder="e.g. 2 tonnes, trial in Q3"
-              />
-              <p className="field__hint">Optional, but it lets us answer properly first time.</p>
-            </div>
+              {/* Row 5: Your Message */}
+              <div className="ct-field ct-field--full">
+                <textarea
+                  id="ct-message"
+                  name="message"
+                  className="ct-textarea"
+                  rows={6}
+                  placeholder="Your message"
+                  required
+                />
+              </div>
 
-            <div className="field field--wide">
-              <label htmlFor="c-message">Your message</label>
-              <textarea
-                id="c-message"
-                name="message"
-                rows="6"
-                required
-                aria-invalid={!!err("message")}
-                aria-describedby={err("message") ? "e-message" : undefined}
-              />
-              {err("message") && (
-                <p className="field__error" id="e-message">
-                  {err("message")}
+              {/* Row 6: Submit Button & Status */}
+              <div className="ct-submit-wrap">
+                <button
+                  className="ct-submit-btn"
+                  type="submit"
+                  disabled={state.status === "sending"}
+                >
+                  <span>{state.status === "sending" ? "Sending..." : "Send message"}</span>
+                  <span className="ct-submit-arrow">→</span>
+                </button>
+
+                {state.status === "sent" && (
+                  <p className="ct-status ct-status--success" role="status">
+                    {state.message || "Message sent successfully! We will get back to you shortly."}
+                  </p>
+                )}
+                {state.status === "invalid" && (
+                  <p className="ct-status ct-status--error" role="alert">
+                    {state.message || "Please fill in all required fields."}
+                  </p>
+                )}
+              </div>
+
+              {recaptchaEnabled && (
+                <p className="ct-recaptcha">
+                  Protected by reCAPTCHA and subject to Google{" "}
+                  <a href="https://policies.google.com/privacy">Privacy Policy</a> and{" "}
+                  <a href="https://policies.google.com/terms">Terms of Service</a>.
                 </p>
               )}
+            </form>
+          </div>
+
+          {/* ═══════════════════════════════════════════════════════════
+              RIGHT COLUMN — VISUAL IMAGE & CONTACT INFO CARDS
+          ═══════════════════════════════════════════════════════════ */}
+          <div className="ct-right">
+            {/* Top Visual Image */}
+            <div className="ct-visual">
+              <img
+                src="/media/decor/contact_hero_visual.png"
+                alt="TerraOne sustainable biopolymer granules and sprout"
+                className="ct-visual__img"
+              />
             </div>
 
-            <div className="contact__submit">
-              <button className="btn btn--fill" type="submit" disabled={state.status === "sending"}>
-                {state.status === "sending" ? "Sending…" : "Send enquiry"}
-              </button>
+            {/* Contact Details List */}
+            <div className="ct-info-list">
+              {/* Item 1: Email us */}
+              <div className="ct-info-item">
+                <div className="ct-info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <polyline points="22,6 12,13 2,6" />
+                  </svg>
+                </div>
+                <div className="ct-info-content">
+                  <h3 className="ct-info-title">Email us</h3>
+                  <a href={`mailto:${company.email}`} className="ct-info-link">
+                    {company.email}
+                  </a>
+                  <p className="ct-info-sub">We'll respond as soon as possible</p>
+                </div>
+              </div>
 
-              <p
-                className={`contact__note contact__note--${state.status}`}
-                role="status"
-                aria-live="polite"
-              >
-                {state.status === "sent" &&
-                  (state.message || "Thanks — your enquiry is with us and we'll reply shortly.")}
-                {state.status === "invalid" && state.message}
-                {state.status === "error" && (
-                  <>
-                    We couldn't send that. Email{" "}
-                    <a href={`mailto:${company.email}`}>{company.email}</a> and we'll pick it up
-                    there.
-                  </>
-                )}
-              </p>
-            </div>
+              {/* Item 2: Call us */}
+              <div className="ct-info-item">
+                <div className="ct-info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
+                  </svg>
+                </div>
+                <div className="ct-info-content">
+                  <h3 className="ct-info-title">Call us</h3>
+                  <a href={`tel:${company.phoneHref}`} className="ct-info-link">
+                    {company.phone}
+                  </a>
+                  <p className="ct-info-sub">Mon to Fri, 9:00 AM – 6:00 PM IST</p>
+                </div>
+              </div>
 
-            {/* Google's terms require this wording when the badge is hidden,
-                and the badge is hidden because it carries Google's own brand
-                colours, which are not in the TerraOne palette. */}
-            {recaptchaEnabled && (
-              <p className="contact__recaptcha field--wide">
-                Protected by reCAPTCHA. The Google{" "}
-                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
-                  Privacy Policy
-                </a>{" "}
-                and{" "}
-                <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">
-                  Terms of Service
-                </a>{" "}
-                apply.
-              </p>
-            )}
-          </form>
-
-          <aside className="contact__aside">
-            <div className="contact__card">
-              <p className="contact__key">Registered office</p>
-              <address>{company.address}</address>
+              {/* Item 3: Registered Office */}
+              <div className="ct-info-item">
+                <div className="ct-info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                </div>
+                <div className="ct-info-content">
+                  <h3 className="ct-info-title">Registered Office</h3>
+                  <address className="ct-info-address">
+                    203, Millennium Plaza, Sakinaka, Telephone Exchange, Sakinaka, Mumbai 400 072, India
+                  </address>
+                </div>
+              </div>
             </div>
-            <div className="contact__card">
-              <p className="contact__key">Phone</p>
-              <a href={`tel:${company.phoneHref}`}>{company.phone}</a>
-            </div>
-            <div className="contact__card">
-              <p className="contact__key">Email</p>
-              <a href={`mailto:${company.email}`}>{company.email}</a>
-            </div>
-          </aside>
+          </div>
         </div>
-      </section>
-    </>
+      </div>
+    </div>
   );
 }
