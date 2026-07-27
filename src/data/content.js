@@ -5,20 +5,20 @@
    Blogs are appended because they are real destinations with their own
    content, and burying commercial pages in a menu costs enquiries. */
 export const nav = [
+  { label: "Who we are", to: "/who-we-are" },
   { label: "Application", to: "/application" },
   { label: "Technology", to: "/technology" },
-  { label: "Investors", to: "/investors" },
   { label: "Compounding", to: "/compounding" },
-  { label: "Who we are", to: "/who-we-are" },
   { label: "Products", to: "/products" },
+  { label: "Investors", to: "/investors" },
   { label: "Blogs", to: "/blogs" },
+  { label: "Contact us", to: "/contact" },
 ];
 
 /* Secondary destinations — in the menu sheet and the footer, not the bar. */
 export const navSecondary = [
   { label: "Collaboration", to: "/collaboration" },
   { label: "Career", to: "/career" },
-  { label: "Contact us", to: "/contact" },
 ];
 
 export const overview = {
