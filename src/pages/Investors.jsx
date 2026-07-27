@@ -275,8 +275,6 @@ export default function Investors() {
           </div>
         </div>
       </section>
-
-      {/* Organic wave: white → green-10 */}
       <Wave03 />
 
       {/* ══════════════════════════════════════════════════════════════════

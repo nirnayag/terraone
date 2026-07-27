@@ -287,13 +287,6 @@
   gap: 24px;
 }
 
-@keyframes blobB {
-  0%   { border-radius: 40% 60% 60% 40% / 60% 30% 70% 40%; }
-  33%  { border-radius: 55% 45% 35% 65% / 45% 65% 35% 55%; }
-  66%  { border-radius: 30% 70% 50% 50% / 55% 45% 55% 45%; }
-  100% { border-radius: 40% 60% 60% 40% / 60% 30% 70% 40%; }
-}
-
 .inv-thesis__card {
   background: var(--green-10);
   border: 1px solid var(--green-20);
@@ -370,14 +363,6 @@
   gap: 24px;
 }
 
-@keyframes blobC {
-  0%   { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-  25%  { border-radius: 58% 42% 48% 52% / 52% 44% 56% 48%; }
-  50%  { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
-  75%  { border-radius: 42% 58% 52% 48% / 44% 52% 48% 56%; }
-  100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-}
-
 .inv-traj__card {
   background: #FFFFFF;
   border: 1px solid var(--green-40);
@@ -396,15 +381,12 @@
 .inv-traj__card:nth-child(3) { border-radius: 44% 56% 52% 48% / 56% 44% 52% 48%; }
 .inv-traj__card:nth-child(4) { border-radius: 52% 48% 44% 56% / 48% 52% 48% 52%; }
 
-/* Stable inner content wrapper — content is isolated from the border morph */
 .inv-traj__inner {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0;
   width: 100%;
-  /* Will-change none — this div never animates, only the outer card border does */
-  contain: layout style;
 }
 
 .inv-traj__img-wrap {
@@ -452,7 +434,6 @@
 /* ==========================================================================
    §05  GLOBAL OPPORTUNITY
    bg: var(--to-mist) #DCE6E8 | heading: var(--to-ink)
-   accent: --to-blue (blue items) + --to-green (green items) used separately
    ========================================================================== */
 .inv-opportunity {
   background: var(--to-mist);
@@ -475,25 +456,30 @@
 /* Two-column layout: left big blob card + right 3 smaller blob cards */
 .inv-opportunity__layout {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
+  grid-template-columns: 1.45fr 1fr;
   gap: 32px;
-  align-items: start;
+  align-items: stretch;
 }
 
-/* Main opportunity blob card — shape D */
+/* Main opportunity organic blob card — shape D with gentle morph */
 @keyframes blobD {
-  0%   { border-radius: 50% 50% 30% 70% / 50% 70% 30% 50%; }
-  33%  { border-radius: 38% 62% 55% 45% / 62% 38% 58% 42%; }
-  66%  { border-radius: 65% 35% 45% 55% / 40% 60% 50% 50%; }
-  100% { border-radius: 50% 50% 30% 70% / 50% 70% 30% 50%; }
+  0%   { border-radius: 50% 50% 34% 66% / 50% 64% 36% 50%; }
+  50%  { border-radius: 44% 56% 48% 52% / 52% 44% 56% 48%; }
+  100% { border-radius: 50% 50% 34% 66% / 50% 64% 36% 50%; }
 }
 
 .inv-opportunity__main {
   background: #FFFFFF;
   border: 1px solid var(--blue-20);
-  border-radius: 50% 50% 30% 70% / 50% 70% 30% 50%;
-  padding: 48px 44px;
+  border-radius: 50% 50% 34% 66% / 50% 64% 36% 50%;
+  padding: 56px clamp(40px, 4vw, 60px) 68px clamp(56px, 5vw, 80px);
   box-shadow: 0 20px 60px rgba(14, 42, 51, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  animation: blobD 18s ease-in-out infinite;
+  position: relative;
 }
 
 .inv-opportunity__main-tag {
@@ -503,7 +489,7 @@
   background: var(--blue-10);
   border: 1px solid var(--blue-20);
   border-radius: 999px;
-  padding: 4px 14px;
+  padding: 5px 16px;
   font-family: var(--face-mono);
   font-size: 0.68rem;
   font-weight: 700;
@@ -539,19 +525,18 @@
   line-height: 1.7;
   color: var(--to-slate);
   margin: 0;
+  max-width: 52ch;
+  background: var(--blue-10);
+  border: 1px solid var(--blue-20);
+  border-radius: 16px;
+  padding: 18px 24px;
 }
 
-/* Right column — 3 smaller blob cards stacked */
+/* Right column — 3 smaller cards stacked */
 .inv-opportunity__stack {
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-
-@keyframes blobE {
-  0%   { border-radius: 60% 40% 50% 50% / 40% 55% 45% 60%; }
-  50%  { border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%; }
-  100% { border-radius: 60% 40% 50% 50% / 40% 55% 45% 60%; }
 }
 
 .inv-opportunity__card {
@@ -566,12 +551,10 @@
 .inv-opportunity__card:nth-child(2) { border-radius: 45% 55% 60% 40% / 60% 40% 50% 50%; }
 .inv-opportunity__card:nth-child(3) { border-radius: 55% 45% 40% 60% / 50% 60% 40% 50%; }
 
-/* Blue-accented opportunity cards */
 .inv-opportunity__card--blue {
   border: 1px solid var(--blue-20);
 }
 
-/* Green-accented opportunity cards */
 .inv-opportunity__card--green {
   border: 1px solid var(--green-20);
 }
@@ -596,7 +579,9 @@
   border: 1.5px solid var(--green-20);
 }
 
-.inv-opportunity__card-body {}
+.inv-opportunity__card-body {
+  flex: 1;
+}
 
 .inv-opportunity__card-title {
   font-family: var(--face-display);
@@ -620,7 +605,7 @@
    ========================================================================== */
 .inv-cta {
   background: var(--to-ink);
-  padding: 0 0 0 0;
+  padding: 0;
   position: relative;
 }
 
@@ -628,26 +613,24 @@
   padding: 80px 0 100px 0;
 }
 
-/* Outer blob container for CTA content */
 @keyframes blobF {
-  0%   { border-radius: 44% 56% 68% 32% / 48% 64% 36% 52%; }
-  33%  { border-radius: 62% 38% 46% 54% / 60% 44% 56% 40%; }
-  66%  { border-radius: 56% 44% 38% 62% / 36% 58% 42% 64%; }
-  100% { border-radius: 44% 56% 68% 32% / 48% 64% 36% 52%; }
+  0%   { border-radius: 46% 54% 60% 40% / 50% 56% 44% 50%; }
+  50%  { border-radius: 54% 46% 42% 58% / 44% 50% 50% 56%; }
+  100% { border-radius: 46% 54% 60% 40% / 50% 56% 44% 50%; }
 }
 
+/* Outer organic blob container for CTA content — expanded left side & ample padding */
 .inv-cta__blob {
   background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 44% 56% 68% 32% / 48% 64% 36% 52%;
-  padding: 64px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 46% 54% 60% 40% / 50% 56% 44% 50%;
+  padding: clamp(44px, 5vw, 64px) clamp(32px, 4vw, 56px) clamp(44px, 5vw, 64px) clamp(52px, 6vw, 80px);
   display: grid;
-  grid-template-columns: 1.3fr 1fr;
+  grid-template-columns: 1.8fr 1fr;
   align-items: center;
-  gap: 48px;
+  gap: 36px;
   animation: blobF 14s ease-in-out infinite;
   position: relative;
-  overflow: hidden;
 }
 
 /* Radial green glow accent */
@@ -666,6 +649,14 @@
   pointer-events: none;
 }
 
+.inv-cta__left {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
 .inv-cta__eyebrow {
   color: var(--to-green);
 }
@@ -674,14 +665,16 @@
   background: var(--to-green);
 }
 
+/* Full width heading using expanded left card width */
 .inv-cta__heading {
   font-family: var(--face-display);
-  font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+  font-size: clamp(1.75rem, 3.2vw, 2.7rem);
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.22;
   color: #FFFFFF;
-  margin: 0 0 36px 0;
-  max-width: 540px;
+  margin: 0 0 32px 0;
+  width: 100%;
+  max-width: 100%;
 }
 
 .inv-cta__heading em {
@@ -693,17 +686,17 @@
 .inv-cta__buttons {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 16px;
   flex-wrap: wrap;
 }
 
-/* Green primary button — green-100 fill with blob border-radius */
 .inv-cta__btn--primary {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 14px 32px;
-  border-radius: 60% 40% 60% 40% / 40% 60% 40% 60%;
+  padding: 14px 28px;
+  border-radius: 54% 46% 54% 46% / 46% 54% 46% 54%;
   background: var(--to-green);
   color: #FFFFFF;
   font-family: var(--face-body);
@@ -722,13 +715,12 @@
   color: #FFFFFF;
 }
 
-/* Ghost secondary button */
 .inv-cta__btn--ghost {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 13px 28px;
-  border-radius: 60% 40% 60% 40% / 40% 60% 40% 60%;
+  padding: 13px 26px;
+  border-radius: 46% 54% 46% 54% / 54% 46% 54% 46%;
   background: transparent;
   border: 1.5px solid rgba(255, 255, 255, 0.3);
   color: #FFFFFF;
@@ -747,37 +739,37 @@
   transform: translateY(-3px);
 }
 
-/* Right side visual dome */
 .inv-cta__right {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+/* Green circular dome — image fills entire shape */
 .inv-cta__dome {
-  width: 240px;
-  height: 240px;
-  border-radius: 50% 50% 30% 70% / 70% 30% 70% 30%;
-  background: rgba(109, 190, 69, 0.08);
-  border: 1.5px solid rgba(109, 190, 69, 0.25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  box-shadow: 0 0 60px rgba(109, 190, 69, 0.1);
-  animation: blobD 18s ease-in-out infinite reverse;
+  width: clamp(180px, 22vw, 240px);
+  height: clamp(180px, 22vw, 240px);
+  border-radius: 50%;
+  background: none;
+  border: 2px solid rgba(109, 190, 69, 0.35);
+  overflow: hidden;
+  box-shadow: 0 0 50px rgba(109, 190, 69, 0.18);
+  flex-shrink: 0;
+  padding: 0;
 }
 
 .inv-cta__dome-img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
 /* ==========================================================================
-   RESPONSIVE
+   RESPONSIVE BREAKPOINTS
    ========================================================================== */
-@media (max-width: 1024px) {
+@media (max-width: 1080px) {
   .inv-snapshot__grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
@@ -785,71 +777,127 @@
 
   .inv-thesis__grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 
   .inv-traj__grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
   .inv-traj__arrow { display: none; }
 
   .inv-opportunity__layout {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
 
   .inv-cta__blob {
     grid-template-columns: 1fr;
     padding: 44px 36px;
+    gap: 32px;
+  }
+  .inv-cta__right {
+    display: flex;
+    margin-top: 12px;
+  }
+  .inv-cta__heading {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .inv-opportunity__main {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 32px 24px;
+  }
+  .inv-opportunity__main-graphic {
+    justify-content: flex-start;
   }
 }
 
 @media (max-width: 640px) {
-  .inv-snapshot__grid {
-    grid-template-columns: 1fr;
-  }
-  .inv-snapshot__card {
-    padding: 28px 20px;
-    min-height: auto;
-  }
-  .inv-thesis__grid {
-    grid-template-columns: 1fr;
-  }
-  .inv-thesis__card {
-    padding: 28px 20px;
-    min-height: auto;
-  }
+  .inv-snapshot { padding-bottom: 48px; }
+  .inv-thesis { padding-bottom: 60px; }
+  .inv-traj { padding-bottom: 60px; }
+  .inv-opportunity { padding-bottom: 60px; }
+  .inv-cta__inner { padding: 48px 0 60px 0; }
+
+  .inv-snapshot__grid,
+  .inv-thesis__grid,
   .inv-traj__grid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
+
+  .inv-snapshot__card,
+  .inv-thesis__card,
   .inv-traj__card {
     padding: 28px 20px;
     min-height: auto;
   }
-  .inv-opportunity__layout {
-    grid-template-columns: 1fr;
+
+  /* Background pill on card body text on mobile */
+  .inv-thesis__card-body {
+    background: var(--blue-10);
+    border: 1px solid var(--blue-20);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-top: 8px;
+    display: block;
   }
+
   .inv-opportunity__main {
-    padding: 30px 20px;
+    padding: 28px 20px;
+    border-radius: 28px;
   }
+
+  .inv-opportunity__big-number {
+    font-size: clamp(2.2rem, 8vw, 3.2rem);
+  }
+
+  .inv-opportunity__big-body {
+    max-width: 100%;
+  }
+
   .inv-opportunity__card {
     padding: 20px 18px;
+    border-radius: 20px;
   }
+
   .inv-cta__blob {
     padding: 32px 20px;
-    text-align: center;
+    border-radius: 28px;
   }
-  .inv-cta__heading {
-    font-size: clamp(1.6rem, 5vw, 2.2rem);
-    margin-bottom: 24px;
-  }
-  .inv-cta__buttons {
-    justify-content: center;
-  }
-}
 
-@media (max-width: 480px) {
+  .inv-cta__heading {
+    font-size: clamp(1.45rem, 5.2vw, 2rem);
+    margin-bottom: 24px;
+    max-width: 100%;
+  }
+
+  .inv-cta__buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+
   .inv-cta__btn--primary,
   .inv-cta__btn--ghost {
     width: 100%;
     justify-content: center;
+    text-align: center;
+    padding: 14px 20px;
   }
 }
+
+@media (max-width: 400px) {
+  .inv-opportunity__main {
+    padding: 22px 16px;
+  }
+  .inv-cta__blob {
+    padding: 24px 16px;
+  }
+}
+
+
