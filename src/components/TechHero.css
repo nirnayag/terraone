@@ -6,6 +6,8 @@
   padding-top: var(--space-xl, 36px);
   padding-bottom: var(--space-xl, 54px);
   background: transparent;
+  /* Clip any overflowing orbital nodes or decorations */
+  overflow-x: hidden;
 }
 
 .techhero-direct-container {
@@ -119,6 +121,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Prevent node buttons with fixed pixel coords from causing scroll */
+  overflow: hidden;
 }
 
 /* Dot Matrix Top-Right */
@@ -352,50 +356,48 @@
 }
 
 @media (max-width: 600px) {
+  .techhero-wrapper {
+    padding-top: 24px;
+    padding-bottom: 32px;
+  }
   .techhero-orb-container {
-    width: min(340px, 92vw);
-    height: min(350px, 94vw);
+    width: min(320px, 90vw);
+    height: min(320px, 90vw);
   }
   .techhero-amoeba-group {
-    width: min(270px, 75vw);
-    height: min(285px, 78vw);
+    width: min(255px, 72vw);
+    height: min(265px, 74vw);
   }
   .techhero-blob-frame {
     inset: 0;
     padding: 10px;
   }
-  .techhero-node-btn {
-    width: 54px;
-    height: 54px;
-    box-shadow:
-      0 0 0 4px rgba(255,255,255,0.9),
-      0 6px 18px rgba(15,23,42,0.09);
+  /* Orbital nodes use hardcoded pixel positions for 400×420px group —
+     hide them on mobile so they don't overflow the clipped container. */
+  .techhero-nodes {
+    display: none;
   }
-  .techhero-node-btn__inner {
-    width: 26px;
-    height: 26px;
+  /* Also hide the dot-matrix that hangs outside the orb container */
+  .techhero-dot-matrix {
+    display: none;
   }
   .techhero-title {
-    font-size: 2.2rem;
+    font-size: 2.1rem;
   }
 }
 
 @media (max-width: 420px) {
+  .techhero-wrapper {
+    padding-top: 16px;
+    padding-bottom: 24px;
+  }
   .techhero-orb-container {
-    width: min(290px, 94vw);
-    height: min(300px, 96vw);
+    width: min(270px, 90vw);
+    height: min(270px, 90vw);
   }
   .techhero-amoeba-group {
-    width: min(220px, 74vw);
-    height: min(230px, 76vw);
-  }
-  .techhero-node-btn {
-    width: 44px;
-    height: 44px;
-  }
-  .techhero-node-btn__inner {
-    width: 20px;
-    height: 20px;
+    width: min(210px, 72vw);
+    height: min(218px, 74vw);
   }
   .techhero-title {
     font-size: 1.85rem;

@@ -457,8 +457,11 @@
 
 @media (max-width: 720px) {
   .matport { padding: 48px 0 44px; }
-  .matport__shell { padding-inline: clamp(16px, 4vw, 24px); }
+  .matport__shell { padding-inline: clamp(14px, 4vw, 24px); }
   .matport__heading { font-size: 32px; line-height: 38px; letter-spacing: -1px; }
+  /* Hide large background SVGs that can bleed outside the clipped container */
+  .matport__dna { display: none; }
+  .matport__mesh { display: none; }
   .polyrow__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .pdetail { grid-template-columns: 1fr; }
   .pdetail__props { border-left: 0; padding-left: 0; border-top: 1px solid var(--to-mist); padding-top: 18px; }
@@ -466,7 +469,6 @@
   .matport__strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .matport__strip li:nth-child(2n) { border-right: 0; }
   .matport__strip li:nth-child(3n) { border-right: 1px solid var(--to-mist); }
-  .matport__dna { width: 380px; opacity: 0.3; }
 }
 
 @media (max-width: 520px) {
@@ -476,4 +478,14 @@
   .matport__strip { grid-template-columns: 1fr; }
   .matport__strip li { border-right: 0 !important; border-bottom: 1px solid var(--to-mist); padding-bottom: 10px; }
   .matport__strip li:last-child { border-bottom: 0; }
+  /* Ensure detail panel content doesn't overflow narrow cards */
+  .pcard__code { font-size: 18px; }
+  .pdetail__code { font-size: 24px; }
+}
+
+@media (max-width: 400px) {
+  .matport__shell { padding-inline: 12px; }
+  .matport { padding: 32px 0 32px; }
+  .pdetail { padding: 12px 14px; }
+  .matport__more { padding: 0 18px; font-size: 14px; height: 44px; }
 }

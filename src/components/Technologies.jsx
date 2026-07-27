@@ -192,7 +192,7 @@ export default function Technologies({ standalone = false, selectedIndex, onSele
 
         {standalone && (
           <Link className="matport__more" to="/contact">
-            Talk to a materials engineer <span aria-hidden="true">→</span>
+            Contact us <span aria-hidden="true">→</span>
           </Link>
         )}
       </div>
