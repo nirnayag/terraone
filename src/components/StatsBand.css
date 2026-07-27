@@ -272,6 +272,9 @@
   .statsband__grid {
     grid-template-columns: 1fr;
   }
-
+  .stat {
+    padding: 4.2rem 1.25rem 2.5rem;
+    min-height: auto;
+  }
   .statsband__globe { display: none; }
 }

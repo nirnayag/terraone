@@ -74,5 +74,9 @@
   .techstep {
     grid-template-columns: 1fr;
     gap: 0.4rem;
+    padding: 1rem 1.1rem;
+  }
+  .techcta {
+    padding: 1.25rem;
   }
 }

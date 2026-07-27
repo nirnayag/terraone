@@ -669,11 +669,15 @@
 
 @media (max-width: 480px) {
   .insights__rail {
-    grid-auto-columns: 88vw;
+    grid-auto-columns: min(86vw, 320px);
   }
 
   .insights__heading {
-    font-size: 2rem;
+    font-size: 1.85rem;
+  }
+
+  .insights__more--bottom {
+    width: 100%;
   }
 }
 

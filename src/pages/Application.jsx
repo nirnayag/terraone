@@ -4,10 +4,19 @@ import { SectorIcon } from "../components/SectorIcons";
 import { useReveal } from "../hooks/useReveal";
 import "./Application.css";
 
-/* The four sectors shipping today lead the page; the rest sit under
-   "future potential". Order follows the design. */
-const LEAD = ["packaging", "aquaculture", "animal-husbandry", "agriculture"];
-const AHEAD = ["food-and-beverages", "cosmetics", "wastewater", "biomedical", "pharmaceutical", "textile"];
+/* All sectors in one sequence — production + future potential, combined. */
+const ALL_SECTORS = [
+  "packaging",
+  "aquaculture",
+  "animal-husbandry",
+  "agriculture",
+  "food-and-beverages",
+  "cosmetics",
+  "wastewater",
+  "biomedical",
+  "pharmaceutical",
+  "textile",
+];
 
 /* Where a sector already has a product category, the arrow goes to the
    catalogue filtered to it; everything else routes to an enquiry. */
@@ -45,8 +54,7 @@ function Arrow() {
 
 export default function Application() {
   const scope = useReveal();
-  const lead = LEAD.map(bySlug).filter(Boolean);
-  const ahead = AHEAD.map(bySlug).filter(Boolean);
+  const allSectors = ALL_SECTORS.map(bySlug).filter(Boolean);
 
   return (
     <div className="apppage" ref={scope}>
@@ -82,11 +90,11 @@ export default function Application() {
         </div>
       </section>
 
-      {/* ---------- the four in production ---------- */}
+      {/* ---------- all sectors in one list ---------- */}
       <section className="approws">
         <div className="shell">
           <ul>
-            {lead.map((s, i) => (
+            {allSectors.map((s, i) => (
               <li className="approw reveal" key={s.slug} style={{ transitionDelay: `${i * 70}ms` }}>
                 <span className="approw__icon" aria-hidden="true">
                   <SectorIcon slug={s.slug} />
@@ -105,42 +113,6 @@ export default function Application() {
                     className="approw__go"
                     to={linkFor(s.slug)}
                     aria-label={`Explore ${s.name}`}
-                  >
-                    <Arrow />
-                  </Link>
-                </figure>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* ---------- future potential ---------- */}
-      <section className="appahead">
-        <div className="shell">
-          <header className="appahead__head reveal">
-            <span className="appahead__mark" aria-hidden="true">
-              <SectorIcon slug="agriculture" />
-            </span>
-            <p className="appahead__eyebrow">Future potential</p>
-            <h2 className="appahead__heading">
-              Exploring what&rsquo;s <span>ahead</span>
-            </h2>
-          </header>
-
-          <ul className="appahead__grid">
-            {ahead.map((s, i) => (
-              <li className="aheadcard reveal" key={s.slug} style={{ transitionDelay: `${i * 60}ms` }}>
-                <span className="aheadcard__icon" aria-hidden="true">
-                  <SectorIcon slug={s.slug} />
-                </span>
-                <h3 className="aheadcard__title">{s.name}</h3>
-                <figure className="aheadcard__media">
-                  <img src={s.image} alt="" loading="lazy" />
-                  <Link
-                    className="aheadcard__go"
-                    to={linkFor(s.slug)}
-                    aria-label={`Enquire about ${s.name}`}
                   >
                     <Arrow />
                   </Link>
@@ -183,3 +155,5 @@ export default function Application() {
     </div>
   );
 }
+
+

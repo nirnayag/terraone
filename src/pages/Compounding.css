@@ -690,4 +690,31 @@
     justify-items: start;
     text-align: left;
   }
+
+  .cmp-mats__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cmp-rail {
+    grid-template-columns: 1fr;
+    row-gap: 1.5rem;
+  }
+
+  .cmp-figures {
+    grid-template-columns: 1fr;
+  }
+
+  .cmp-figure {
+    border-left: 0 !important;
+    border-top: 1px solid var(--to-mist);
+  }
+
+  .cmp-figure:first-child {
+    border-top: 0;
+  }
+
+  .cmp-cta__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
 }

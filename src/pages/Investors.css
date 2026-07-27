@@ -806,16 +806,50 @@
   .inv-snapshot__grid {
     grid-template-columns: 1fr;
   }
+  .inv-snapshot__card {
+    padding: 28px 20px;
+    min-height: auto;
+  }
   .inv-thesis__grid {
     grid-template-columns: 1fr;
+  }
+  .inv-thesis__card {
+    padding: 28px 20px;
+    min-height: auto;
   }
   .inv-traj__grid {
     grid-template-columns: 1fr;
   }
-  .inv-cta__blob {
-    padding: 36px 24px;
+  .inv-traj__card {
+    padding: 28px 20px;
+    min-height: auto;
   }
   .inv-opportunity__layout {
     grid-template-columns: 1fr;
+  }
+  .inv-opportunity__main {
+    padding: 30px 20px;
+  }
+  .inv-opportunity__card {
+    padding: 20px 18px;
+  }
+  .inv-cta__blob {
+    padding: 32px 20px;
+    text-align: center;
+  }
+  .inv-cta__heading {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    margin-bottom: 24px;
+  }
+  .inv-cta__buttons {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .inv-cta__btn--primary,
+  .inv-cta__btn--ghost {
+    width: 100%;
+    justify-content: center;
   }
 }

@@ -353,12 +353,15 @@
 
 @media (max-width: 600px) {
   .techhero-orb-container {
-    width: 360px;
-    height: 380px;
+    width: min(340px, 92vw);
+    height: min(350px, 94vw);
+  }
+  .techhero-amoeba-group {
+    width: min(270px, 75vw);
+    height: min(285px, 78vw);
   }
   .techhero-blob-frame {
-    width: 270px;
-    height: 285px;
+    inset: 0;
     padding: 10px;
   }
   .techhero-node-btn {
@@ -374,5 +377,27 @@
   }
   .techhero-title {
     font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .techhero-orb-container {
+    width: min(290px, 94vw);
+    height: min(300px, 96vw);
+  }
+  .techhero-amoeba-group {
+    width: min(220px, 74vw);
+    height: min(230px, 76vw);
+  }
+  .techhero-node-btn {
+    width: 44px;
+    height: 44px;
+  }
+  .techhero-node-btn__inner {
+    width: 20px;
+    height: 20px;
+  }
+  .techhero-title {
+    font-size: 1.85rem;
   }
 }

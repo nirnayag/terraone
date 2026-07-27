@@ -334,19 +334,46 @@
 
 @media (max-width: 600px) {
   .invhero-stage {
-    width: 340px;
-    height: 340px;
+    width: min(320px, 92vw);
+    height: min(320px, 92vw);
   }
   .invhero-frame-container {
-    width: 260px;
-    height: 260px;
+    width: min(240px, 72vw);
+    height: min(240px, 72vw);
   }
   .invhero-node {
-    width: 46px;
-    height: 46px;
+    width: 44px;
+    height: 44px;
   }
   .invhero-node__inner {
     width: 20px;
     height: 20px;
   }
+  .node-top-left { top: 50px; left: 15px; }
+  .node-top-right { top: 50px; right: 15px; }
+  .node-bottom-left { bottom: 45px; left: 20px; }
+  .node-bottom-right { bottom: 45px; right: 20px; }
+}
+
+@media (max-width: 400px) {
+  .invhero-stage {
+    width: min(280px, 94vw);
+    height: min(280px, 94vw);
+  }
+  .invhero-frame-container {
+    width: min(195px, 68vw);
+    height: min(195px, 68vw);
+  }
+  .invhero-node {
+    width: 38px;
+    height: 38px;
+  }
+  .invhero-node__inner {
+    width: 18px;
+    height: 18px;
+  }
+  .node-top-left { top: 35px; left: 5px; }
+  .node-top-right { top: 35px; right: 5px; }
+  .node-bottom-left { bottom: 35px; left: 10px; }
+  .node-bottom-right { bottom: 35px; right: 10px; }
 }

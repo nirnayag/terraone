@@ -457,6 +457,7 @@
 
 @media (max-width: 720px) {
   .matport { padding: 48px 0 44px; }
+  .matport__shell { padding-inline: clamp(16px, 4vw, 24px); }
   .matport__heading { font-size: 32px; line-height: 38px; letter-spacing: -1px; }
   .polyrow__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .pdetail { grid-template-columns: 1fr; }
@@ -466,4 +467,13 @@
   .matport__strip li:nth-child(2n) { border-right: 0; }
   .matport__strip li:nth-child(3n) { border-right: 1px solid var(--to-mist); }
   .matport__dna { width: 380px; opacity: 0.3; }
+}
+
+@media (max-width: 520px) {
+  .polyrow__cards { grid-template-columns: 1fr; }
+  .pdetail__appgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pdetail__compost { grid-template-columns: 1fr; }
+  .matport__strip { grid-template-columns: 1fr; }
+  .matport__strip li { border-right: 0 !important; border-bottom: 1px solid var(--to-mist); padding-bottom: 10px; }
+  .matport__strip li:last-child { border-bottom: 0; }
 }
