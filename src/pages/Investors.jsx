@@ -376,7 +376,7 @@ export default function Investors() {
 
           <div className="inv-opportunity__layout reveal">
 
-            {/* Left: main big stat blob */}
+            {/* Left: main stat card without big number */}
             <div className="inv-opportunity__main">
               <span className="inv-opportunity__main-tag">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="12" height="12">
@@ -384,10 +384,9 @@ export default function Investors() {
                 </svg>
                 Addressable Market
               </span>
-              <p className="inv-opportunity__big-number">$1.4B</p>
-              <p className="inv-opportunity__big-label">Global Biopolymer Market by 2028</p>
+              <p className="inv-opportunity__big-label">Global Biopolymer Market</p>
               <p className="inv-opportunity__big-body">
-                Single-use plastic regulation is advancing across 60+ jurisdictions. PHA is the only certified compostable material that also biodegrades in open marine and soil environments — the critical distinction that both regulators and major brand owners are beginning to require rather than simply prefer.
+                Single-use plastic regulation is advancing across jurisdictions. PHA is the only certified compostable material that also biodegrades in open marine and soil environments — the critical distinction that both regulators and major brand owners are beginning to require rather than simply prefer.
               </p>
             </div>
 
@@ -404,7 +403,7 @@ export default function Investors() {
                 </div>
                 <div className="inv-opportunity__card-body">
                   <h4 className="inv-opportunity__card-title">Regulatory Tailwinds</h4>
-                  <p className="inv-opportunity__card-desc">60+ jurisdictions banning single-use plastics — creating the mandatory demand floor PHA producers need.</p>
+                  <p className="inv-opportunity__card-desc">Multiple jurisdictions banning single-use plastics — creating the mandatory demand floor PHA producers need.</p>
                 </div>
               </div>
 
