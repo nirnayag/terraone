@@ -183,6 +183,7 @@
   padding: 1.35rem 1.05rem 1.5rem;
   border-radius: 14px;
   background: #fff;
+  height: 260px;
   animation: wcard-in 0.42s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -194,6 +195,7 @@
   margin-inline: -1.35rem;
   padding: 1.75rem 1.6rem 1.9rem;
   box-shadow: 0 18px 42px rgba(22, 24, 26, 0.13);
+  height: 260px;
 }
 
 .wcard.is-left,
