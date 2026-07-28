@@ -54,7 +54,7 @@ export default function Technology() {
               straight — including when PHA is the wrong answer.
             </p>
             <Link className="btn btn--fill" to="/contact">
-              Talk to a materials engineer
+              contact us
             </Link>
           </div>
         </div>
