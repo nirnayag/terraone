@@ -1,25 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./WhoWeAre.css";
 
+const bgImages = [
+  "/media/decor/whoweare_hero_bg.png",
+  "/media/decor/whoweare_hero_sd.png",
+];
+
+const orbImages = [
+  "/media/decor/whoweare_hero_orb.png",
+  "/media/decor/whoweare_hero_orbs.png",
+];
+
 export default function WhoWeAre() {
+  const [bgImage] = useState(() => bgImages[Math.floor(Math.random() * bgImages.length)]);
+  const [orbImage] = useState(() => orbImages[Math.floor(Math.random() * orbImages.length)]);
+
   return (
     <div className="whoweare-page">
       {/* ══════════════════════════════════════════════════════════════════
           §01 ORGANIC HERO SECTION
           Green background + right organic SVG shape + bottom curve + glass orb visual
       ══════════════════════════════════════════════════════════════════ */}
-      <section className="whoweare-hero">
-        {/* Right organic shape SVG */}
-        <div className="whoweare-hero__right-shape">
-          <svg viewBox="0 0 340 900" preserveAspectRatio="none">
-            <path
-              fill="#edf3e7"
-              d="M340 0 L340 900 L170 900 C40 900 25 740 105 610 C210 480 210 380 105 240 C20 110 40 0 170 0 Z"
-            />
-          </svg>
-        </div>
-
+      <section
+        className="whoweare-hero"
+        style={{
+          backgroundImage: `linear-gradient(180deg, rgba(14,42,51,0.35) 0%, rgba(14,42,51,0.15) 50%, rgba(14,42,51,0.4) 100%), url("${bgImage}")`,
+        }}
+      >
         <div className="whoweare-hero__container">
           {/* Left Content Column */}
           <div className="whoweare-hero__left">
@@ -43,11 +51,11 @@ export default function WhoWeAre() {
             </p>
           </div>
 
-          {/* Right Column Glass Sphere with 3D Biopolymer Orb Visual */}
+          {/* Right Column Glass Sphere with random orb image */}
           <div className="whoweare-hero__right">
             <div className="whoweare-hero__glass-circle">
               <img
-                src="/media/decor/whoweare_hero_orb.png"
+                src={orbImage}
                 alt="3D Biopolymer Innovation"
                 className="whoweare-hero__orb-img"
               />
