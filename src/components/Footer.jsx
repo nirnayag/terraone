@@ -17,7 +17,7 @@ export default function Footer() {
               <img
                 className="ft-logo"
                 src="/media/brand/terraone-logo.png"
-                alt="TerraPHA Biotech"
+                alt="TerraOne Biotech"
               />
             </Link>
             <p className="ft-tagline">
@@ -67,8 +67,8 @@ export default function Footer() {
                 </div>
                 <div className="ft-contact-details">
                   <h4 className="ft-contact-title">Email Us</h4>
-                  <a href="mailto:info@terrapha.com" className="ft-contact-link">
-                    info@terrapha.com
+                  <a href="mailto:info@terraone.com" className="ft-contact-link">
+                    info@terraone.com
                   </a>
                 </div>
               </div>
@@ -178,7 +178,7 @@ export default function Footer() {
         ═══════════════════════════════════════════════════════════ */}
         <div className="ft-bottom">
           <p className="ft-copyright">
-            © {currentYear} TerraPHA Biotech. All rights reserved.
+            © {currentYear} TerraOne Biotech. All rights reserved.
           </p>
           <div className="ft-legal-links">
             <Link to="/privacy-policy">Privacy Policy</Link>

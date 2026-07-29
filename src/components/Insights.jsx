@@ -72,7 +72,7 @@ export default function Insights() {
                         <figure className="blogcard__media">
                           <img src={image} alt="" loading="lazy" />
                           <span className="blogcard__tag">
-                            {post.categories[0]?.name ?? "TerraPHA"}
+                            {post.categories[0]?.name ?? "TerraOne"}
                           </span>
                         </figure>
 
