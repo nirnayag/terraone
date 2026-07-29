@@ -416,7 +416,7 @@ export const faqs = [
   },
   {
     q: "How can I work with TerraOne?",
-    a: "Tell us the application, the volume and the performance envelope you need. Reach the team at info@terraone.com or +91 805 8005 805 and we will route you to the right grade — or to compounding, if what you need is a blend.",
+    a: "Tell us the application, the volume and the performance envelope you need. Reach the team at info@terra1one.com or +91 805 8005 805 and we will route you to the right grade — or to compounding, if what you need is a blend.",
   },
 ];
 
@@ -446,7 +446,7 @@ export const company = {
     "203, Millennium Plaza, Sakinaka Telephone Exchange, Sakinaka, Mumbai 400 072",
   phone: "+91 805 8005 805",
   phoneHref: "+918058005805",
-  email: "info@terraone.com",
+  email: "info@terra1one.com",
   social: [
     { label: "LinkedIn", href: "#" },
     { label: "Instagram", href: "#" },

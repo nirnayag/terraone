@@ -15,7 +15,7 @@ export default function Faq() {
           <h2 className="display display--lg faq__heading">Everything worth asking first</h2>
           <p className="lede faq__note">
             Still unresolved? Write to{" "}
-            <a href="mailto:info@terraone.com">info@terraone.com</a> and we will answer properly.
+            <a href="mailto:info@terra1one.com">info@terra1one.com</a> and we will answer properly.
           </p>
         </div>
 

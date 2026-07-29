@@ -23,7 +23,7 @@ export default function Async({ state, children, empty, label = "content", rows 
         <p className="async__body">
           We couldn't reach the content service, so {label} is unavailable right now. Reload to try
           again, or email{" "}
-          <a href="mailto:info@terraone.com">info@terraone.com</a> if it keeps happening.
+          <a href="mailto:info@terra1one.com">info@terra1one.com</a> if it keeps happening.
         </p>
         <button className="btn btn--fill" onClick={() => window.location.reload()}>
           Reload the page

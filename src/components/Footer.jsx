@@ -67,8 +67,8 @@ export default function Footer() {
                 </div>
                 <div className="ft-contact-details">
                   <h4 className="ft-contact-title">Email Us</h4>
-                  <a href="mailto:info@terraone.com" className="ft-contact-link">
-                    info@terraone.com
+                  <a href="mailto:info@terra1one.com" className="ft-contact-link">
+                    info@terra1one.com
                   </a>
                 </div>
               </div>
