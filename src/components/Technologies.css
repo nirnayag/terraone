@@ -290,10 +290,6 @@
   font-size: 12px;
   line-height: 19px;
   color: var(--to-slate);
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
 .pdetail__label {
