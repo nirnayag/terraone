@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { fetchProducts, fetchProductMedia } from "../lib/wp";
-import { PRODUCT_CATEGORIES, categoryLabel } from "../data/productCategories";
+import { PRODUCT_CATEGORIES, categoryLabel, isInCategory } from "../data/productCategories";
 import { useResource } from "../hooks/useResource";
 import Async from "../components/Async";
 import "./Products.css";
@@ -198,7 +198,7 @@ function ProductGrid({ items, onClearCategory }) {
               {/* Bottom Card Body */}
               <div className="product-card__body">
                 <div className="product-card__cat-label">
-                  {categoryLabel(p.categories).toUpperCase()}
+                  {categoryLabel(p).toUpperCase()}
                 </div>
                 <h3 className="product-card__title">{p.title}</h3>
                 <p className="product-card__excerpt">{p.excerpt}</p>
@@ -223,10 +223,12 @@ export default function Products() {
     document.title = "Products — TerraOne";
   }, []);
 
-  const state = useResource(
-    () => fetchProducts({ perPage: 24, category: activeCategory || undefined }),
-    [activeCategory],
-  );
+  /* The whole catalogue in one request, filtered here rather than by
+     WordPress. It is 24 items on a single page, so this costs one cached
+     round trip instead of one per tab — and, more importantly, a product
+     sits in the category this site says it does, which WP cannot express
+     for a term it does not have. */
+  const state = useResource(() => fetchProducts({ perPage: 100 }), []);
 
   const selectCategory = (slug) => {
     const p = new URLSearchParams();
@@ -234,14 +236,13 @@ export default function Products() {
     setParams(p);
   };
 
-  /* Sorting stays client-side: the catalogue is one page of 24, so
-     re-querying WordPress to reverse an alphabet would be a wasted
-     ~7s round trip. */
   const sorted = useMemo(() => {
     const items = state.data?.items ?? [];
     const dir = sortBy === "z-a" ? -1 : 1;
-    return [...items].sort((a, b) => dir * a.title.localeCompare(b.title));
-  }, [state.data, sortBy]);
+    return items
+      .filter((p) => isInCategory(p, activeCategory))
+      .sort((a, b) => dir * a.title.localeCompare(b.title));
+  }, [state.data, sortBy, activeCategory]);
 
   return (
     <div className="products-page">

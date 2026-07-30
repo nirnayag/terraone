@@ -154,27 +154,20 @@ async function fetchMediaByIds(ids) {
 /* Text first. The media lookup needs the product IDs, so it can only run once
    the listing has returned, and on this host that is another ~2.5s. Rather
    than hold the whole grid back, the cards render immediately and
-   fetchProductMedia fills the images in behind them. */
-export async function fetchProducts({ page = 1, perPage = 24, category } = {}) {
-  const catsPromise = fetchProductCategories();
-  const catId = category
-    ? (await catsPromise).find((c) => c.slug === category)?.id
-    : undefined;
+   fetchProductMedia fills the images in behind them.
 
-  /* The bar carries categories that exist as a plan before they exist in
-     wp-admin. Their slug resolves to no term, and an undefined product_cat
-     is dropped from the query — which would answer "cosmetics" with the
-     whole catalogue. Answer with nothing instead, so the grid shows its
-     empty state until the category is really populated. */
-  if (category && catId === undefined) {
-    return { items: [], total: 0, totalPages: 0 };
-  }
+   There is deliberately no category parameter. Which category a product
+   belongs to is decided by src/data/productCategories.js, which corrects
+   some of what wp-admin holds, so filtering here — against the raw terms —
+   would quietly disagree with the rest of the site. The listing is one
+   page of 24; callers filter it themselves. */
+export async function fetchProducts({ page = 1, perPage = 24 } = {}) {
+  const catsPromise = fetchProductCategories();
 
   const r = await get("/wp/v2/product", {
     page,
     per_page: perPage,
     _fields: "id,slug,title,excerpt,featured_media,product_cat",
-    product_cat: catId,
   });
 
   const cats = await catsPromise;
