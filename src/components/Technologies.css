@@ -399,18 +399,30 @@
   /* Hide large background SVGs that can bleed outside the clipped container */
   .matport__dna { display: none; }
   .matport__mesh { display: none; }
-  .polyrow__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  /* Six stacked cards pushed the actual content most of a screen down, so
+     on phones the picker collapses to the dots and the panel does the
+     talking. The dots stay the only control here — the arrows are already
+     hidden below 1180px — so they get a finger-sized hit area without
+     growing visually. */
+  .polyrow__cards { display: none; }
+
+  .polyrow__dots { margin: 0 0 14px; }
+  .polyrow__dot { position: relative; }
+  .polyrow__dot::after {
+    content: "";
+    position: absolute;
+    inset: -15px -7px;
+  }
+
   .pdetail { grid-template-columns: 1fr; }
   .pdetail__props { border-left: 0; padding-left: 0; border-top: 1px solid var(--to-mist); padding-top: 18px; }
   .pdetail__props ul { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 520px) {
-  .polyrow__cards { grid-template-columns: 1fr; }
   .pdetail__appgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .pdetail__compost { grid-template-columns: 1fr; }
-  /* Ensure detail panel content doesn't overflow narrow cards */
-  .pcard__code { font-size: 18px; }
   .pdetail__code { font-size: 24px; }
 }
 
