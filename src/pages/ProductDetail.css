@@ -264,6 +264,14 @@
   margin: 0;
 }
 
+/* Per-field rejection returned by Contact Form 7 */
+.pd-form__field-error {
+  font-family: var(--face-body, sans-serif);
+  font-size: 0.78rem;
+  color: #c0392b;
+  margin: 6px 0 0 0;
+}
+
 .pd-form__submit {
   align-self: flex-start;
   padding: 0.78rem 2rem;

@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s --max-time 60 '__TRACKED_VAR__/wp/v2/product?per_page=24&_fields=id,slug,featured_media,product_cat' -o prod.json)",
+      "Bash(python3 -c ' *)",
+      "Bash(curl -s -w '\\\\nHTTP %{http_code} in %{time_total}s\\\\n' --max-time 60 -H 'Origin: https://terra1one.com' '__TRACKED_VAR__/wp/v2/product?slug=grocery-bag&_embed=1' -o sp.json)",
+      "Bash(curl -s -X POST --max-time 60 -H 'Origin: https://terra1one.com' -F _wpcf7=5 -F _wpcf7_version=6.1.6 -F _wpcf7_unit_tag=wpcf7-f5-p27619-o1 -w '\\\\nHTTP %{http_code}\\\\n' __TRACKED_VAR__/contact-form-7/v1/contact-forms/5/feedback)",
+      "Bash(curl -s -X POST --max-time 60 -H 'Origin: https://terra1one.com' -F _wpcf7=5 -F _wpcf7_version=6.1.6 -F _wpcf7_locale=en_US -F _wpcf7_unit_tag=wpcf7-f5-p27619-o1 -F _wpcf7_container_post=27619 -F _wpcf7_posted_data_hash= -F 'your-name=Endpoint Check' -F your-email=noreply@example.com -F phone= -F 'subject=Contact Inquiry' -F 'your-message=connectivity probe' __TRACKED_VAR__/contact-form-7/v1/contact-forms/5/feedback)",
+      "Bash(python3 -m json.tool)",
+      "Bash(python3 -c \"import json;d=json.load\\(open\\('prod.json'\\)\\);print\\(','.join\\(str\\(p['featured_media']\\) for p in d\\)\\)\")",
+      "Bash(curl -s -o media.json -D mh.tmp -w 'HTTP %{http_code} in %{time_total}s, %{size_download} bytes\\\\n' --max-time 90 -H 'Origin: https://terra1one.com' '__TRACKED_VAR__/wp/v2/media?include=__TRACKED_VAR__&per_page=24&_fields=id,alt_text,source_url,media_details')",
+      "Bash(curl -s -o post.json -w 'HTTP %{http_code} in %{time_total}s\\\\n' --max-time 60 '__TRACKED_VAR__/wp/v2/posts?per_page=1&_fields=slug')",
+      "Bash(python3 -c \"import json;print\\(json.load\\(open\\('post.json'\\)\\)[0]['slug']\\)\")",
+      "Bash(curl -s --max-time 60 '__TRACKED_VAR__/wp/v2/product_cat?per_page=50&_fields=id,name,slug,count')",
+      "Bash(curl -s -X POST --max-time 60 -H 'Origin: https://terra1one.com' -F _wpcf7=5 -F _wpcf7_version=6.1.6 -F _wpcf7_locale=en_US -F _wpcf7_unit_tag=wpcf7-f5-p27619-o1 -F _wpcf7_container_post=27619 -F _wpcf7_posted_data_hash= -F 'your-name=Endpoint Check' -F your-email=not-an-email -F phone=+919999999999 -F 'subject=General inquiry' -F 'your-message=connectivity probe' __TRACKED_VAR__/contact-form-7/v1/contact-forms/5/feedback)",
+      "Bash(curl -s --max-time 60 \"https://terrapha.com/wp-json/wp/v2/product_cat?per_page=50&_fields=id,name,slug,count\")",
+      "Bash(curl -s -X POST --max-time 60 -H 'Origin: https://terra1one.com' -F 'your-name=Endpoint Check' -F your-email=noreply@example.com -F your-phone=+919999999999 -F 'your-company=Test Co' -F 'your-message=I am interested in Grocery Bag.' -F _wpcf7_unit_tag=wpcf7-f5-p0-o1 __TRACKED_VAR__/contact-form-7/v1/contact-forms/5/feedback)",
+      "Bash(curl -s -X POST --max-time 60 -H 'Origin: https://terra1one.com' -F _wpcf7=5 -F _wpcf7_version=6.1.6 -F _wpcf7_locale=en_US -F _wpcf7_unit_tag=wpcf7-f5-p27619-o1 -F _wpcf7_container_post=27619 -F _wpcf7_posted_data_hash= -F 'your-name=Endpoint Check' -F your-email=not-an-email -F phone=+919999999999 -F 'subject=Product enquiry: Grocery Bag' -F 'your-message=I am interested in Grocery Bag. *)",
+      "Bash(node -e ' *)"
+    ]
+  }
+}

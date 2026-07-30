@@ -405,6 +405,9 @@
   line-height: 1.3;
 }
 
+/* WordPress excerpts run long and vary wildly in length, so the card shows
+   an opening taste and truncates. Clamped rather than trimmed in JS so the
+   cut lands on the rendered line, not a guessed character count. */
 .product-card__excerpt {
   font-family: var(--face-body, sans-serif);
   font-size: 0.84rem;
@@ -412,6 +415,11 @@
   color: #5C7078;
   margin: 0 0 16px 0;
   flex: 1;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
 }
 
 .product-card__arrow {

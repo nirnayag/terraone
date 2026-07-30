@@ -2,46 +2,59 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { findProductBySlug } from "../data/products";
 import { fetchProduct } from "../lib/wp";
+import { submitEnquiry } from "../lib/cf7";
+import { getToken } from "../lib/recaptcha";
 import { sanitiseHtml } from "../lib/sanitise";
 import "./ProductDetail.css";
 
-const CF7_ENDPOINT =
-  "https://terrapha.com/wp-json/contact-form-7/v1/contact-forms/5/feedback";
-
-/* ── Inquiry form using Contact Form 7 REST endpoint ─────────────── */
+/* ── Inquiry form ─────────────────────────────────────────────────
+   Posts through lib/cf7 rather than assembling its own request: CF7
+   answers an unrecognised field name with validation_failed, so the
+   field list has to stay in one place. Company rides along in the
+   message body, since form 5 has no field for it. */
 function InquiryForm({ productTitle }) {
   const [fields, setFields] = useState({
-    "your-name": "",
-    "your-email": "",
-    "your-phone": "",
-    "your-company": "",
-    "your-message": `I am interested in ${productTitle}. Please send me pricing and availability details.\n\nVolume needed:\nApplication / end-use:\nCountry:`,
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+    message: `I am interested in ${productTitle}. Please send me pricing and availability details.\n\nVolume needed:\nApplication / end-use:\nCountry:`,
   });
   const [status, setStatus] = useState("idle"); // idle | sending | success | error
   const [errorMsg, setErrorMsg] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({});
 
   const onChange = (e) =>
     setFields((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (status === "sending") return;
     setStatus("sending");
     setErrorMsg("");
+    setFieldErrors({});
+
+    const company = fields.company.trim();
 
     try {
-      const body = new FormData();
-      Object.entries(fields).forEach(([k, v]) => body.append(k, v));
-      body.append("_wpcf7_unit_tag", "wpcf7-f5-p0-o1");
+      const result = await submitEnquiry({
+        recaptchaToken: await getToken("product_enquiry"),
+        name: fields.name.trim(),
+        email: fields.email.trim(),
+        phone: fields.phone.trim(),
+        subject: `Product enquiry: ${productTitle}`,
+        message: [fields.message.trim(), company ? `Company: ${company}` : ""]
+          .filter(Boolean)
+          .join("\n\n"),
+      });
 
-      const res = await fetch(CF7_ENDPOINT, { method: "POST", body });
-      const json = await res.json();
-
-      if (json.status === "mail_sent") {
+      if (result.ok) {
         setStatus("success");
       } else {
         setStatus("error");
+        setFieldErrors(result.invalidFields);
         setErrorMsg(
-          json.message || "Something went wrong. Please try again or email us directly."
+          result.message || "Something went wrong. Please try again or email us directly.",
         );
       }
     } catch {
@@ -69,49 +82,55 @@ function InquiryForm({ productTitle }) {
           <label className="pd-form__label" htmlFor="pd-name">Full name *</label>
           <input
             id="pd-name"
-            name="your-name"
+            name="name"
             type="text"
             className="pd-form__input"
             placeholder="Your name"
-            value={fields["your-name"]}
+            value={fields.name}
             onChange={onChange}
             required
           />
+          {fieldErrors.name && <p className="pd-form__field-error">{fieldErrors.name}</p>}
         </div>
         <div className="pd-form__field">
           <label className="pd-form__label" htmlFor="pd-email">Email *</label>
           <input
             id="pd-email"
-            name="your-email"
+            name="email"
             type="email"
             className="pd-form__input"
             placeholder="you@company.com"
-            value={fields["your-email"]}
+            value={fields.email}
             onChange={onChange}
             required
           />
+          {fieldErrors.email && <p className="pd-form__field-error">{fieldErrors.email}</p>}
         </div>
         <div className="pd-form__field">
-          <label className="pd-form__label" htmlFor="pd-phone">Phone</label>
+          {/* required by CF7 form 5 — a blank value fails the whole submission */}
+          <label className="pd-form__label" htmlFor="pd-phone">Phone *</label>
           <input
             id="pd-phone"
-            name="your-phone"
+            name="phone"
             type="tel"
             className="pd-form__input"
             placeholder="+91 ..."
-            value={fields["your-phone"]}
+            autoComplete="tel"
+            value={fields.phone}
             onChange={onChange}
+            required
           />
+          {fieldErrors.phone && <p className="pd-form__field-error">{fieldErrors.phone}</p>}
         </div>
         <div className="pd-form__field">
           <label className="pd-form__label" htmlFor="pd-company">Company</label>
           <input
             id="pd-company"
-            name="your-company"
+            name="company"
             type="text"
             className="pd-form__input"
             placeholder="Your company"
-            value={fields["your-company"]}
+            value={fields.company}
             onChange={onChange}
           />
         </div>
@@ -121,13 +140,14 @@ function InquiryForm({ productTitle }) {
         <label className="pd-form__label" htmlFor="pd-message">Message *</label>
         <textarea
           id="pd-message"
-          name="your-message"
+          name="message"
           className="pd-form__textarea"
           rows={6}
-          value={fields["your-message"]}
+          value={fields.message}
           onChange={onChange}
           required
         />
+        {fieldErrors.message && <p className="pd-form__field-error">{fieldErrors.message}</p>}
       </div>
 
       {status === "error" && (
@@ -241,12 +261,13 @@ export default function ProductDetail() {
     // 1. Try WP API first
     fetchProduct(slug)
       .then((wpProduct) => {
-        // Merge WP data with local description if available
+        // WordPress wins on every field it actually has; the local
+        // catalogue only stands in for what the API leaves blank.
         const local = findProductBySlug(slug);
         setProduct({
           ...wpProduct,
-          categoryLabel: local?.categoryLabel ?? wpProduct.categories[0]?.name ?? "",
-          description: local?.description ?? "",
+          categoryLabel: wpProduct.categories[0]?.name ?? local?.categoryLabel ?? "",
+          description: wpProduct.content || wpProduct.excerpt ? "" : (local?.description ?? ""),
           image: wpProduct.image?.src ?? local?.image ?? "/media/decor/products_hero_catalogue.png",
         });
         setLoading(false);

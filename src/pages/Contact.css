@@ -137,6 +137,23 @@
   color: #A0AEC0;
 }
 
+/* Per-field rejection returned by Contact Form 7 */
+.ct-input--error {
+  border-color: #FEB2B2;
+  background: #FFF5F5;
+}
+
+.ct-input--error:focus {
+  border-color: #C53030;
+  box-shadow: 0 0 0 3px rgba(197, 48, 48, 0.12);
+}
+
+.ct-field-error {
+  margin: 6px 0 0 0;
+  font-size: 0.8rem;
+  color: #C53030;
+}
+
 /* Custom Select styling with arrow */
 .ct-field--select {
   position: relative;

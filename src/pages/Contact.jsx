@@ -146,7 +146,28 @@ export default function Contact() {
                 />
               </div>
 
-              {/* Row 3: Company / Organization */}
+              {/* Row 3: Phone — CF7 form 5 declares this required, so a blank
+                  value makes the whole submission fail validation. */}
+              <div className="ct-field ct-field--full">
+                <input
+                  id="ct-phone"
+                  name="phone"
+                  type="tel"
+                  className={`ct-input${err("phone") ? " ct-input--error" : ""}`}
+                  placeholder="Phone"
+                  autoComplete="tel"
+                  aria-invalid={err("phone") ? "true" : undefined}
+                  aria-describedby={err("phone") ? "ct-phone-error" : undefined}
+                  required
+                />
+                {err("phone") && (
+                  <p className="ct-field-error" id="ct-phone-error">
+                    {err("phone")}
+                  </p>
+                )}
+              </div>
+
+              {/* Row 4: Company / Organization */}
               <div className="ct-field ct-field--full">
                 <input
                   id="ct-organization"
@@ -157,7 +178,7 @@ export default function Contact() {
                 />
               </div>
 
-              {/* Row 4: Inquiry Type Dropdown */}
+              {/* Row 5: Inquiry Type Dropdown */}
               <div className="ct-field ct-field--full ct-field--select">
                 <select
                   id="ct-inquiry-type"
@@ -185,7 +206,7 @@ export default function Contact() {
                 </div>
               </div>
 
-              {/* Row 5: Your Message */}
+              {/* Row 6: Your Message */}
               <div className="ct-field ct-field--full">
                 <textarea
                   id="ct-message"
@@ -197,7 +218,7 @@ export default function Contact() {
                 />
               </div>
 
-              {/* Row 6: Submit Button & Status */}
+              {/* Row 7: Submit Button & Status */}
               <div className="ct-submit-wrap">
                 <button
                   className="ct-submit-btn"
