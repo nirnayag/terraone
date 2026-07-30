@@ -226,6 +226,17 @@
   transform: translateY(-2px);
 }
 
+/* not yet linked — sits in the row without inviting a click */
+.ft-social-btn--static {
+  cursor: default;
+}
+
+.ft-social-btn--static:hover {
+  background: #E8F5E1;
+  color: #3F7C25;
+  transform: none;
+}
+
 /* ══════════════════════════════════════════════════════════════════
    BOTTOM SUB-FOOTER BAR
    ══════════════════════════════════════════════════════════════════ */
