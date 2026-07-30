@@ -365,24 +365,6 @@
 .pdetail__compost li.is-yes em { color: var(--to-green); }
 
 
-.matport__more {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 22px;
-  padding: 0 30px;
-  height: 52px;
-  border-radius: 100px;
-  background: var(--to-blue);
-  font-family: var(--face-inter);
-  font-size: 16px;
-  font-weight: 600;
-  color: #fff;
-  text-decoration: none;
-}
-
-.matport__more:hover { background: var(--to-blue-deep); }
-
 /* ---------- responsive ---------- */
 @media (max-width: 1180px) {
   .polyrow__cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -430,5 +412,4 @@
   .matport__shell { padding-inline: 12px; }
   .matport { padding: 32px 0 32px; }
   .pdetail { padding: 12px 14px; }
-  .matport__more { padding: 0 18px; font-size: 14px; height: 44px; }
 }

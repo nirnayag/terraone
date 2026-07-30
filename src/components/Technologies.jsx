@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { technologies } from "../data/content";
 import { useReveal } from "../hooks/useReveal";
 import DnaHelix from "./DnaHelix";
@@ -162,11 +161,6 @@ export default function Technologies({ standalone = false, selectedIndex, onSele
           </div>
         </article>
 
-        {standalone && (
-          <Link className="matport__more" to="/contact">
-            Contact us <span aria-hidden="true">→</span>
-          </Link>
-        )}
       </div>
     </section>
   );
