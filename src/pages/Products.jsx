@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { fetchProducts, fetchProductCategories, fetchProductMedia } from "../lib/wp";
+import { fetchProducts, fetchProductMedia } from "../lib/wp";
+import { PRODUCT_CATEGORIES, categoryLabel } from "../data/productCategories";
 import { useResource } from "../hooks/useResource";
 import Async from "../components/Async";
 import "./Products.css";
@@ -49,6 +50,47 @@ const CATEGORY_ICONS = {
       <circle cx="10" cy="11" r="1" fill="currentColor" />
     </svg>
   ),
+  "biomedical-healthcare": (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M12 20.5s-7-4.5-7-9a4 4 0 017-2.6A4 4 0 0119 11.5c0 4.5-7 9-7 9z" />
+      <path d="M7.5 11.5h2L11 9l2 4 1.2-1.5h2.3" />
+    </svg>
+  ),
+  "waste-water": (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M12 2.5s4.5 5 4.5 8.2a4.5 4.5 0 01-9 0C7.5 7.5 12 2.5 12 2.5z" />
+      <path d="M3 18c2-1.4 4-1.4 6 0s4 1.4 6 0 4-1.4 6 0" />
+      <path d="M3 21.5c2-1.4 4-1.4 6 0s4 1.4 6 0 4-1.4 6 0" />
+    </svg>
+  ),
+  cosmetics: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <rect x="8" y="10" width="8" height="11" rx="1.5" />
+      <line x1="8" y1="13.5" x2="16" y2="13.5" />
+      <path d="M9.8 10V5.5L14.2 3v7" />
+    </svg>
+  ),
+  "personal-care": (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <rect x="2.5" y="12" width="13" height="8.5" rx="2.5" />
+      <circle cx="18.5" cy="6.5" r="2.2" />
+      <circle cx="14" cy="4" r="1.2" />
+      <circle cx="20.5" cy="11.5" r="1.1" />
+    </svg>
+  ),
+  textile: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M8 3L3 5.5l2 4 2-1V21h10V8.5l2 1 2-4L16 3a4 4 0 01-8 0z" />
+    </svg>
+  ),
+  "food-beverage": (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M6.5 3v6a2.5 2.5 0 005 0V3" />
+      <line x1="9" y1="11.5" x2="9" y2="21" />
+      <path d="M15.5 3h4v7a2 2 0 01-2 2h-2z" />
+      <line x1="17.5" y1="12" x2="17.5" y2="21" />
+    </svg>
+  ),
   sr30: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
       <path d="M7 19l-4-4 4-4" />
@@ -61,14 +103,13 @@ const CATEGORY_ICONS = {
 const iconFor = (slug) => CATEGORY_ICONS[slug] ?? ALL_ICON;
 
 /* ══════════════════════════════════════════════════════════════════
-   CATEGORY BAR — its own request so the tabs paint while the grid
-   is still loading, and so they survive a failed product listing.
+   CATEGORY BAR — driven by the list above rather than by a request,
+   so the tabs paint with the first frame and read the same whatever
+   wp-admin currently holds.
    ══════════════════════════════════════════════════════════════════ */
 function CategoryBar({ active, onSelect }) {
-  const state = useResource(() => fetchProductCategories(), []);
-  const fromApi = state.status === "ready" ? state.data : [];
   const tabs = [{ slug: "", name: "All products", icon: ALL_ICON }].concat(
-    fromApi.map((c) => ({ slug: c.slug, name: c.name, icon: iconFor(c.slug) })),
+    PRODUCT_CATEGORIES.map((c) => ({ slug: c.slug, name: c.name, icon: iconFor(c.slug) })),
   );
 
   return (
@@ -157,7 +198,7 @@ function ProductGrid({ items, onClearCategory }) {
               {/* Bottom Card Body */}
               <div className="product-card__body">
                 <div className="product-card__cat-label">
-                  {p.categories[0]?.name.toUpperCase() ?? ""}
+                  {categoryLabel(p.categories).toUpperCase()}
                 </div>
                 <h3 className="product-card__title">{p.title}</h3>
                 <p className="product-card__excerpt">{p.excerpt}</p>

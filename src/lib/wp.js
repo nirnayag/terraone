@@ -161,6 +161,15 @@ export async function fetchProducts({ page = 1, perPage = 24, category } = {}) {
     ? (await catsPromise).find((c) => c.slug === category)?.id
     : undefined;
 
+  /* The bar carries categories that exist as a plan before they exist in
+     wp-admin. Their slug resolves to no term, and an undefined product_cat
+     is dropped from the query — which would answer "cosmetics" with the
+     whole catalogue. Answer with nothing instead, so the grid shows its
+     empty state until the category is really populated. */
+  if (category && catId === undefined) {
+    return { items: [], total: 0, totalPages: 0 };
+  }
+
   const r = await get("/wp/v2/product", {
     page,
     per_page: perPage,

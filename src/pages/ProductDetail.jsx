@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { findProductBySlug } from "../data/products";
+import { categoryLabel, localCategoryLabel } from "../data/productCategories";
 import { fetchProduct } from "../lib/wp";
 import { submitEnquiry } from "../lib/cf7";
 import { getToken } from "../lib/recaptcha";
@@ -179,12 +180,14 @@ function DetailView({ product }) {
           />
         </div>
 
-        {/* Category badge below image */}
-        <div className="pd-media__meta">
-          <span className="pd-media__cat-badge">
-            {product.categoryLabel || product.category}
-          </span>
-        </div>
+        {/* Category badge below image — omitted entirely when the product
+            has no category on the canonical list, rather than falling back
+            to a raw slug. */}
+        {product.categoryLabel && (
+          <div className="pd-media__meta">
+            <span className="pd-media__cat-badge">{product.categoryLabel}</span>
+          </div>
+        )}
       </div>
 
       {/* Right — content + form */}
@@ -266,7 +269,7 @@ export default function ProductDetail() {
         const local = findProductBySlug(slug);
         setProduct({
           ...wpProduct,
-          categoryLabel: wpProduct.categories[0]?.name ?? local?.categoryLabel ?? "",
+          categoryLabel: categoryLabel(wpProduct.categories) || localCategoryLabel(local),
           description: wpProduct.content || wpProduct.excerpt ? "" : (local?.description ?? ""),
           image: wpProduct.image?.src ?? local?.image ?? "/media/decor/products_hero_catalogue.png",
         });
@@ -278,7 +281,8 @@ export default function ProductDetail() {
         if (local) {
           setProduct({
             ...local,
-            categories: [{ name: local.categoryLabel, slug: local.category }],
+            categoryLabel: localCategoryLabel(local),
+            categories: [{ name: localCategoryLabel(local), slug: local.category }],
             content: null,
           });
           setLoading(false);
