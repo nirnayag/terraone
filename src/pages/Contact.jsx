@@ -237,8 +237,8 @@ export default function Contact() {
             {/* Top Visual Image */}
             <div className="ct-visual">
               <img
-                src="/media/decor/contact_hero_visual.png"
-                alt="TerraOne sustainable biopolymer granules and sprout"
+                src="/media/decor/contact_us.jpg"
+                alt="Contact us"
                 className="ct-visual__img"
               />
             </div>
