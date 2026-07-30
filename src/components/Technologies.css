@@ -153,14 +153,14 @@
   color: var(--to-ink);
 }
 
+/* No rule under this any more — it used to separate the name from the
+   single trait line, which the card no longer carries. */
 .pcard__full {
   font-family: var(--face-inter);
   font-size: 11px;
   line-height: 15px;
   color: var(--to-blue-deep);
   min-height: 30px;
-  padding-bottom: 8px;
-  border-bottom: 1px dashed var(--to-mist);
 }
 
 .pcard.is-on .pcard__full { color: var(--to-green); }
@@ -174,19 +174,6 @@
 }
 
 .pcard__glyph svg { width: 46px; height: 46px; }
-
-.pcard__trait {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  gap: 8px;
-  font-family: var(--face-inter);
-  font-size: 11px;
-  line-height: 14px;
-  color: var(--to-slate);
-}
-
-.pcard__trait svg { width: 20px; height: 20px; color: var(--to-green); }
 
 /* nav */
 .polyrow__nav {
@@ -377,50 +364,6 @@
 .pdetail__compost li.is-yes { border-color: var(--to-leaf-pale); background: var(--to-green-10); }
 .pdetail__compost li.is-yes em { color: var(--to-green); }
 
-/* ---------- bottom strip ---------- */
-.matport__strip {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  align-items: center;
-  gap: 14px;
-  height: 64px;
-  margin-top: 14px;
-  padding: 0 20px;
-  border: 1px solid var(--to-mist);
-  border-radius: var(--mp-radius);
-  background: #fff;
-}
-
-.matport__strip li {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  gap: 11px;
-  padding-inline: 6px;
-  border-right: 1px solid var(--to-mist);
-}
-
-.matport__strip li:last-child { border-right: 0; }
-
-.matport__strip-icon {
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: var(--to-green-10);
-  color: var(--to-green);
-}
-
-.matport__strip-icon svg { width: 20px; height: 20px; }
-
-.matport__strip p {
-  font-family: var(--face-inter);
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 16px;
-  color: var(--to-ink);
-}
 
 .matport__more {
   display: inline-flex;
@@ -447,8 +390,6 @@
   .pdetail { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .pdetail__props { border-inline: 0; padding-inline: 0; border-left: 1px solid var(--to-mist); padding-left: 24px; }
   .pdetail__apps { grid-column: 1 / -1; border-top: 1px solid var(--to-mist); padding-top: 18px; }
-  .matport__strip { grid-template-columns: repeat(3, minmax(0, 1fr)); height: auto; padding: 20px; row-gap: 18px; }
-  .matport__strip li:nth-child(3n) { border-right: 0; }
 }
 
 @media (max-width: 720px) {
@@ -462,18 +403,12 @@
   .pdetail { grid-template-columns: 1fr; }
   .pdetail__props { border-left: 0; padding-left: 0; border-top: 1px solid var(--to-mist); padding-top: 18px; }
   .pdetail__props ul { grid-template-columns: 1fr; }
-  .matport__strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .matport__strip li:nth-child(2n) { border-right: 0; }
-  .matport__strip li:nth-child(3n) { border-right: 1px solid var(--to-mist); }
 }
 
 @media (max-width: 520px) {
   .polyrow__cards { grid-template-columns: 1fr; }
   .pdetail__appgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .pdetail__compost { grid-template-columns: 1fr; }
-  .matport__strip { grid-template-columns: 1fr; }
-  .matport__strip li { border-right: 0 !important; border-bottom: 1px solid var(--to-mist); padding-bottom: 10px; }
-  .matport__strip li:last-child { border-bottom: 0; }
   /* Ensure detail panel content doesn't overflow narrow cards */
   .pcard__code { font-size: 18px; }
   .pdetail__code { font-size: 24px; }

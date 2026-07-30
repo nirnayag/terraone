@@ -268,7 +268,7 @@ export const technologies = {
     {
       code: "Cellulose",
       properties: ["Most abundant natural polymer", "Oxygen & grease barrier", "Soil, compost & marine", "Century-long track record", "Derivative-dependent", "Nanocellulose reinforcement"],
-      applications: ["Food packaging films", "Cellophane", "Coatings", "Composite reinforcement"],
+      applications: ["Food packaging films", "Secondary packaging", "Coatings", "Composite reinforcement"],
       compost: [{"env": "Industrial", "state": "yes"}, {"env": "Home", "state": "yes"}, {"env": "Marine", "state": "yes"}],
       short:
         "Cellulose forms the structural backbone of plant cell walls and serves as feedstock for bioplastics and packaging films. It is abundant, renewable, and biodegradable.",
@@ -284,7 +284,7 @@ export const technologies = {
       code: "TPS",
       properties: ["Lowest-cost bio-based", "Degrades fastest", "No fermentation step", "Moisture sensitive", "Usually blended", "Corn, potato or cassava"],
       applications: ["Loose-fill packaging", "Disposable cutlery", "Agricultural films", "Blend component"],
-      compost: [{"env": "Industrial", "state": "yes"}, {"env": "Home", "state": "yes"}, {"env": "Marine", "state": "no"}],
+      compost: [{"env": "Industrial", "state": "yes"}, {"env": "Home", "state": "yes"}, {"env": "Marine", "state": "yes"}],
       short:
         "TPS is a biodegradable plastic made by processing natural starch with plasticizers under heat and pressure. It's low-cost and fully compostable but sensitive to moisture.",
       traits: ["Low cost", "Fast to degrade", "Bio-based", "Blendable"],

@@ -8,15 +8,6 @@ import "./Technologies.css";
 
 const AUTOPLAY_MS = 6000;
 
-const STRIP = [
-  { icon: "dna", label: ["Advanced", "biopolymer tech"] },
-  { icon: "molecule", label: ["Renewable", "resources"] },
-  { icon: "recycle", label: ["Industrial & home", "compostable"] },
-  { icon: "wave", label: ["Marine & soil", "safe"] },
-  { icon: "carbon", label: ["Low carbon", "footprint"] },
-  { icon: "cube", label: ["Versatile", "applications"] },
-];
-
 export default function Technologies({ standalone = false, selectedIndex, onSelect }) {
   const scope = useReveal();
   const items = technologies.items;
@@ -93,10 +84,6 @@ export default function Technologies({ standalone = false, selectedIndex, onSele
                   </span>
                   <span className="pcard__code">{t.code}</span>
                   <span className="pcard__full">{t.full}</span>
-                  <span className="pcard__trait">
-                    <TraitIcon name={t.traits[0]} />
-                    {t.traits[0]}
-                  </span>
                 </button>
               </li>
             ))}
@@ -174,21 +161,6 @@ export default function Technologies({ standalone = false, selectedIndex, onSele
             </ul>
           </div>
         </article>
-
-        <ul className="matport__strip reveal">
-          {STRIP.map((s) => (
-            <li key={s.label.join(" ")}>
-              <span className="matport__strip-icon" aria-hidden="true">
-                <TraitIcon name={s.icon} />
-              </span>
-              <p>
-                {s.label[0]}
-                <br />
-                {s.label[1]}
-              </p>
-            </li>
-          ))}
-        </ul>
 
         {standalone && (
           <Link className="matport__more" to="/contact">
