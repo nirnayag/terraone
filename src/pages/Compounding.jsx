@@ -45,7 +45,7 @@ const STEPS = [
    client's documents — the other three need confirming before launch. */
 const FIGURES = [
   { icon: "leaf", figure: "6+", label: ["Polymer", "technologies"] },
-  { icon: "flask", figure: "500+", label: ["Formulations", "developed"] },
+  { icon: "flask", figure: "50+", label: ["Formulations", "developed"] },
   { icon: "target", figure: "10+", label: ["Industries", "served"] },
   { icon: "globe", figure: "25+", label: ["Countries", "reached"] },
 ];
