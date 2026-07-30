@@ -96,11 +96,6 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link to="/collaboration">
-                  <span className="ft-chevron">&gt;</span> Collaboration
-                </Link>
-              </li>
             </ul>
           </div>
 
