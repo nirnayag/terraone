@@ -5,12 +5,12 @@
    Blogs are appended because they are real destinations with their own
    content, and burying commercial pages in a menu costs enquiries. */
 export const nav = [
-  { label: "Who we are", to: "/who-we-are" },
   { label: "Application", to: "/application" },
   { label: "Technology", to: "/technology" },
+  { label: "Investors", to: "/investors" },
   { label: "Compounding", to: "/compounding" },
   { label: "Products", to: "/products" },
-  { label: "Investors", to: "/investors" },
+  { label: "Who we are", to: "/who-we-are" },
   { label: "Blogs", to: "/blogs" },
   { label: "Contact us", to: "/contact" },
 ];

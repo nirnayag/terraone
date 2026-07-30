@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { nav } from "../data/content";
 import "./Footer.css";
 
 export default function Footer() {
@@ -81,27 +82,20 @@ export default function Footer() {
           <div className="ft-col">
             <h3 className="ft-heading">Quick Links</h3>
             <div className="ft-heading-accent" aria-hidden="true" />
-            <ul className="ft-links">
+            <ul className="ft-links ft-links--two-col">
               <li>
                 <Link to="/">
                   <span className="ft-chevron">&gt;</span> Home
                 </Link>
               </li>
-              <li>
-                <Link to="/who-we-are">
-                  <span className="ft-chevron">&gt;</span> About Us
-                </Link>
-              </li>
-              <li>
-                <Link to="/application">
-                  <span className="ft-chevron">&gt;</span> Application
-                </Link>
-              </li>
-              <li>
-                <Link to="/products">
-                  <span className="ft-chevron">&gt;</span> Products
-                </Link>
-              </li>
+              {/* mirrors the header order — driven by the same `nav` list */}
+              {nav.map((item) => (
+                <li key={item.to}>
+                  <Link to={item.to}>
+                    <span className="ft-chevron">&gt;</span> {item.label}
+                  </Link>
+                </li>
+              ))}
               <li>
                 <Link to="/collaboration">
                   <span className="ft-chevron">&gt;</span> Collaboration
