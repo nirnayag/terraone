@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { nav, navSecondary, company } from "../data/content";
+import { nav, company } from "../data/content";
 import "./Header.css";
 
 export default function Header() {
@@ -137,15 +137,6 @@ export default function Header() {
                   <span className="drawer__idx">{String(i + 1).padStart(2, "0")}</span>
                   {item.label}
                 </NavLink>
-              </li>
-            ))}
-          </ul>
-
-          <p className="drawer__key">More</p>
-          <ul className="drawer__nav--minor">
-            {navSecondary.map((item, i) => (
-              <li key={item.to} style={{ "--i": nav.length + i }}>
-                <NavLink to={item.to}>{item.label}</NavLink>
               </li>
             ))}
           </ul>

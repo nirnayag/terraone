@@ -223,13 +223,6 @@
   color: var(--to-green);
 }
 
-.drawer__nav--minor a {
-  font-family: var(--face-body);
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--to-link);
-}
-
 @keyframes drawer-item { from { opacity: 0; transform: translateX(14px); } }
 
 .drawer__foot {

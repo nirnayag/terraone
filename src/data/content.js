@@ -14,7 +14,10 @@ export const nav = [
   { label: "Contact us", to: "/contact" },
 ];
 
-/* Secondary destinations — in the menu sheet and the footer, not the bar. */
+/* Secondary destinations. Nothing renders this list at the moment — the
+   pages are still live and linked from within the site, they are just not
+   in the header, the drawer or the footer. Kept so putting them back is
+   one JSX block rather than a rebuild. */
 export const navSecondary = [
   { label: "Collaboration", to: "/collaboration" },
   { label: "Career", to: "/career" },
