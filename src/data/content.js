@@ -1,16 +1,15 @@
 /* All copy below is transcribed from the client's supplied documents:
    Home Page Content.docx, Technologies.docx, Application page content.docx. */
 
-/* Order 1-5 is the sequence specified in Home Page Content.docx. Products and
-   Blogs are appended because they are real destinations with their own
-   content, and burying commercial pages in a menu costs enquiries. */
+/* The order the client specified. One list drives the header bar, the mobile
+   drawer and the footer, so they cannot drift apart — reorder here only. */
 export const nav = [
-  { label: "Application", to: "/application" },
+  { label: "Who we are", to: "/who-we-are" },
   { label: "Technology", to: "/technology" },
-  { label: "Investors", to: "/investors" },
+  { label: "Application", to: "/application" },
   { label: "Compounding", to: "/compounding" },
   { label: "Products", to: "/products" },
-  { label: "Who we are", to: "/who-we-are" },
+  { label: "Investors", to: "/investors" },
   { label: "Blogs", to: "/blogs" },
   { label: "Contact us", to: "/contact" },
 ];
