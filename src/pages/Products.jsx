@@ -1,7 +1,12 @@
 import { useState, useMemo, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { fetchProducts, fetchProductMedia } from "../lib/wp";
-import { PRODUCT_CATEGORIES, categoryLabel, isInCategory } from "../data/productCategories";
+import {
+  PRODUCT_CATEGORIES,
+  categoryBySlug,
+  categoryLabel,
+  isInCategory,
+} from "../data/productCategories";
 import { useResource } from "../hooks/useResource";
 import Async from "../components/Async";
 import "./Products.css";
@@ -107,7 +112,7 @@ const iconFor = (slug) => CATEGORY_ICONS[slug] ?? ALL_ICON;
    so the tabs paint with the first frame and read the same whatever
    wp-admin currently holds.
    ══════════════════════════════════════════════════════════════════ */
-function CategoryBar({ active, onSelect }) {
+function CategoryBar({ active, onSelect, isUpcoming }) {
   const tabs = [{ slug: "", name: "All products", icon: ALL_ICON }].concat(
     PRODUCT_CATEGORIES.map((c) => ({ slug: c.slug, name: c.name, icon: iconFor(c.slug) })),
   );
@@ -116,18 +121,48 @@ function CategoryBar({ active, onSelect }) {
     <div className="products-cats__bar">
       {tabs.map((cat) => {
         const isActive = active === cat.slug;
+        const upcoming = isUpcoming(cat.slug);
         return (
           <button
             key={cat.slug || "all"}
             onClick={() => onSelect(cat.slug)}
-            className={`products-cats__tab ${isActive ? "is-active" : ""}`}
+            className={`products-cats__tab ${isActive ? "is-active" : ""} ${
+              upcoming ? "is-upcoming" : ""
+            }`}
           >
             <div className="products-cats__icon">{cat.icon}</div>
             <span className="products-cats__name">{cat.name}</span>
+            {/* Always in the tree so every tab keeps the same height; only
+                the upcoming ones show it, and only those announce it. */}
+            <span
+              className={`products-cats__soon ${upcoming ? "" : "is-hidden"}`}
+              aria-hidden={!upcoming}
+            >
+              Upcoming
+            </span>
             {isActive && <div className="products-cats__active-line" />}
           </button>
         );
       })}
+    </div>
+  );
+}
+
+/* Shown in place of the grid for a category the range does not serve yet,
+   so the tab reads as a published roadmap rather than a dead end. */
+function UpcomingPanel({ name }) {
+  return (
+    <div className="products-upcoming">
+      <span className="products-upcoming__badge">Upcoming</span>
+      <h3>{name} is on the way</h3>
+      <p>
+        We are developing this application area on TerraOne PHA. There is nothing to
+        list here yet — tell us the spec and the volume you need and we will come back
+        to you as the line opens up.
+      </p>
+      <Link to="/contact" className="products-upcoming__btn">
+        Talk to us about {name.toLowerCase()}
+      </Link>
     </div>
   );
 }
@@ -236,8 +271,16 @@ export default function Products() {
     setParams(p);
   };
 
+  const items = state.data?.items ?? [];
+
+  /* Declared upcoming, and still actually empty — so assigning a product
+     to Cosmetics in wp-admin retires the badge on its own. */
+  const isUpcoming = (slug) =>
+    Boolean(categoryBySlug(slug)?.upcoming) && !items.some((p) => isInCategory(p, slug));
+
+  const showUpcoming = state.status !== "error" && isUpcoming(activeCategory);
+
   const sorted = useMemo(() => {
-    const items = state.data?.items ?? [];
     const dir = sortBy === "z-a" ? -1 : 1;
     return items
       .filter((p) => isInCategory(p, activeCategory))
@@ -285,7 +328,11 @@ export default function Products() {
       ══════════════════════════════════════════════════════════════════ */}
       <section className="products-cats-section">
         <div className="shell">
-          <CategoryBar active={activeCategory} onSelect={selectCategory} />
+          <CategoryBar
+            active={activeCategory}
+            onSelect={selectCategory}
+            isUpcoming={isUpcoming}
+          />
         </div>
       </section>
 
@@ -295,6 +342,12 @@ export default function Products() {
       ══════════════════════════════════════════════════════════════════ */}
       <section className="products-list-section">
         <div className="shell">
+          {/* An upcoming category has nothing to count and nothing to sort,
+              so the toolbar and the grid both give way to the panel. */}
+          {showUpcoming ? (
+            <UpcomingPanel name={categoryBySlug(activeCategory).name} />
+          ) : (
+          <>
           <div className="products-toolbar">
             <div className="products-toolbar__count">
               {state.status === "ready" ? (
@@ -333,6 +386,8 @@ export default function Products() {
           <Async state={state} label="the catalogue" rows={8}>
             {() => <ProductGrid items={sorted} onClearCategory={() => selectCategory("")} />}
           </Async>
+          </>
+          )}
         </div>
       </section>
     </div>

@@ -240,6 +240,48 @@
   border-radius: 2px;
 }
 
+/* ── Upcoming categories ──────────────────────────────────────────
+   Held back rather than greyed out: still legible, still selectable,
+   just visibly not part of what ships today. */
+.products-cats__tab.is-upcoming {
+  color: #93A4AB;
+}
+
+.products-cats__tab.is-upcoming .products-cats__icon {
+  opacity: 0.55;
+}
+
+.products-cats__tab.is-upcoming:hover,
+.products-cats__tab.is-upcoming.is-active {
+  color: #5C7078;
+  background: rgba(14, 42, 51, 0.05);
+}
+
+.products-cats__tab.is-upcoming.is-active .products-cats__active-line {
+  background: #93A4AB;
+}
+
+/* Rendered on every tab and hidden on most of them, so all tabs keep the
+   same height — otherwise the five badged ones would stand taller and
+   stagger the icon row and the active underline. */
+.products-cats__soon {
+  font-family: var(--face-body, sans-serif);
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #6B7F87;
+  background: rgba(14, 42, 51, 0.07);
+  border-radius: 999px;
+  padding: 2px 7px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.products-cats__soon.is-hidden {
+  visibility: hidden;
+}
+
 
 /* ══════════════════════════════════════════════════════════════════
    §03 CATALOGUE TOOLBAR (COUNT & SORT)
@@ -474,6 +516,75 @@
 
 .products-empty__btn:hover {
   background: #78c750;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   UPCOMING CATEGORY PANEL
+   Stands in for the grid on an application area we don't serve yet.
+   ================================================================══ */
+
+.products-upcoming {
+  text-align: center;
+  padding: 72px 24px;
+  background: linear-gradient(180deg, #F6FAF4 0%, #F9FAFB 100%);
+  border-radius: 16px;
+  border: 1px dashed rgba(109, 190, 69, 0.32);
+}
+
+.products-upcoming__badge {
+  display: inline-block;
+  font-family: var(--face-body, sans-serif);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4E8F31;
+  background: rgba(109, 190, 69, 0.14);
+  border-radius: 999px;
+  padding: 5px 13px;
+  margin-bottom: 18px;
+}
+
+.products-upcoming h3 {
+  font-family: var(--face-display, sans-serif);
+  font-size: 1.5rem;
+  color: #0E2A33;
+  margin-bottom: 12px;
+}
+
+.products-upcoming p {
+  font-family: var(--face-body, sans-serif);
+  color: #5C7078;
+  max-width: 46ch;
+  margin: 0 auto 26px auto;
+  line-height: 1.65;
+}
+
+.products-upcoming__btn {
+  display: inline-block;
+  padding: 12px 26px;
+  background: #6DBE45;
+  color: #FFFFFF;
+  border-radius: 999px;
+  font-family: var(--face-body, sans-serif);
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.products-upcoming__btn:hover {
+  background: #78c750;
+}
+
+@media (max-width: 560px) {
+  .products-upcoming {
+    padding: 52px 18px;
+  }
+
+  .products-upcoming h3 {
+    font-size: 1.25rem;
+  }
 }
 
 

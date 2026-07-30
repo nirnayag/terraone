@@ -8,19 +8,27 @@
    a term added there cannot introduce a name off this list. Terms that
    exist in WordPress but not here (SR30) still filter and still return
    their products; they are simply never named on the page.
+
+   `upcoming` marks an application area the range is headed for but does
+   not serve yet. It is a claim about the roadmap, not about the data, so
+   it is declared here rather than inferred from a category being empty —
+   but it is only ever *shown* while the category really is empty, so a
+   tab cannot announce itself as upcoming once it has products in it.
    ══════════════════════════════════════════════════════════════════ */
 export const PRODUCT_CATEGORIES = [
   { slug: "packaging", name: "Packaging" },
   { slug: "agriculture-horticulture", name: "Agriculture and Horticulture" },
   { slug: "animal-husbandry", name: "Animal husbandry" },
   { slug: "aquaculture-fisheries", name: "Aquaculture" },
-  { slug: "biomedical-healthcare", name: "Biomedical and healthcare" },
+  { slug: "biomedical-healthcare", name: "Biomedical and healthcare", upcoming: true },
   { slug: "waste-water", name: "Waste water" },
-  { slug: "cosmetics", name: "Cosmetics" },
-  { slug: "personal-care", name: "Personal care" },
-  { slug: "textile", name: "Textile" },
-  { slug: "food-beverage", name: "Food and beverage" },
+  { slug: "cosmetics", name: "Cosmetics", upcoming: true },
+  { slug: "personal-care", name: "Personal care", upcoming: true },
+  { slug: "textile", name: "Textile", upcoming: true },
+  { slug: "food-beverage", name: "Food and beverage", upcoming: true },
 ];
+
+export const categoryBySlug = (slug) => PRODUCT_CATEGORIES.find((c) => c.slug === slug);
 
 const NAME_BY_SLUG = new Map(PRODUCT_CATEGORIES.map((c) => [c.slug, c.name]));
 
