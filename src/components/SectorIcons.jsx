@@ -58,10 +58,12 @@ const Biomedical = () => (
   </svg>
 );
 
-const Pharmaceutical = () => (
+const FoodBeverage = () => (
   <svg {...base}>
-    <rect x="3" y="9" width="18" height="6" rx="3" />
-    <path d="M12 9v6" />
+    <path d="M6.5 3v6a2.5 2.5 0 0 0 5 0V3" />
+    <path d="M9 11.5V21" />
+    <path d="M15.5 3h4v7a2 2 0 0 1-2 2h-2z" />
+    <path d="M17.5 12v9" />
   </svg>
 );
 
@@ -93,11 +95,11 @@ const sectorIcons = {
   aquaculture: Aquaculture,
   "animal-husbandry": AnimalHusbandry,
   cosmetics: Cosmetics,
-  biomedical: Biomedical,
-  pharmaceutical: Pharmaceutical,
+  "biomedical-healthcare": Biomedical,
   wastewater: WasteWater,
   textile: Textile,
   "personal-care": PersonalCare,
+  "food-and-beverages": FoodBeverage,
 };
 
 export function SectorIcon({ slug }) {

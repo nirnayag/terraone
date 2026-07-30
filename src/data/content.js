@@ -81,7 +81,7 @@ export const sectors = [
     image: "/media/sectors/aquaculture.jpg",
     lede: "Advanced PHA-based innovations designed to maximise productivity, support healthier aquatic life and sustainable aquaculture.",
     problem:
-      "Feed additives, cages and nets shed plastics directly into the water systems that fish and shrimp depend on.",
+      "Microplastics released from aquaculture materials, along with suboptimal feed quality, adversely affects fish and shrimp health, productivity, and the long-term sustainability of aquatic ecosystems.",
     solution:
       "Marine-safe biological technologies that enhance gut health, boost yields, and protect aquatic environments.",
   },
@@ -91,7 +91,7 @@ export const sectors = [
     image: "/media/sectors/animal-husbandry.jpg",
     lede: "Innovative technologies supporting animal wellbeing and productivity with a commitment to environmental sustainability.",
     problem:
-      "Growing resistance and consumer scrutiny are forcing the sector to look beyond conventional feed inputs, as modern livestock farming demands higher productivity while reducing environmental impact.",
+      "Growing antibiotic resistance and consumer scrutiny are forcing the sector to look beyond conventional feed inputs, as modern livestock farming demands higher productivity while reducing environmental impact.",
     solution:
       "Sustainable biological solutions that improve animal health, efficiency, and responsible farming practices.",
   },
@@ -106,24 +106,16 @@ export const sectors = [
       "Biodegradable microbeads and texturising agents that replicate the feel and function of microplastics, with a lower environmental footprint.",
   },
   {
-    slug: "biomedical",
-    name: "Biomedical",
+    /* Biomedical and Pharmaceutical were separate sectors until the client
+       merged them; the copy below combines both. */
+    slug: "biomedical-healthcare",
+    name: "Biomedical & Healthcare",
     image: "/media/sectors/biomedical.jpg",
-    lede: "Biocompatible solutions enabling the future of medical innovation, designed to advance healthcare through sustainable science.",
+    lede: "Biocompatible, bioresorbable solutions for medical devices and drug delivery, designed to advance healthcare through sustainable science.",
     problem:
-      "Non-degradable implants and devices demand follow-up surgery, raising cost, risk and patient overload.",
+      "Non-degradable implants and devices demand follow-up surgery, raising cost, risk and patient overload, while conventional drug carriers struggle to release actives at the right rate and leave synthetic residue behind.",
     solution:
-      "Biocompatible, bioresorbable polymers for sutures, scaffolds and devices designed for next-generation medical applications.",
-  },
-  {
-    slug: "pharmaceutical",
-    name: "Pharmaceutical",
-    image: "/media/sectors/pharmaceutical.jpg",
-    lede: "Advanced, sustainable biopolymers engineered for safer, smarter drug delivery systems.",
-    problem:
-      "Conventional carriers struggle to release actives at the right rate, and leave synthetic residue behind.",
-    solution:
-      "Bioresorbable drug-delivery matrices engineered for controlled release, clean biodegradation and pharmaceutical innovation.",
+      "Biocompatible, bioresorbable polymers for sutures, scaffolds and devices, and controlled-release drug-delivery matrices engineered for clean biodegradation.",
   },
   {
     slug: "wastewater",
@@ -153,6 +145,16 @@ export const sectors = [
       "Everyday personal care products often depend on ingredients and packaging that persist in the environment.",
     solution:
       "Everyday essentials made from fully biodegradable materials for high-performance personal care with a lighter environmental footprint.",
+  },
+  {
+    slug: "food-and-beverages",
+    name: "Food and Beverage",
+    image: "/media/sectors/packaging.jpg",
+    lede: "Food-contact films, trays, cups and coatings that keep food fresh for longer and break down completely once the meal is over.",
+    problem:
+      "Food-contact packaging is the shortest-lived plastic on the market and among the hardest to recycle, so nearly all of it outlasts the meal it protected by centuries.",
+    solution:
+      "Food-safe PHA films, trays and coatings with the gas and moisture barrier to extend shelf life, biodegrading fully after use.",
   },
 ];
 
@@ -209,7 +211,7 @@ export const technologies = {
       applications: ["Packaging", "Disposable tableware", "Agricultural films", "Medical devices"],
       compost: [{"env": "Industrial", "state": "yes"}, {"env": "Home", "state": "yes"}, {"env": "Marine", "state": "yes"}],
       short:
-        "PHA (Polyhydroxyalkanoates) are biodegradable polyesters produced by microorganisms as intracellular carbon and energy storage compounds. It fully breaks down in soil and marine environments, making it a genuine alternative to conventional petroleum-based plastics like PLA.",
+        "PHA (Polyhydroxyalkanoates) are biodegradable polyesters produced by microorganisms as intracellular carbon and energy storage compounds. It fully breaks down in soil and marine environments, making it a genuine alternative to conventional petroleum-based plastics.",
       traits: ["Bio-based", "Marine safe", "Home compostable", "Low carbon"],
       full: "Polyhydroxyalkanoates",
       lead: true,
@@ -403,7 +405,7 @@ export const faqs = [
   },
   {
     q: "Which industries can use TerraOne materials?",
-    a: "Ten sectors today: packaging, agriculture, aquaculture, animal husbandry, cosmetics, biomedical, pharmaceutical, waste water, textile and personal care. Grades are tuned per application rather than sold as a single general-purpose resin.",
+    a: "Ten sectors today: packaging, agriculture, aquaculture, animal husbandry, cosmetics, biomedical and healthcare, waste water, textile, personal care and food and beverage. Grades are tuned per application rather than sold as a single general-purpose resin.",
   },
   {
     q: "Are TerraOne products marine biodegradable?",

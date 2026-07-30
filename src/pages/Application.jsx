@@ -4,7 +4,9 @@ import { SectorIcon } from "../components/SectorIcons";
 import { useReveal } from "../hooks/useReveal";
 import "./Application.css";
 
-/* All sectors in one sequence — production + future potential, combined. */
+/* The same ten sectors the home page carries, in this page's own order.
+   Biomedical and Pharmaceutical are one sector now, so listing them apart
+   here would contradict the rest of the site. */
 const ALL_SECTORS = [
   "packaging",
   "aquaculture",
@@ -13,9 +15,9 @@ const ALL_SECTORS = [
   "food-and-beverages",
   "cosmetics",
   "wastewater",
-  "biomedical",
-  "pharmaceutical",
+  "biomedical-healthcare",
   "textile",
+  "personal-care",
 ];
 
 /* Where a sector already has a product category, the arrow goes to the
