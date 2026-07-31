@@ -7,6 +7,7 @@ import {
   categoryLabel,
   isInCategory,
 } from "../data/productCategories";
+import { localProductImage } from "../data/productImages";
 import { useResource } from "../hooks/useResource";
 import Async from "../components/Async";
 import "./Products.css";
@@ -176,8 +177,17 @@ function UpcomingPanel({ name }) {
 function useProductImages(items) {
   const [media, setMedia] = useState(new Map());
   /* Sorted so that flipping A-Z to Z-A reorders the same IDs into the
-     same key — otherwise it reads as a new URL and refetches 127 KB. */
-  const ids = [...new Set(items.map((p) => p.mediaId).filter(Boolean))].sort((a, b) => a - b);
+     same key — otherwise it reads as a new URL and refetches 127 KB.
+     Products with supplied art are left out: their WordPress media would
+     be fetched and then never rendered. */
+  const ids = [
+    ...new Set(
+      items
+        .filter((p) => !localProductImage(p.slug))
+        .map((p) => p.mediaId)
+        .filter(Boolean),
+    ),
+  ].sort((a, b) => a - b);
   const key = ids.join(",");
 
   useEffect(() => {
@@ -213,6 +223,11 @@ function ProductGrid({ items, onClearCategory }) {
     <div className="products-grid">
       {items.map((p) => {
         const image = media.get(p.mediaId);
+        /* Supplied art wins over the API, and needs no second request, so
+           these cards paint an image on the first frame. */
+        const local = localProductImage(p.slug);
+        const src = local ?? image?.small;
+        const alt = local ? p.title : image?.alt || p.title;
         return (
           <div key={p.id} className="product-card">
             <Link to={`/products/${p.slug}`} className="product-card__link">
@@ -220,10 +235,10 @@ function ProductGrid({ items, onClearCategory }) {
                   the media request lands, rather than flashing a stand-in
                   image that then swaps out under the reader. */}
               <div className="product-card__image-frame">
-                {image && (
+                {src && (
                   <img
-                    src={image.small}
-                    alt={image.alt || p.title}
+                    src={src}
+                    alt={alt}
                     className="product-card__img"
                     loading="lazy"
                   />

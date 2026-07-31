@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { findProductBySlug } from "../data/products";
 import { categoryLabel } from "../data/productCategories";
+import { localProductImage } from "../data/productImages";
 import { fetchProduct } from "../lib/wp";
 import { submitEnquiry } from "../lib/cf7";
 import { getToken } from "../lib/recaptcha";
@@ -271,7 +272,11 @@ export default function ProductDetail() {
           ...wpProduct,
           categoryLabel: categoryLabel(wpProduct) || categoryLabel(local),
           description: wpProduct.content || wpProduct.excerpt ? "" : (local?.description ?? ""),
-          image: wpProduct.image?.src ?? local?.image ?? "/media/decor/products_hero_catalogue.png",
+          image:
+            localProductImage(slug) ??
+            wpProduct.image?.src ??
+            local?.image ??
+            "/media/decor/products_hero_catalogue.png",
         });
         setLoading(false);
       })
@@ -283,6 +288,7 @@ export default function ProductDetail() {
             ...local,
             categoryLabel: categoryLabel(local),
             categories: [{ name: categoryLabel(local), slug: local.category }],
+            image: localProductImage(slug) ?? local.image,
             content: null,
           });
           setLoading(false);
