@@ -40,7 +40,7 @@ export default function InvestorHero() {
           </h1>
 
           <p className="invhero-lede">
-            TerraOne is the first company anywhere producing PHA entirely without genetically modified organisms, with 50,000 TPA of capacity planned.
+            TerraOne is the first company worldwide to produce PHA entirely without the use of genetically modified organisms, with a planned production capacity of 50,000 TPA.
           </p>
 
           <div className="invhero-actions">

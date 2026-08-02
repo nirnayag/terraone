@@ -76,21 +76,12 @@
   margin: 0 0 24px 0;
 }
 
+/* "One" is set as it is in the TerraOne wordmark — brand green, and no
+   underline, because the logo has none. Uses the brand token rather than
+   a literal so it cannot drift from the mark it is quoting. */
 .techhero-title__one {
-  position: relative;
   display: inline-block;
-  color: #0066FF;
-}
-
-.techhero-title__one::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 2px;
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, #0066FF, #10B981);
-  border-radius: 3px;
+  color: var(--to-green, #6DBE45);
 }
 
 .techhero-title__goal {

@@ -441,7 +441,7 @@ export default function Compounding() {
             </h1>
             <span className="cmp-rule" aria-hidden="true" />
             <p className="cmp-hero__lede">
-              No single biopolymer is right for every application. Compounding is where the six
+              No single biopolymer is suitable for every application. Compounding is where the six
               technologies stop being separate materials and start being one specification.
             </p>
             <div className="cmp-hero__actions">

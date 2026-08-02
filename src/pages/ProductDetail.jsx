@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { findProductBySlug } from "../data/products";
 import { categoryLabel } from "../data/productCategories";
 import { localProductImage } from "../data/productImages";
+import { withCopy } from "../data/productCopy";
 import { fetchProduct } from "../lib/wp";
 import { submitEnquiry } from "../lib/cf7";
 import { getToken } from "../lib/recaptcha";
@@ -264,9 +265,11 @@ export default function ProductDetail() {
 
     // 1. Try WP API first
     fetchProduct(slug)
-      .then((wpProduct) => {
-        // WordPress wins on every field it actually has; the local
-        // catalogue only stands in for what the API leaves blank.
+      .then((fromApi) => {
+        // WordPress wins on every field it actually has, except where
+        // productCopy holds approved wording the CMS has not caught up to;
+        // the local catalogue only stands in for what both leave blank.
+        const wpProduct = withCopy(fromApi);
         const local = findProductBySlug(slug);
         setProduct({
           ...wpProduct,

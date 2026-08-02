@@ -26,7 +26,7 @@ export const navSecondary = [
 export const overview = {
   eyebrow: "Who we are",
   heading: "Redefining sustainability through next-generation innovations",
-  body: "TerraOne is a modern biotechnology company. Our portfolio combines advanced biology with clean technology to deliver precision nutrition, intelligent release systems, and environmentally elegant performance.",
+  body: "TerraOne is a modern biotechnology company. From sustainable packaging to precision nutrition, intelligent release systems, and sustainable performance, our portfolio combines advanced biology with clean technology to deliver innovative solutions for multiple sectors and address real-world challenges.",
   note: "Conventional plastics have transformed industries but at an environmental cost. TerraOne is building the next generation of sustainable biomaterials that perform without leaving a permanent footprint.",
 };
 
@@ -153,7 +153,7 @@ export const sectors = [
     slug: "food-and-beverages",
     name: "Food and Beverage",
     image: "/media/sectors/packaging.jpg",
-    lede: "Food-contact films, trays, cups and coatings that keep food fresh for longer and break down completely once the meal is over.",
+    lede: "Food-contact films, trays, cups, and coatings designed to extend food shelf life while offering complete biodegradability after use under any given environmental conditions.",
     problem:
       "Food-contact packaging is the shortest-lived plastic on the market and among the hardest to recycle, so nearly all of it outlasts the meal it protected by centuries.",
     solution:
@@ -165,13 +165,13 @@ export const contrast = {
   eyebrow: "The problem we are solving",
   left: {
     kicker: "Conventional plastic",
-    heading: "A material with no ending",
+    heading: "The Persistent Challenge of Conventional Plastic",
     body: "Conventional plastic is derived from petroleum and engineered to endure, yet the majority of it is discarded within minutes of first use. The consequences are long-lived: it persists in landfill for centuries, fragments into particles too small to recover, and migrates through soil, water and, ultimately, the food chain. Only a modest share is ever recycled, and much of what is collected is downcycled once before being discarded permanently. The material was never intended to have an ending, and it does not have one.",
   },
   right: {
     kicker: "Why PHA",
-    heading: "An ending that resolves itself",
-    body: "PHA is a naturally occurring polymer generated through fermentation, and the same microorganisms that synthesise it in nature are equally capable of breaking it down. In soil, in compost and in seawater it degrades fully and leaves no microplastic residue. No specialist facility is required, and no waste stream remains to be managed. In use it performs comparably to conventional plastic — reliable material performance, coupled with an end-of-life that resolves itself.",
+    heading: "A Naturally Integrated End-of-Life Solution",
+    body: "PHA is a naturally occurring polymer generated through fermentation, and the same microorganisms that synthesise it in nature are equally capable of breaking it down. In soil, in compost and in seawater it degrades fully and leaves no microplastic residue. No specialist facility is required, and no waste stream remains to be managed. During its application, PHA demonstrates performance characteristics comparable to conventional plastics, offering reliable material functionality while ensuring a sustainable and self-resolving end-of-life pathway.",
   },
 };
 
@@ -206,7 +206,7 @@ export const process = {
 export const technologies = {
   eyebrow: "Technology",
   heading: "Six biopolymer technologies, one goal",
-  body: "Not all bioplastics are the same, and no single material is right for every application. We work across six core biopolymer technologies, each with a distinct origin, processing behaviour and biodegradation profile.",
+  body: "Not all bioplastics are the same, and no single material is suitable for every application. We work across six core biopolymer technologies, each with a distinct origin, processing behaviour and biodegradation profile.",
   items: [
     {
       code: "PHA",
@@ -226,7 +226,7 @@ export const technologies = {
     },
     {
       code: "PBAT",
-      properties: ["Flexible & tear resistant", "LDPE-like handling", "Industrial compostable", "Blends with PLA & starch", "Fossil-based feedstock", "Film-grade"],
+      properties: ["Flexible & durable", "LDPE-like performance", "Blends easily", "Film applications", "Reliable processing", "Compostable blended with PHA"],
       applications: ["Compost bags", "Produce bags", "Mulch films", "Flexible packaging"],
       compost: [{"env": "Industrial", "state": "yes"}, {"env": "Home", "state": "no"}, {"env": "Marine", "state": "no"}],
       short:
@@ -241,7 +241,7 @@ export const technologies = {
     },
     {
       code: "PBS",
-      properties: ["Runs on PP/PE lines", "Good heat resistance", "Tough", "Industrial compostable", "Bio- or fossil-based", "Blendable"],
+      properties: ["Advanced biopolymer tech", "Versatile applications", "Tough & durable", "Good heat resistance", "Compostable blended with PHA"],
       applications: ["Injection-moulded parts", "Agricultural films", "Rigid packaging", "Disposables"],
       compost: [{"env": "Industrial", "state": "yes"}, {"env": "Home", "state": "no"}, {"env": "Marine", "state": "no"}],
       short:
@@ -256,7 +256,7 @@ export const technologies = {
     },
     {
       code: "PLA",
-      properties: ["Fully bio-based", "Rigid & transparent", "Industrial compost only", "Low heat deflection", "Brittle unmodified", "Widely available"],
+      properties: ["Advanced biopolymer tech", "Versatile applications", "Renewable resources", "Industrial compostable", "Transparent & rigid", "Suitable for 3D printing", "Lower carbon footprint", "Packaging applications"],
       applications: ["Cups & trays", "Rigid packaging", "Disposable utensils", "3D printing filament"],
       compost: [{"env": "Industrial", "state": "yes"}, {"env": "Home", "state": "no"}, {"env": "Marine", "state": "no"}],
       short:

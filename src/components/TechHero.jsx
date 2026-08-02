@@ -166,12 +166,12 @@ export default function TechHero({ activeIndex, onSelectNode }) {
                 <br />
                 technologies,
                 <br />
-                <span className="techhero-title__one">one</span>{" "}
+                <span className="techhero-title__one">One</span>{" "}
                 <span className="techhero-title__goal">goal</span>
               </h1>
 
               <p className="techhero-lede">
-                Not all bioplastics are the same, and no single material is right for every application. We work across six core biopolymer technologies, each with a distinct origin, processing behaviour and biodegradation profile.
+                Not all bioplastics are the same, and no single material is suitable for every application. We work across six core biopolymer technologies, each with a distinct origin, processing behaviour and biodegradation profile.
               </p>
             </div>
 

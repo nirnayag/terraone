@@ -8,6 +8,7 @@ import {
   isInCategory,
 } from "../data/productCategories";
 import { localProductImage } from "../data/productImages";
+import { withCopy } from "../data/productCopy";
 import { useResource } from "../hooks/useResource";
 import Async from "../components/Async";
 import "./Products.css";
@@ -286,7 +287,7 @@ export default function Products() {
     setParams(p);
   };
 
-  const items = state.data?.items ?? [];
+  const items = (state.data?.items ?? []).map(withCopy);
 
   /* Declared upcoming, and still actually empty — so assigning a product
      to Cosmetics in wp-admin retires the badge on its own. */

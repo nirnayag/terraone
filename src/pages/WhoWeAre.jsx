@@ -47,7 +47,7 @@ export default function WhoWeAre() {
             </h2>
 
             <p className="whoweare-hero__desc">
-              TerraOne is a modern biotechnology company. Our portfolio combines advanced biology with clean technology to deliver precision nutrition, intelligent release systems, and environmentally elegant performance.
+              TerraOne is a modern biotechnology company. From sustainable packaging to precision nutrition, intelligent release systems, and sustainable performance, our portfolio combines advanced biology with clean technology to deliver innovative solutions for multiple sectors and address real-world challenges.
             </p>
           </div>
 
@@ -121,7 +121,7 @@ export default function WhoWeAre() {
                 </div>
               </div>
               <div className="whoweare-pillar__content">
-                <h2 className="whoweare-pillar__title">A material with no ending</h2>
+                <h2 className="whoweare-pillar__title">The Persistent Challenge of Conventional Plastic</h2>
                 <p className="whoweare-pillar__body">
                   Conventional plastic is derived from petroleum and engineered to endure, yet the majority of it is discarded within minutes of first use. The consequences are long-lived: it persists in landfill for centuries, fragments into particles too small to recover, and migrates through soil, water and, ultimately, the food chain. Only a modest share is ever recycled, and much of what is collected is downcycled once before being discarded permanently. The material was never intended to have an ending, and it does not have one.
                 </p>
@@ -140,9 +140,9 @@ export default function WhoWeAre() {
                 </div>
               </div>
               <div className="whoweare-pillar__content">
-                <h2 className="whoweare-pillar__title">An ending that resolves itself</h2>
+                <h2 className="whoweare-pillar__title">A Naturally Integrated End-of-Life Solution</h2>
                 <p className="whoweare-pillar__body">
-                  PHA is a naturally occurring polymer generated through fermentation, and the same microorganisms that synthesise it in nature are equally capable of breaking it down. In soil, in compost and in seawater it degrades fully and leaves no microplastic residue. No specialist facility is required, and no waste stream remains to be managed. In use it performs comparably to conventional plastic — reliable material performance, coupled with an end-of-life that resolves itself.
+                  PHA is a naturally occurring polymer generated through fermentation, and the same microorganisms that synthesise it in nature are equally capable of breaking it down. In soil, in compost and in seawater it degrades fully and leaves no microplastic residue. No specialist facility is required, and no waste stream remains to be managed. During its application, PHA demonstrates performance characteristics comparable to conventional plastics, offering reliable material functionality while ensuring a sustainable and self-resolving end-of-life pathway.
                 </p>
               </div>
             </div>
