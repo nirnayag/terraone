@@ -35,11 +35,17 @@ export default function WhoWeAre() {
               🌍 WHO WE ARE
             </div>
 
+            {/* No hard breaks: at this size the line "Redefining
+                sustainability" is wider than the 640px column, so a <br>
+                layout wrapped again and came out five lines. The width is
+                capped in ch instead, which is a character count rather than
+                a pixel count and so holds the same three lines at every
+                breakpoint as the font size scales. */}
             <h1 className="whoweare-hero__title">
-              Redefining<br />
-              sustainability through<br />
-              next-generation<br />
-              innovations
+              Redefining sustainability through{" "}
+              {/* Kept whole: the line breaker treats the hyphen as a break
+                  opportunity and split this as "next-" / "generation". */}
+              <span className="nowrap">next-generation</span> innovations
             </h1>
 
             <h2 className="whoweare-hero__subtitle">

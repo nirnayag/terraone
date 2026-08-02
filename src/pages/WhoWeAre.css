@@ -93,14 +93,24 @@
 
 .whoweare-hero__title {
   font-family: var(--face-display, sans-serif);
-  font-size: clamp(2.4rem, 4.8vw, 4.4rem);
+  font-size: clamp(1.9rem, 3.4vw, 3.1rem);
   font-weight: 800;
   color: #FFFFFF;
-  line-height: 1.12;
+  line-height: 1.14;
   margin-bottom: 14px;
   letter-spacing: -0.02em;
   text-shadow: 0 4px 20px rgba(14, 42, 51, 0.5);
+  /* Holds the heading to three lines at every width. Measured in this
+     face rather than guessed: "Redefining sustainability" is 12.39em and
+     the same plus "through" is 16.51em, so any cap between the two breaks
+     the line in the right place. 14.4em sits midway, leaving ~2em of
+     tolerance either side for font fallback. Capped at 100% so it can
+     never be wider than the column on a phone. */
+  max-width: min(14.4em, 100%);
+  text-wrap: balance;
 }
+
+.whoweare-hero__title .nowrap { white-space: nowrap; }
 
 .whoweare-hero__subtitle {
   color: #A5E157;
@@ -477,7 +487,9 @@
 
 @media (max-width: 520px) {
   .whoweare-hero__title {
-    font-size: clamp(2rem, 8vw, 2.8rem);
+    /* Sized so the longest line ("Redefining sustainability") still fits
+       the narrow container, keeping the heading to three lines here too. */
+    font-size: clamp(1.5rem, 7vw, 2rem);
   }
 
   .whoweare-hero__subtitle {
