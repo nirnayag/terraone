@@ -43,7 +43,18 @@
 
 /* ---------- hero ---------- */
 .cmp-hero {
+  /* One screenful, less the sticky masthead (5rem + its 1px border) that
+     sits above it in flow. svh so a phone's collapsing address bar cannot
+     push the bottom past the fold; vh first for browsers without svh. */
+  min-height: calc(100vh - 5rem - 1px);
+  min-height: calc(100svh - 5rem - 1px);
+  display: flex;
+  align-items: center;
   padding-block: clamp(2rem, 4vw, 3.5rem) clamp(2rem, 4vw, 3rem);
+}
+
+.cmp-hero__inner {
+  width: 100%;
 }
 
 .cmp-hero__inner {
@@ -587,13 +598,25 @@
     grid-template-columns: 1fr;
   }
 
+  /* Stacked, the copy and the diagram share one screen instead of sitting
+     side by side, so the hero has to give back the height the second row
+     costs. */
+  .cmp-hero {
+    padding-block: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+
   .cmp-hero__lede {
     max-width: 56ch;
   }
 
-  /* the diagram has the full width now, so the result column can breathe */
+  /* the diagram has the full width now, so the result column can breathe.
+     Capped and centred rather than left to fill: the SVG is height:auto, so
+     unbounded width made it 507px tall here and pushed the hero 240px past
+     the fold. */
   .cmp-hero__viz {
     grid-template-columns: minmax(0, 1fr) clamp(9rem, 18vw, 12rem);
+    max-width: 600px;
+    margin-inline: auto;
   }
 
   .cmp-mats__grid {
@@ -680,6 +703,16 @@
 }
 
 @media (max-width: 520px) {
+  /* The tightest case — a 390x844 phone. The stacked copy, buttons and
+     diagram only clear the fold once the hero's own spacing gives way. */
+  .cmp-hero {
+    padding-block: 0.75rem;
+  }
+
+  .cmp-hero__inner {
+    gap: 1rem;
+  }
+
   .cmp-hero__checks {
     grid-auto-flow: row;
     justify-content: start;
