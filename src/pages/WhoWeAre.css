@@ -14,14 +14,20 @@
    ================================================================══ */
 .whoweare-hero {
   position: relative;
-  min-height: 85vh;
+  /* Exactly one screenful. The masthead is sticky, so it occupies 5rem of
+     flow above this section — subtracting it lands the hero's bottom edge
+     on the fold rather than 5rem past it. svh rather than vh so a phone's
+     collapsing address bar cannot push the bottom out of view; vh first as
+     the fallback for browsers without svh. */
+  min-height: calc(100vh - 5rem - 1px);
+  min-height: calc(100svh - 5rem - 1px);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   display: flex;
   align-items: center;
   overflow: hidden;
-  padding: 100px 0 160px 0;
+  padding: 72px 0 130px 0;
 }
 
 /* RIGHT FADE OVERLAY */
@@ -442,8 +448,12 @@
 
 @media (max-width: 900px) {
   .whoweare-hero {
-    min-height: auto;
-    padding: 80px 0 120px 0;
+    /* Still one screenful, against the shorter 4.5rem bar this breakpoint
+       uses. Padding and the orb below are trimmed to match, because the
+       stacked layout has to fit copy and image into that same screen. */
+    min-height: calc(100vh - 4.5rem - 1px);
+    min-height: calc(100svh - 4.5rem - 1px);
+    padding: 40px 0 96px 0;
   }
 
   .whoweare-hero__container {
@@ -456,9 +466,9 @@
   }
 
   .whoweare-hero__right {
-    margin-top: 50px;
-    width: 260px;
-    height: 260px;
+    margin-top: 24px;
+    width: 200px;
+    height: 200px;
   }
 
   .whoweare-hero__right-shape {
@@ -490,6 +500,18 @@
     /* Sized so the longest line ("Redefining sustainability") still fits
        the narrow container, keeping the heading to three lines here too. */
     font-size: clamp(1.5rem, 7vw, 2rem);
+  }
+
+  /* A 390x844 phone is the tightest case: the stacked copy and orb have to
+     share one screen, so the orb gives up the last of the difference. */
+  .whoweare-hero {
+    padding: 32px 0 88px 0;
+  }
+
+  .whoweare-hero__right {
+    margin-top: 16px;
+    width: 165px;
+    height: 165px;
   }
 
   .whoweare-hero__subtitle {
